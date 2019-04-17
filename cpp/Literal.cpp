@@ -59,7 +59,7 @@ void define_proposicao_Media_Para_Comparacao(Literal *proposicao_interna_P, Lite
 
 string literal_to_string(const Literal *literal);
 
-int main() {
+int main_falso() { // lembrando que esse mais entra em conflito com o original
     Literal *proposicao_interna_P;
     Literal *proposicao_interna_P_Alternativa;
     Literal *proposicao_interna_Q;

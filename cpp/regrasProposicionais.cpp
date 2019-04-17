@@ -137,6 +137,4 @@ void opcoesRegras(int opc){
 	
 }
 //apenas para teste
-int main(){
-	
-}
+

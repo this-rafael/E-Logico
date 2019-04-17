@@ -1,4 +1,5 @@
 #include<iostream>
+#include "Literal.cpp"
 using namespace std;
 /*
 Menu de apresentação
@@ -93,6 +94,7 @@ void resumoOpcoes(int opc){
 }
 
 int main(){
+    main_falso(); // roda o main falso de literal apenas para testes
     resumoExpressoes();
     infoExpressoes();
     return 0;

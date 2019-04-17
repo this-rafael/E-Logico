@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.13)
 project(cpp)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
-add_executable(cpp main.cpp Literal.cpp)
+include_directories(.)
+
+add_executable(cpp
+        Literal.cpp
+        main.cpp
+        menuApresentacao.cpp
+        regrasProposicionais.cpp)
