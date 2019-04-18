@@ -93,8 +93,7 @@ void resumoOpcoes(int opc){
 
 }
 
-int main(){
-    main_falso(); // roda o main falso de literal apenas para testes
+int main_menu_apresentacao() {
     resumoExpressoes();
     infoExpressoes();
     return 0;
