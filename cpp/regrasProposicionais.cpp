@@ -219,6 +219,17 @@ void menuRegras(){
 	cout << "Digite a sua opção!\n";
 }
 
+bool entradaResposta(){
+	string resposta;
+	cin.ignore();
+	getline(cin, resposta);
+	
+	if(resposta == "sim") return true;
+	return false;
+}
+
+
+
 /**
 Selecionador de opções do menu de regras.
 */
@@ -226,47 +237,96 @@ void opcoesRegras(int opc){
 	switch(opc){
 		case(1):
 			resumoNegacao();
+			if (entradaResposta()) {
+				infoNegacao();
+			}
 			break;
+			
 		case(2):
 			resumoConjucao();
+			if (entradaResposta()) {
+				infoConjucao();
+			}
 			break;
+			
 		case(3):
 			resumoAdicao();
+			if (entradaResposta()) {
+				infoAdicao();
+			}
 			break;
+			
 		case(4):
 			resumoIntroEquivalencia();
 			break;
+			
 		case(5):
 			resumoElimEquivalencia();
 			break;
+			
 		case(6):
 			resumoModusPonens();
+			if (entradaResposta()) {
+				infoModusPonens();
+			}
 			break;
+			
 		case(7):
 			resumoModusTollens();
+			if (entradaResposta()) {
+				infoModusTollens();
+			}
 			break;
+			
 		case(8):
 			resumoHipotetico();
+			if (entradaResposta()) {
+				infoHipotetico();
+			}
 			break;
+			
 		case(9):
 			resumoDisjuntivo();
+			if (entradaResposta()) {
+				infoDisjuntivo();
+			}
 			break;
+			
 		case(10):
 			resumoDilemaConstrutivo();
+			if (entradaResposta()) {
+				infoDilemaConstrutivo();
+			}
 			break;
+			
 		case(11):
 			resumoExportacao();
 			break;
+			
 		case(0):
 			cout << "Ciao!\n";
 			break;
 		default:
 			cout << "Desculpa, não entendi. Pode repetir?";
-
-	}
+			
+			
+		}
 	
+}
+
+void execRegras(){
+	//chamando menu
+	int opc;
+	
+	while(true){
+		menuRegras();
+		cin >> opc;
+		opcoesRegras(opc);
+		
+		if (opc == 0) break;
+	}
 }
 //apenas para teste
 int main(){
-	
-}
+	execRegras();
+	}
