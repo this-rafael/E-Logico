@@ -1,8 +1,4 @@
-#include<iostream>
-#include "Literal.cpp"
-#include "regrasProposicionais.cpp"
 
-using namespace std;
 /*
 Menu de apresentação
 */
@@ -71,46 +67,3 @@ void resumoRegras(){
   cout << "\nRegras para simplificações de expressões lógicas\n";
   cout << "Aqui vamos apresentar algumas regras para as simplificações de expressões lógicas complexas em expressões simples!\n";
 }
-
-void resumoOpcoes(int opc){
-    switch(opc){
-        case(1):
-            resumoTabela();
-            break;
-        case(2):
-            resumoConversor();
-            break;
-        case(3):
-            resumoExpressoes();
-            break;
-        case(4):
-            resumoRegras();
-            execRegras();
-            break;
-        case(0):
-            cout << "ISSO É TUDO PESSOAL !!!\n ";
-            break;
-        default:
-            cout << "Desculpe? pode repetir?\n";
-      }
-
-}
-
-void execMenuApresentacao(){
-    int opc;
-    apresentacaoInicial();
-    
-    while (true){
-        menuOpcoes();
-        cout << ">> ";
-        cin >> opc;
-        resumoOpcoes(opc);
-        
-        
-        if (opc == 0) break;
-        
-    }
-    
-    
-}
-

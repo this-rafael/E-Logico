@@ -1,6 +1,4 @@
-#include<iostream>
-using namespace std;
-
+#include <stdlib.h>
 /**
 Apresentação da Negação lógica.
 */
@@ -203,25 +201,26 @@ void resumoExportacao(){
 Apresentação da opções do menu regras.
 */
 void menuRegras(){
-	cout << "\n --- Lista de Regras --- \n";
-	cout << " 1 - Negação\n";
-	cout << " 2 - Conjunção\n";
-	cout << " 3 - Adição\n";
-	cout << " 4 - Introdução da Equivalência\n";
-	cout << " 5 - Eliminação da Equivalência\n";
-	cout << " 6 - Modus Ponens\n";
-	cout << " 7 - Modus Tollens\n";
-	cout << " 8 - Silogismo Hipotético\n";
-	cout << " 9 - Silogismo Disjuntivo\n";
-	cout << " 10 - Dilema Construtivo\n";
-	cout << " 11 - Exportação\n";
-	cout << " 0 - Voltar ao menu principal\n\n";
+	cout << "\n\t\t --- Lista de Regras --- \n";
+	cout << " \t1 - Negação\n";
+	cout << " \t2 - Conjunção\n";
+	cout << " \t3 - Adição\n";
+	cout << " \t4 - Introdução da Equivalência\n";
+	cout << " \t5 - Eliminação da Equivalência\n";
+	cout << " \t6 - Modus Ponens\n";
+	cout << " \t7 - Modus Tollens\n";
+	cout << " \t8 - Silogismo Hipotético\n";
+	cout << " \t9 - Silogismo Disjuntivo\n";
+	cout << " \t10 - Dilema Construtivo\n";
+	cout << " \t11 - Exportação\n";
+	cout << " \t0 - Voltar ao menu principal\n\n";
 	cout << "Digite a sua opção!\n";
 }
 
 bool entradaResposta(){
 	string resposta;
 	cin.ignore();
+	cout << " >> ";
 	getline(cin, resposta);
 	
 	if(resposta == "sim") return true;
@@ -320,9 +319,11 @@ void execRegras(){
 	
 	while(true){
 		menuRegras();
+		cout << " >> ";
 		cin >> opc;
 		opcoesRegras(opc);
 		
 		if (opc == 0) break;
 	}
+	
 }
