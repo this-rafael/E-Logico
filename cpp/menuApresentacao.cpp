@@ -1,5 +1,7 @@
 #include<iostream>
 #include "Literal.cpp"
+#include "regrasProposicionais.cpp"
+
 using namespace std;
 /*
 Menu de apresentação
@@ -83,6 +85,7 @@ void resumoOpcoes(int opc){
             break;
         case(4):
             resumoRegras();
+            execRegras();
             break;
         case(0):
             cout << "ISSO É TUDO PESSOAL !!!\n ";
@@ -93,9 +96,21 @@ void resumoOpcoes(int opc){
 
 }
 
-int main_menu_apresentacao() {
-    resumoExpressoes();
-    infoExpressoes();
-    return 0;
-
+void execMenuApresentacao(){
+    int opc;
+    apresentacaoInicial();
+    
+    while (true){
+        menuOpcoes();
+        cout << ">> ";
+        cin >> opc;
+        resumoOpcoes(opc);
+        
+        
+        if (opc == 0) break;
+        
+    }
+    
+    
 }
+

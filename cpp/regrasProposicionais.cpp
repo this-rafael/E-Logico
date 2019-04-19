@@ -215,7 +215,7 @@ void menuRegras(){
 	cout << " 9 - Silogismo Disjuntivo\n";
 	cout << " 10 - Dilema Construtivo\n";
 	cout << " 11 - Exportação\n";
-	cout << " 0 - SAIR\n\n";
+	cout << " 0 - Voltar ao menu principal\n\n";
 	cout << "Digite a sua opção!\n";
 }
 
@@ -326,7 +326,3 @@ void execRegras(){
 		if (opc == 0) break;
 	}
 }
-//apenas para teste
-int main(){
-	execRegras();
-	}
