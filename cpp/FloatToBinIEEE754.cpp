@@ -12,13 +12,3 @@ bitset<32> floatToBinIEEE754(float f)
     bitset<32> result(bitset<sizeof f*8>(*(long unsigned int*)(&f)));
     return result;
 }
-
-int main()
-{
-    float f=-4.5f;
-    cout << floatToBinIEEE754(f) << endl;
-    return 0;
-}
-
- 
- 
