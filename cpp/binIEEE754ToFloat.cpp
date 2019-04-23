@@ -42,6 +42,7 @@ float GetFloat32(string Binary )
     int power = -1;
     // Resultado
     float total = 0.0;
+ 
     // Ultimos 23 bits
     // Metodo do polinomio de conversao
     for ( int i = 0; i < 23; i++ )
@@ -61,17 +62,4 @@ float GetFloat32(string Binary )
     float value = sign * (float) pow( 2.0, exponent ) * total;
  
     return value;
-}
- 
- 
-int main(int argc, char *argv[])
-{
-
-    // THE MOTHERFUCKER BINARY SHOULD BE 32 BITS
-    string g = "11000000010010001111010111000011";
-    float f = GetFloat32(g);
-    cout << "Decimal equivalent of " << g << ":" << endl;
-    cout << f << endl;
-   
-    return 0;
 }
