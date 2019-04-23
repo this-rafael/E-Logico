@@ -1,7 +1,3 @@
-/* Converor DECIMAL -> BINARIO. 
- * Subtende-se que o DECIMAL seja de no MÁXIMO 32 bits.
- */
-
 #include <iostream> 
 
 using namespace std; 
@@ -19,11 +15,4 @@ int decToBinary(int n)
         else
             cout << "0"; 
     } 
-} 
-  
-
-int main() 
-{ 
-    int n = 123212232; 
-    decToBinary(n); 
 }
