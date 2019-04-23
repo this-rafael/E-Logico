@@ -1,30 +1,3 @@
-#include <limits.h>
-#include <iostream>
-#include <bitset>
-#include <math.h>
-
-using namespace std;
-
-/* Formatando o binario para o padrao IEE 754
-string GetBinary32( float value )
-{
-    union
-    {
-         float input;   
-         int   output;
-    }    data;
- 
-    data.input = value;
- 
-    bitset<sizeof(float) * CHAR_BIT>   bits(data.output);
- 
-    string mystring = bits.to_string<char, 
-                                        char_traits<char>,
-                                        allocator<char> >();
- 
-    return mystring;
-}*/
-
 #include <iostream>
 #include <bitset>
 
