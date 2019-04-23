@@ -1,7 +1,3 @@
-/* Conversor BINARIO -> DECIMAL
- * Subtende-se que o BINARIO seja de no MÁXIMO 32 bits.
- */
-
 #include <iostream> 
 #include <string> 
 
@@ -29,11 +25,4 @@ int binaryToDec(string n)
     } 
   
     return dec_value; 
-} 
-  
-  
-int main() 
-{ 
-    string num = "00000111010110000001000111001000"; 
-    cout << binaryToDec(num) << endl; 
 } 
