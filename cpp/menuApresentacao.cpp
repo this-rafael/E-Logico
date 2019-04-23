@@ -1,6 +1,4 @@
-#include<iostream>
-#include "Literal.cpp"
-using namespace std;
+
 /*
 Menu de apresentação
 */
@@ -69,6 +67,7 @@ void resumoRegras(){
   cout << "\nRegras para simplificacao de expressoes logicas\n";
   cout << "Aqui vamos apresentar algumas regras para as simplificacao de expressoes logicas complexas em expressoes simples!\n";
 }
+<<<<<<< HEAD
 
 void resumoOpcoes(int opc){
     switch(opc){
@@ -99,3 +98,5 @@ int main_menu_apresentacao() {
     return 0;
 
 }
+=======
+>>>>>>> dddbba271932c50ee4b11223e6752a91487e6390
