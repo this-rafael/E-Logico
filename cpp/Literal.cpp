@@ -175,7 +175,6 @@ void print_info() {
 string choose_a_proposition() {
     string value = "";
     cout << "Digite a variavel associada a sua proposicao" << endl;
-    cout << "Ta vindo ateh aqui" << endl;
     cin >> value;
     return value;
 }
