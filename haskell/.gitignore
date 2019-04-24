@@ -2,6 +2,17 @@
 # Created by https://www.gitignore.io/api/c,c++,clion,haskell,pycharm,eclipse,clion+iml,clion+all,executable,visualstudio
 # Edit at https://www.gitignore.io/?templates=c,c++,clion,haskell,pycharm,eclipse,clion+iml,clion+all,executable,visualstudio
 
+#ignore .gitignore
+*.gitignore
+.gitignore
+cpp/*.gitignore
+cpp/.gitignore
+haskell/*.gitignore
+haskell/.gitignore
+prolog/*.gitignore
+prolog/.gitignore
+
+
 ### C ###
 # Prerequisites
 *.d
