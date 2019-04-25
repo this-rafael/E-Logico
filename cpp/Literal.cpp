@@ -217,15 +217,15 @@ void build_a_proposition(Literal *literal, char proposition, char unary_operator
 
 void print_info()
 {
-    cout << "Um Literal eh uma expressao booleana." << endl;
-    cout << "Eh composto por uma Proposicao ou Expressao, um Operador Binario, e outra Proposicao ou Expressao." << endl << endl;
+    cout << " Um Literal eh uma expressao booleana." << endl;
+    cout << " Eh composto por uma Proposicao ou Expressao, um Operador Binario, e outra Proposicao ou Expressao." << endl << endl;
 }
 
 string choose_a_proposition()
 {
     string value = "";
-    cout << "Digite a Variavel associada a sua Proposicao:" << endl;
-    cout << ">>> ";
+    cout << " Digite a Variavel associada a sua Proposicao:" << endl;
+    cout << " >>> ";
     cin  >> value;
     cout << endl;
     return value;
@@ -235,12 +235,12 @@ char choose_a_binary_operator()
 {
     string binary_operator_value;
     char char_value;
-    cout << "Escolha entre os Operadores abaixo: " << endl;
-    cout << "E: &, ^, ." << endl
-         << "Ou: |, v, +" << endl
-         << "Implica: ->, *" << endl;
-    cout << "Bi-Implica: <->, #" << endl;
-    cout << ">>> ";
+    cout << " Escolha entre os Operadores abaixo: " << endl;
+    cout << " E: &, ^, ." << endl
+         << " Ou: |, v, +" << endl
+         << " Implica: ->, *" << endl;
+    cout << " Bi-Implica: <->, #" << endl;
+    cout << " >>> ";
     cin  >> binary_operator_value;
     cout << endl;
 
@@ -278,9 +278,9 @@ char choose_a_unary_operator()
     char op;
     char unary_operator_value;
     
-    cout << "Deseja fazer sua Proposicao ser Negada? " << endl
-         << "1 - Sim" << endl
-         << "2 - Nao" << endl;
+    cout << " Deseja fazer sua Proposicao ser Negada?" << endl
+         << " 1 - Sim" << endl
+         << " 2 - Nao" << endl;
     cout << ">>> ";
     
     cin  >> op;
@@ -302,28 +302,28 @@ char choose_a_unary_operator()
 
 void report_error_1()
 {
-    cout << "Algo de errado nao esta certo. Tente novamente.";
+    cout << " Algo de errado nao esta certo. Tente novamente!";
 }
 
 void choose_a_option_1()
 {
-    cout << "Para inserir uma (P)roposicao digite P" << endl
-         << "Para inserir uma (E)xpressao digite E" << endl;
+    cout << " Para inserir uma (P)roposicao digite P" << endl
+         << " Para inserir uma (E)xpressao digite E" << endl;
 }
 
 void about_a_literal()
 {
-    cout << "Uma proposicao, pode ser considerada de duas formas." << endl;
-    cout << "Uma Proposicao Atomica: Quando soh possui um valor, e pode conter um Operador Unario." << endl;
-    cout << "Exemplo: ~p" << endl;
-    cout << "Uma Expressao Composta: Que pode conter um Operador Unario, porem possui sempre um Primeiro Valor," << endl;
-    cout << "um Segundo Valor, e conectando eles temos um Operador Binario." << endl << "Exemplo: (P | Q) & R" << endl << endl;
+    cout << " Uma proposicao, pode ser considerada de duas formas." << endl;
+    cout << " Uma Proposicao Atomica: Quando soh possui um valor, e pode conter um Operador Unario." << endl;
+    cout << " Exemplo: ~p" << endl;
+    cout << " Uma Expressao Composta: Que pode conter um Operador Unario, porem possui sempre um Primeiro Valor," << endl;
+    cout << " um Segundo Valor, e conectando eles temos um Operador Binario." << endl << "Exemplo: (P | Q) & R" << endl << endl;
 }
 
 Literal *_receive_input(Literal *l)
 {
     choose_a_option_1();
-    cout << ">>> ";
+    cout << " >>> ";
     char option;
     cin  >> option;
     cout << endl;

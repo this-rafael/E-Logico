@@ -1,6 +1,7 @@
 #include <stdlib.h>
+
 /**
-Apresentação da Negação lógica.
+* Apresentação da Negação lógica.
 */
 void resumoNegacao(){
 	cout << "\n A Dupla Negacao afirma que se temos uma afirmacao verdadeira, logo, se negarmos a negacao dessa afirmacao teremos uma equivalencia com a afirmacao\n";
@@ -9,7 +10,7 @@ void resumoNegacao(){
 }
 
 /**
-Complemento das informações sobre a Negação.
+* Complemento das informações sobre a Negação.
 */
 void infoNegacao(){
 	cout << "\n Na notacao simbolica temos:\n";
@@ -22,7 +23,7 @@ void infoNegacao(){
 }
 
 /**
-Apresentação da Conjunção Lógica
+* Apresentação da Conjunção Lógica
 */
 void resumoConjucao(){
 	cout << "\n A conjucao eh a combinacao de preposicoes que soh resultarah verdade se ambas as proposicoes forem verdade.\n";
@@ -31,7 +32,7 @@ void resumoConjucao(){
 }
 
 /**
-Complemento das informações sobre a Conjunção.
+* Complemento das informações sobre a Conjunção.
 */
 void infoConjucao(){
 	cout << "\n Na notacao simbolica temos:\n";
@@ -45,7 +46,7 @@ void infoConjucao(){
 }
 
 /**
-Apresentação das adição lógica
+* Apresentação das adição lógica
 */
 void resumoAdicao(){
 	cout << "\n A adicao irah unir as preposicoes de maneira que se ao menos uma das preposicoes for verdadeira, o resultado serah verdadeiro.\n";
@@ -54,7 +55,7 @@ void resumoAdicao(){
 }
 
 /**
-complemento das informações na adição lógica 
+* Complemento das informações na adição lógica 
 */
 void infoAdicao(){
 	cout << "\n Na notacao simbolica temos:\n";
@@ -68,7 +69,7 @@ void infoAdicao(){
 }
 
 /**
-Apresentação da introdução por equivalência.
+* Apresentação da introdução por equivalência.
 */
 void resumoIntroEquivalencia(){
 	cout << "\n Atraves de implicacoes distintas com as mesmas proposicoes, podemos deduzir uma bicondicional entre as proposicoes\n";
@@ -76,7 +77,7 @@ void resumoIntroEquivalencia(){
 }
 
 /**
-Apresentação da eliminação por equivalência.
+* Apresentação da eliminação por equivalência.
 */
 void resumoElimEquivalencia(){
 	cout << "\n Através de uma bicondicional, podemos deduzir que existe uma implicação em ambos os termos.\n";
@@ -84,7 +85,7 @@ void resumoElimEquivalencia(){
 }
 
 /**
-Apresentação da regra Modus Ponens.
+* Apresentação da regra Modus Ponens.
 */
 void resumoModusPonens(){
 	cout << "\n Através de uma implicação, caso a implicante seja confirmada, temos a dedução da implicância.\n";
@@ -93,7 +94,7 @@ void resumoModusPonens(){
 }
 
 /**
-Complemento da informação Modus Ponens
+* Complemento da informação Modus Ponens
 */
 void infoModusPonens(){
 	cout << "\n As vezes chamada de regra do desapego, Modus Ponens é utilizado para a retirada da implicação, encurtando a fórmula lógica.";
@@ -107,7 +108,7 @@ void infoModusPonens(){
 }
 
 /**
-Apresentação da regra de Modus Tollens.
+* Apresentação da regra de Modus Tollens.
 */
 void resumoModusTollens(){
 	cout << "\n A partir de uma implicação, quando temos a negação do implicante, podemos deduzir a negação da implicante.\n";
@@ -116,7 +117,7 @@ void resumoModusTollens(){
 }
 
 /**
-Complemento da Informação da regra Modus Tollens
+* Complemento da Informação da regra Modus Tollens
 */
 void infoModusTollens(){
 	cout << "\n Também chamado de Prova Indireta, ou negação consequente, Modus Tollens é utilizado para a retirada da implicação, encurtando a fórmula lógica.";
@@ -128,7 +129,7 @@ void infoModusTollens(){
 }
 
 /**
-Apresentação do silogismo hipotético.
+* Apresentação do silogismo hipotético.
 */
 void resumoHipotetico(){
 	cout << "\n A partir de duas implicações onde a implicância de uma seja o implicante da segunda implicação, podemos deduzir que o implicante da primeira implica a implicância da segunda\n";
@@ -138,7 +139,7 @@ void resumoHipotetico(){
 }
 
 /**
-Complemento de informações do silogismo hipotético.
+* Complemento de informações do silogismo hipotético.
 */
 void infoHipotetico(){
 	cout << "\n Utilizado na teoria da consequência, O silogismo hipotético não retira a implicação, apenas diminui o numero de termos e implicações presentes na fórmula.\n";
@@ -149,7 +150,7 @@ void infoHipotetico(){
 }
 
 /**
-Apresentação do silogismo disjuntivo.
+* Apresentação do silogismo disjuntivo.
 */
 void resumoDisjuntivo(){
 	cout << "\n A partir de uma operação de disjunção quando temos a negação de um termo, podemos deduzir o termo restante.\n";
@@ -158,7 +159,7 @@ void resumoDisjuntivo(){
 }
 
 /**
-Complemento de informações do silogismo lógico.
+* Complemento de informações do silogismo lógico.
 */
 void infoDisjuntivo(){
 	cout << "\n Conhecido historicamente como Modus Tollendo Ponens, o silogismo disjuntivo é indicado apenas para a simplificação de termos.\n";
@@ -169,7 +170,7 @@ void infoDisjuntivo(){
 }
 
 /**
-Apresentação do dilema construtivo.
+* Apresentação do dilema construtivo.
 */
 void resumoDilemaConstrutivo(){
 	cout << "\n A partir de duas implicações totalmente distintas, se possuímos uma disjunção entre o implicante da primeira com o implicante da segunda implicação, podemos deduzir uma disjunção entre a implicância da primeira com a implicância da segunda disjunção.\n";
@@ -178,7 +179,7 @@ void resumoDilemaConstrutivo(){
 }
 
 /**
-Complemento de informações do dilema construtivo.
+* Complemento de informações do dilema construtivo.
 */
 void infoDilemaConstrutivo(){
 	cout << "\n Também conhecido como dilema de transferência, serve para a simplificação de duas implicações resultando em uma disjunção\n";
@@ -190,7 +191,7 @@ void infoDilemaConstrutivo(){
 }
 
 /**
-Apresentação da regra de exportação.
+* Apresentação da regra de exportação.
 */
 void resumoExportacao(){
 	cout << "\n A partir de uma implicação, se o implicante for formado por uma conjunção, podemos deduzir uma implicação do primeiro termo da conjunção implicando numa implicação do segundo termo da conjunção implicando na implicância original.\n";
@@ -198,7 +199,7 @@ void resumoExportacao(){
 }
 
 /**
-Apresentação da opções do menu regras.
+* Apresentação da opções do menu regras.
 */
 void menuRegras(){
 	cout << "\n\t\t --- Lista de Regras --- \n";
@@ -217,6 +218,9 @@ void menuRegras(){
 	cout << "Digite a sua opção!\n";
 }
 
+/**
+* Método de captação de entrada das respostas.
+*/
 bool entradaResposta(){
 	string resposta;
 	cin.ignore();
@@ -230,7 +234,7 @@ bool entradaResposta(){
 
 
 /**
-Selecionador de opções do menu de regras.
+* Selecionador de opções do menu de regras.
 */
 void opcoesRegras(int opc){
 	switch(opc){
@@ -313,6 +317,9 @@ void opcoesRegras(int opc){
 	
 }
 
+/**
+* Método de execução dos métodos de regras, destinado para ser chamado no Main.
+*/
 void execRegras(){
 	//chamando menu
 	int opc;

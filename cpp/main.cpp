@@ -1,12 +1,26 @@
 #include<iostream>
 #include <stdlib.h>
+#include <string>
+#include <string.h>
+#include <vector>
+#include <sstream>
+#include <cmath>
 
+#include "TableGenerator.cpp"
 #include "Literal.cpp"
+#include "Literal.h"
 #include "menuApresentacao.cpp"
 #include "regrasProposicionais.cpp"
+#include "binaryToDecimal.cpp"
+#include "decimalToBinary.cpp"
+#include "FloatToBinIEEE754.cpp"
+#include "binIEEE754ToFloat.cpp"
 
 using namespace std;
 
+/**
+* Método de chamada das funções principais de execução de cada arquivo.
+*/
 void execOpcoes(int opc){
     switch(opc){
         case(1):
@@ -31,7 +45,9 @@ void execOpcoes(int opc){
 
 }
 
-
+/**
+* Método de execução e laço da chamada principal dos métodos executáveis.
+*/
 void execPrincipal(){
     int opc;
     apresentacaoInicial();
@@ -47,6 +63,9 @@ void execPrincipal(){
     }
 }
 
+/**
+* Método main do programa.
+*/
 int main(){
 	execPrincipal();
 	return 0;

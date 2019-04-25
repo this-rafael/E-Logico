@@ -3,7 +3,8 @@
 
 using namespace std;
 
-/* Funcao que converte um numero float em
+/** 
+ * Funcao que converte um numero float em
  * um numero binario de ponto flutuante de 
  * 32 bits no padrao IEE 754
  */

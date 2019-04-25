@@ -9,7 +9,8 @@
 
 string &build_first_line(const string &propositions1, int number_propositions, string &first_line);
 
-/* Metodo "in", serve para checar se um caractere (piece) estah contido
+/** 
+ * Metodo "in", serve para checar se um caractere (piece) estah contido
  * em uma string (whole).
  *
  * retorna se estah ou nao.
@@ -33,7 +34,8 @@ string vector_to_string(vector<char> vec){
     return result;
 }
 
-/* Gera uma lista com as proposicoes do literal.
+/** 
+ * Gera uma lista com as proposicoes do literal.
  * Exemplo:
  * Literal: "(p & (q | r))" gera {"p","q","r")
  *
@@ -61,7 +63,8 @@ string get_proposition_list(Literal *literal){
     return result;
 }
 
-/* Converte um inteiro em uma string
+/** 
+ * Converte um inteiro em uma string
  */
 string int_to_string(int a){
     stringstream ss;
@@ -70,7 +73,8 @@ string int_to_string(int a){
     return str;
 }
 
-/* Transforma um decimal em uma string que representa
+/** 
+ * Transforma um decimal em uma string que representa
  * o binario
  *
  */
@@ -91,7 +95,8 @@ string binary(int decimal){
     return bin;
 }
 
-/* Completa a string com zeros a esquerda, para
+/**  
+ * Completa a string com zeros a esquerda, para
  * que todos binarios tenham o mesmo lenght
  *
  */
@@ -104,7 +109,8 @@ string complete_binary(string binary, int size){
     return binary;
 }
 
-/* Tendo em maos o numero de proposicoes, gera uma lista
+/** 
+ * Tendo em maos o numero de proposicoes, gera uma lista
  * de strings que representam as possibilidades (interpretacoes) da tabela
  *
  */
@@ -119,7 +125,8 @@ vector<string> possibilities(int number_of_propositions){
     return pos;
 }
 
-/* Resolve a expressao para a interpretacao (possibilidade) em questao
+/** 
+ * Resolve a expressao para a interpretacao (possibilidade) em questao:
  *
  * Se o literal for atomico, retorna-o resolvido em formato de boolean, para
  * subir na arvore
@@ -169,7 +176,8 @@ bool result(Literal *literal, string propositions, string possibilities ){
     return res;
 }
 
-/* Gera a tabela completa em formato de string, para isso
+/** 
+ * Gera a tabela completa em formato de string, para isso
  * procura as variaveis, possibilidades (interpretacoes), e para
  * cada linha, chama o metodo result, junta todas as linhas e no final retorna a tabela.
  *
@@ -214,6 +222,9 @@ string get_truth_table(Literal *literal){
 
 }
 
+/**
+* Método de construção da primeira linha 
+*/
 string &build_first_line(const string &propositions1, int number_propositions, string &first_line) {
     for (int i = 0; i < number_propositions; i++) {
         first_line += propositions1[i];

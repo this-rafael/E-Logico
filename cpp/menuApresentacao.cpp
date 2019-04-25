@@ -1,12 +1,15 @@
 
-/*
-Menu de apresentação
+/**
+* Menu de apresentação
 */
 void apresentacaoInicial(){
     cout << "Ola, Bem vindo ao Aprendendo? Logico!\n\n";
     cout << "Programa Interativo de Aprendizagem e auxilio a assuntos Logicos\n";
 }
 
+/**
+* Apresentação do menu de entrada
+*/
 void menuOpcoes(){
     cout << "\nMENU: \n";
     cout << " 1 - Aprendendo a formular uma Tabela-Verdade!\n";
@@ -17,13 +20,18 @@ void menuOpcoes(){
     cout << " Digite a sua opcao !\n";
 }
 
-
+/**
+* Breve apresentação da função de Tabela-Verdade
+*/
 void resumoTabela(){
     cout << "\nA Tabela Verdade eh um tipo logico de tabela utilizado em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n";
     cout << "Quer saber como se constroi uma Tabela Verdade?\n";
 
 }
 
+/**
+* Informativo sobre a tabela-verdade
+*/
 void infoTabela(){
     cout << "\nCOMO CONSTRUIR UMA TABELA?\n\n";
     cout << " a) O numero de linhas contidas em uma Tabela Verdade vai ser calculada por Linhas = 2^n, onde (n) eh a quantidade de preposicoes.\n ";
@@ -32,12 +40,18 @@ void infoTabela(){
     cout << " d) Na coluna de resposta, temos o resultado das operacoes. Cada linha com seu respectivo bit resposta\n";
 }
 
+/**
+* Breve apresentação sobre o conversor binário
+*/
 void resumoConversor(){
     cout << "\nO conversor faz a traducao entre numeros de bases diferentes\n";
     cout << "Convertendo Bin --> Dec, teremos a conversao de Binario (base 2) para Decimal (base 10)\n";
     cout << "Convertendo Dec --> Bin, teremos a conversao de Decimal (base 10) para Binario (base 2)\n";
 }
 
+/**
+* Informativo sobre o conversor
+*/
 void infoConversor(){
     cout << "\nCOMO CONVERTER UM NUMERO?\n\n";
     cout << " 1) De Binario para Decimal\n";
@@ -52,10 +66,16 @@ void infoConversor(){
     
 }
 
+/**
+* Breve impressão sobre expressões proposicionais
+*/
 void resumoExpressoes(){
     cout << "\nExpressoes Proposicionais podem ser gigantes. No entanto, Existem várias regras de simplificacao que podem transformar expressoes gigantescas em expressões simples com a mesma equivalencia logica!\n";
 }
 
+/**
+* Informativo sobre o simplificador proposicional
+*/
 void infoExpressoes(){
     cout << "\nCOMO SIMPLIFICAR UMA EXPRESSAO PROPOSICIONAL?\n\n";
     cout << " a) Partimos da definicao das proposicoes\n";
@@ -63,12 +83,17 @@ void infoExpressoes(){
     cout << " c) Repetimos os passos podendo utilizar a mesma regra ou uma regra diferente, ate chegarmos a uma expressao que nao aceite mais nenhuma regra. Em tese serah a expressao simplificada\n";
 }
 
+/**
+* Resumo sobre a função de apresentação das regras proposicionais
+*/
 void resumoRegras(){
   cout << "\nRegras para simplificacao de expressoes logicas\n";
   cout << "Aqui vamos apresentar algumas regras para as simplificacao de expressoes logicas complexas em expressoes simples!\n";
 }
-<<<<<<< HEAD
 
+/**
+* Método de chamada para os resumos de cada opção do programa.
+*/
 void resumoOpcoes(int opc){
     switch(opc){
         case(1):
@@ -92,11 +117,4 @@ void resumoOpcoes(int opc){
 
 }
 
-int main_menu_apresentacao() {
-    resumoExpressoes();
-    infoExpressoes();
-    return 0;
 
-}
-=======
->>>>>>> dddbba271932c50ee4b11223e6752a91487e6390

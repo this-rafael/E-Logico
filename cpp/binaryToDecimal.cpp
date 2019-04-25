@@ -3,7 +3,8 @@
 
 using namespace std; 
   
-/* Funcao que converte um numero binario para um 
+/** 
+ * Funcao que converte um numero binario para um 
  * numero decimal de 32 bits.
  */ 
 int binaryToDec(string n) 

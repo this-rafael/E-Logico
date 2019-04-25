@@ -4,7 +4,8 @@
 
 using namespace std;
  
-/* Funcao que converte um numero binario de 
+/** 
+ * Funcao que converte um numero binario de 
  * 32 bits para um numero hexadecimal.
  */ 
 int Binary2Hex(string Binary )
@@ -17,7 +18,8 @@ int Binary2Hex(string Binary )
     return hex;
 }
  
-/* Funcao que converte um numero binario de 
+/**
+ * Funcao que converte um numero binario de 
  * 32 bits para um float no padrao IEE 754.
  */ 
 float GetFloat32(string Binary )
