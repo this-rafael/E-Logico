@@ -16,6 +16,23 @@ basic_string<char> introducao_de_equivalencia(Literal *valor1, Literal *valor2);
 
 using namespace std;
 
+void listarOpcoes(){
+	cout << "\n\t\t --- Opcoes Numericas --- \n";
+	cout << " \t1 - Negação\n";
+	cout << " \t2 - Conjunção\n";
+	cout << " \t3 - Adição\n";
+	cout << " \t4 - Introdução da Equivalência\n";
+	cout << " \t5 - Eliminação da Equivalência\n";
+	cout << " \t6 - Modus Ponens\n";
+	cout << " \t7 - Modus Tollens\n";
+	cout << " \t8 - Silogismo Hipotético\n";
+	cout << " \t9 - Silogismo Disjuntivo\n";
+	cout << " \t10 - Dilema Construtivo\n";
+	cout << " \t11 - Exportação\n";
+	cout << " \t0 - Voltar ao menu principal\n\n";
+	cout << "Digite a sua opção!\n";
+}
+
 void execExpressoes() {
 
     // char option;
