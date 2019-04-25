@@ -18,7 +18,7 @@ void infoNegacao(){
 	cout << "\n Exemplo de discurso:\n";
 	cout << " P = Game of Thrones estreia hoje.\n";
 	cout << " ~P = Game of Thrones NAO estreia hoje.\n";
-	cout << " ~(~P) = Nao eh verdade que Game Of Thrones estreia hoje.\n";
+	cout << " ~(~P) = Nao eh verdade que Game Of Thrones NAO estreia hoje.\n";
 	
 }
 
