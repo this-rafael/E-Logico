@@ -2,7 +2,7 @@
 
 #include "Literal.h"
 
-
+basic_string<char> negacao(Literal *valor1);
 basic_string<char> modus_ponens(Literal *valor1, Literal *valor2);
 basic_string<char> modus_tollens(Literal *valor1, Literal *valor2);
 basic_string<char> adicao_disjuntiva(Literal *valor1);
@@ -37,6 +37,16 @@ int main_de_simplicadores(){
     cout << exportacao(literal1);
 
 	return 0;
+}
+
+basic_string<char> negacao(Literal *valor1) {
+    // negacao ~(~P) retorna P
+    string answer = "";
+    if (valor1->unary_operator == '~' && literals_is_equals(valor1->first_value, valor1->second_value)
+        && valor1->first_value->unary_operator == '~') {
+        answer = literal_to_string(valor1);
+    }
+    return answer;
 }
 
 basic_string<char> adicao_disjuntiva(Literal *valor1) {
