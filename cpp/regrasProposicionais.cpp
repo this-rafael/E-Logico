@@ -1,4 +1,6 @@
-#include <stdlib.h>
+#include <iostream>
+
+using namespace std;
 
 /**
 * Apresentação da Negação lógica.
@@ -226,9 +228,8 @@ bool entradaResposta(){
 	cin.ignore();
 	cout << " >> ";
 	getline(cin, resposta);
-	
-	if(resposta == "sim") return true;
-	return false;
+
+    return resposta == "sim";
 }
 
 

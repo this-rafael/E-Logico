@@ -6,15 +6,12 @@
 #include <sstream>
 #include <cmath>
 
-#include "TableGenerator.cpp"
-#include "Literal.cpp"
+#include "simplificadorLogico.h"
+#include "TableGenerator.h"
 #include "Literal.h"
-#include "menuApresentacao.cpp"
-#include "regrasProposicionais.cpp"
-#include "binaryToDecimal.cpp"
-#include "decimalToBinary.cpp"
-#include "FloatToBinIEEE754.cpp"
-#include "binIEEE754ToFloat.cpp"
+#include "menuApresentacao.h"
+#include "regrasProposicionais.h"
+#include "Conversor.h"
 
 using namespace std;
 
@@ -25,12 +22,15 @@ void execOpcoes(int opc){
     switch(opc){
         case(1):
             resumoTabela();
+            generate_table_from_literal();
             break;
         case(2):
             resumoConversor();
+            // execConversor();
             break;
         case(3):
             resumoExpressoes();
+            execExpressoes();
             break;
         case(4):
             resumoRegras();
@@ -67,7 +67,7 @@ void execPrincipal(){
 * Método main do programa.
 */
 int main(){
-	execPrincipal();
+    execPrincipal();
 	return 0;
 }
 

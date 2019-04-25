@@ -1,43 +1,130 @@
 #include<iostream>
 
 #include "Literal.h"
+#include "simplificadorLogico.h"
 
-basic_string<char> conjuncao(Literal *valor1, Literal *valor2);
-basic_string<char> negacao(Literal *valor1);
-basic_string<char> modus_ponens(Literal *valor1, Literal *valor2);
-basic_string<char> modus_tollens(Literal *valor1, Literal *valor2);
-basic_string<char> adicao_disjuntiva(Literal *valor1);
-basic_string<char> silogismo_disjuntivo(Literal *valor1, Literal *valor2);
-basic_string<char> silogismo_hipotetico(Literal *valor1, Literal *valor2);
-basic_string<char> exportacao(Literal *valor1);
-basic_string<char> dilema_construtivo(Literal *valor1, Literal *valor2, Literal *valor3);
-basic_string<char> eliminacao_de_equivalencia(Literal *valor1);
-basic_string<char> introducao_de_equivalencia(Literal *valor1, Literal *valor2);
 
 using namespace std;
 
-int main_de_simplicadores(){
-	Literal *literal1;
-	Literal *literal2;
+void listarOpcoes(){
+	cout << "\n\t\t --- Opcoes Numericas --- \n";
+	cout << " \t1 - Negação\n";
+	cout << " \t2 - Conjunção\n";
+	cout << " \t3 - Adição\n";
+	cout << " \t4 - Introdução da Equivalência\n";
+	cout << " \t5 - Eliminação da Equivalência\n";
+	cout << " \t6 - Modus Ponens\n";
+	cout << " \t7 - Modus Tollens\n";
+	cout << " \t8 - Silogismo Hipotético\n";
+	cout << " \t9 - Silogismo Disjuntivo\n";
+	cout << " \t10 - Dilema Construtivo\n";
+	cout << " \t11 - Exportação\n";
+	cout << " \t0 - Voltar ao menu principal\n\n";
+	cout << "Digite a sua opção!\n";
+}
+
+void execExpressoes() {
+
+    int options;
+    listarOpcoes();
+    cin  >> options;
+    cout << endl;
+
+    Literal *literal1;
+    Literal *literal2;
     Literal *literal3;
-	literal1 = new Literal;
-	literal2 = new Literal;
-   	literal3 = new Literal;
-    receive_input(literal1);
-    receive_input(literal2);
-    receive_input(literal3);
 
-    cout << adicao_disjuntiva(literal1);
-    cout << eliminacao_de_equivalencia(literal1);
-    cout << introducao_de_equivalencia(literal1, literal2);
-	cout << modus_ponens(literal1, literal2);
-    cout << modus_tollens(literal1, literal2);
-    cout << silogismo_disjuntivo(literal1, literal2);
-    cout << silogismo_hipotetico(literal1, literal2);
-    cout << dilema_construtivo(literal1, literal2, literal3);
-    cout << exportacao(literal1);
+    literal1 = new Literal;
+    literal2 = new Literal;
+    literal3 = new Literal;
+    switch (options) {
+        case (1):
+            // Negacao
+            _receive_input(literal1);
+            cout << negacao(literal1);
+            break;
 
-	return 0;
+        case (2):
+            // Conjuncao
+            _receive_input(literal1);
+            _receive_input(literal2);
+            cout << conjuncao(literal1, literal2);
+            break;
+        
+        case (3):
+            // Adicao Dijuntiva
+            _receive_input(literal1);
+            cout << adicao_disjuntiva(literal1);
+            break;
+
+        case (4):
+            // Introducao da Equivalencia
+            _receive_input(literal1);
+            _receive_input(literal2);
+            cout << introducao_de_equivalencia(literal1, literal2);
+            break;
+            
+        case (5):
+            // Eliminacao da Equivalencia
+            cout << "Digite o primeiro literal" << endl;
+            _receive_input(literal1);
+            eliminacao_de_equivalencia(literal1);
+            break;
+        
+        case (6):
+            // Modus Ponens
+            cout << "Digite o primeiro literal" << endl;
+            _receive_input(literal1);
+            cout << "Digite o primeiro literal" << endl;
+            _receive_input(literal2);
+            cout << modus_ponens(literal1, literal2);
+            break;
+        
+        case (7):
+            // Modus Tollens 
+            _receive_input(literal1);
+            _receive_input(literal2);
+            cout << modus_tollens(literal1, literal2);
+            break;
+        
+        case (8):
+            // Silogismo Hipotetico
+            literal1 = new Literal;
+            literal1 = new Literal;
+            _receive_input(literal1);
+            _receive_input(literal2);
+            cout << silogismo_hipotetico(literal1, literal2);
+            break;
+        
+        case (9):
+            // Silogismo Disjuntivo
+            _receive_input(literal1);
+            _receive_input(literal2);
+            cout << silogismo_disjuntivo(literal1, literal2);
+            break;
+        
+        case (10):
+            // Dilema Construtivo
+            _receive_input(literal1);
+            _receive_input(literal2);
+            _receive_input(literal3);
+            cout << dilema_construtivo(literal1, literal2, literal3);
+            break;
+
+        case (11):
+            // Exportacao
+            _receive_input(literal1);
+            cout << exportacao(literal1);
+            break;
+
+        case (0):
+            cout << "Voltando para Pagina Principal.";
+            break;
+
+        default:
+            cout << "Voltando para Pagina Principal.";
+            break;
+    }
 }
 
 basic_string<char> conjuncao(Literal *valor1, Literal *valor2) {

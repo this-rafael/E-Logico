@@ -6,12 +6,12 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(cpp
-        binaryToDecimal.cpp
-        binIEEE754ToFloat.cpp
-        decimalToBinary.cpp
-        FloatToBinIEEE754.cpp
+        Conversor.cpp
         Literal.cpp
         Literal.h
         main.cpp
         menuApresentacao.cpp
-        regrasProposicionais.cpp)
+        regrasProposicionais.cpp
+        simplificadorLogico.cpp
+        TableGenerator.cpp
+        TableGenerator.h Conversor.h menuApresentacao.h regrasProposicionais.h simplificadorLogico.h)

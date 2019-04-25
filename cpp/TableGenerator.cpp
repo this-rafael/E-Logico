@@ -1,4 +1,4 @@
-
+#include <iostream>
 #include "Literal.h"
 #include <string>
 #include <string.h>
@@ -233,3 +233,15 @@ string &build_first_line(const string &propositions1, int number_propositions, s
     return first_line;
 }
 
+void generate_table_from_literal() {
+    cout << "Agora vamos montar o literal do qual será criada a tabela!\n";
+
+    Literal *l;
+    l = new Literal;
+    receive_input(l);
+
+
+    cout << "A tabela verdade para " << " " << literal_to_string(l) << " e:" << endl;
+    string table = get_truth_table(l);
+    cout << table;
+}

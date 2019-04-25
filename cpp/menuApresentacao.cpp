@@ -1,4 +1,7 @@
+#include <iostream>
+#include "menuApresentacao.h"
 
+using namespace std;
 /**
 * Menu de apresentação
 */
@@ -36,7 +39,8 @@ void infoTabela(){
     cout << "\nCOMO CONSTRUIR UMA TABELA?\n\n";
     cout << " a) O numero de linhas contidas em uma Tabela Verdade vai ser calculada por Linhas = 2^n, onde (n) eh a quantidade de preposicoes.\n ";
     cout << " b) Incluimos nas linhas valores correspondentes em binario de (0 ... [2^n - 1]). Exemplo: Com uma tabela de 2 preposicoes teremos 4 linhas, em linha[1] = 0 0, 0 em binario com 2 casas decimais. na linha[2] = 0 1, 1 em binario com 2 casas. linha[3] = 1 0 , linha[4] = 1 1 \n";
-    cout << " c) Enquanto ao numero de colunas, vai depender de voce, mas temos que ter obrigatoriamente n colunas + 1. Onde n eh definido como o numero de preposicoes e 1 coluna de resposta.\n"; 
+    cout
+            << " c) Enquanto ao numero de colunas, vai depender de voce, mas temos que ter obrigatoriamente n colunas + 1. Onde n eh definido como o numero de preposicoes e 1 coluna de resposta.\n";
     cout << " d) Na coluna de resposta, temos o resultado das operacoes. Cada linha com seu respectivo bit resposta\n";
 }
 
@@ -63,7 +67,7 @@ void infoConversor(){
     cout << "   b) O importante da divisao serah o resto da divisao e seu resultado final. Exemplo: o numero 2 em decimal, 2 / 2 = 1 e 2 % 2 = 0\n";
     cout << "   c) Chegando a ultima divisao com resto inteiro possivel, temos que reunir os restos das divisoes com o ultimo resultado possivel. Exemplo: 4, 4 % 2 = 0, 4/2 = 2, como 2 ainda pode ser divisivel por 2, 2 % 2 = 0 e 2 / 2 = 1. Juntando os restos com o ultimo resultado, temos:  0 0 1\n";
     cout << "   d) Com o resultado da divisao por 2 e seus restos concatenado, temos que apenas inverter a ordem. Exemplo anterior 0 0 1, invertemos 1 0 0, que equivale a 4\n\n";
-    
+
 }
 
 /**
@@ -87,8 +91,9 @@ void infoExpressoes(){
 * Resumo sobre a função de apresentação das regras proposicionais
 */
 void resumoRegras(){
-  cout << "\nRegras para simplificacao de expressoes logicas\n";
-  cout << "Aqui vamos apresentar algumas regras para as simplificacao de expressoes logicas complexas em expressoes simples!\n";
+    cout << "\nRegras para simplificacao de expressoes logicas\n";
+    cout
+            << "Aqui vamos apresentar algumas regras para as simplificacao de expressoes logicas complexas em expressoes simples!\n";
 }
 
 /**
@@ -113,7 +118,7 @@ void resumoOpcoes(int opc){
             break;
         default:
             cout << "Desculpe? pode repetir?\n";
-      }
+    }
 
 }
 

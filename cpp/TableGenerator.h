@@ -1,7 +1,7 @@
 #ifndef CPP_TABLE_H
 #define CPP_TABLE_H
 
-#include <iostream>
+
 #include "Literal.h"
 #include <string>
 #include <string.h>
@@ -37,4 +37,5 @@ bool result(Literal *literal, string propositions, string possibilities );
 
 string get_truth_table(Literal *literal);
 
+void generate_table_from_literal();
 #endif //CPP_TABLE_H//

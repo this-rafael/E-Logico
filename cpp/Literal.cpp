@@ -2,12 +2,9 @@
 #include <string>
 #include "Literal.h"
 
-using namespace std;
+
 // Created by rafaelsp on 16/04/19.
 //
-
-
-
 
 bool is_a_nil_literal(const Literal *l) 
 {
@@ -307,8 +304,8 @@ void report_error_1()
 
 void choose_a_option_1()
 {
-    cout << " Para inserir uma (P)roposicao digite P" << endl
-         << " Para inserir uma (E)xpressao digite E" << endl;
+    cout << "1- Para inserir uma Proposicao" << endl
+         << "2- Para inserir uma Expressao" << endl;
 }
 
 void about_a_literal()
@@ -320,7 +317,7 @@ void about_a_literal()
     cout << " um Segundo Valor, e conectando eles temos um Operador Binario." << endl << "Exemplo: (P | Q) & R" << endl << endl;
 }
 
-Literal *_receive_input(Literal *l)
+void *_receive_input(Literal *l)
 {
     choose_a_option_1();
     cout << " >>> ";
@@ -328,7 +325,7 @@ Literal *_receive_input(Literal *l)
     cin  >> option;
     cout << endl;
 
-    if (option == 'E') // creates a new Literal, (P | Q) & R
+    if (option == '2') // creates a new Literal, (P | Q) & R
     {
 
         Literal *first_value;
@@ -345,8 +342,7 @@ Literal *_receive_input(Literal *l)
         
         _receive_input(second_value);
         l->second_value = second_value;
-    }
-    else if (option == 'P')
+    } else if (option == '1')
     {
         const string &basicString = choose_a_proposition();
         char proposition, unary_operator;
@@ -370,10 +366,10 @@ Literal *_receive_input(Literal *l)
     }
 }
 
-Literal *receive_input(Literal *l)
+void *receive_input(Literal *l)
 {
     cout << endl; // dando um espaco antes de comecar
     print_info();
     about_a_literal();
-    return _receive_input(l);
+    _receive_input(l);
 }
