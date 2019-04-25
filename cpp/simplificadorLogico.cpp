@@ -2,6 +2,7 @@
 
 #include "Literal.h"
 
+basic_string<char> conjuncao(Literal *valor1, Literal *valor2);
 basic_string<char> negacao(Literal *valor1);
 basic_string<char> modus_ponens(Literal *valor1, Literal *valor2);
 basic_string<char> modus_tollens(Literal *valor1, Literal *valor2);
@@ -39,12 +40,31 @@ int main_de_simplicadores(){
 	return 0;
 }
 
+basic_string<char> conjuncao(Literal *valor1, Literal *valor2) {
+    // conjuncao (1 | 0) ^ (1 | 0) retorna True | False
+    string answer = "";
+    if (valor1->is_atomic_proposition && valor2->is_atomic_proposition) {
+        if (valor1->proposition == '1' && valor2->proposition == '1') {
+            answer = "1";
+        } else {
+            answer = "0";
+        }
+    } else
+    {
+        answer = "Nao eh possivel aplicar Conjuncao nessa expressao.";
+    }
+    return answer;
+}
+
 basic_string<char> negacao(Literal *valor1) {
     // negacao ~(~P) retorna P
     string answer = "";
     if (valor1->unary_operator == '~' && literals_is_equals(valor1->first_value, valor1->second_value)
         && valor1->first_value->unary_operator == '~') {
         answer = literal_to_string(valor1);
+    }else
+    {
+        answer = "Nao eh possivel aplicar Negacao nessa expressao.";
     }
     return answer;
 }
@@ -54,6 +74,9 @@ basic_string<char> adicao_disjuntiva(Literal *valor1) {
     string answer = "";
     if (!(is_a_nil_literal(valor1))) {
         answer = literal_to_string(valor1) + " | Qualquer Expressão";
+    }else
+    {
+        answer = "Nao eh possivel aplicar Adicao Disjuntiva nessa expressao.";
     }
     return answer;
 }
