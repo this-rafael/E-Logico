@@ -35,22 +35,131 @@ void listarOpcoes(){
 
 void execExpressoes() {
 
-    // char option;
-    // cin  >> option;
-    // cout << endl;
+    int options;
+    listarOpcoes();
+    cin  >> options;
+    cout << endl;
 
-    switch (option)
-    {
-        case (option == 'Modus Ponens'):
-            // Criar 2 Literais
-            // modus_ponens(literal1, literal2);
+    switch (options)
+    {   
+        case (1):
+            // Negacao
+            Literal *literal1;
+            literal1 = new Literal;
+            receive_input(literal1);
+            negacao(literal1);
             break;
-        case (option == 'Modus Ponens'):
-            // 
-            // 
+
+        case (2):
+            // Conjuncao
+            Literal *literal1;
+            Literal *literal2;
+            literal1 = new Literal;
+            literal2 = new Literal;
+            receive_input(literal1);
+            receive_input(literal2);
+            conjuncao(literal1, literal2);
             break;
+        
+        case (3):
+            // Adicao Dijuntiva
+            Literal *literal1;
+            literal1 = new Literal;
+            receive_input(literal1);
+            adicao_disjuntiva(literal1);
+            break;
+
+        case (4):
+            // Introducao da Equivalencia
+            Literal *literal1;
+            Literal *literal1;
+            literal1 = new Literal;
+            literal1 = new Literal;
+            receive_input(literal1);
+            receive_input(literal1);
+            introducao_de_equivalencia(literal1, literal2);
+            break;
+            
+        case (5):
+            // Eliminacao da Equivalencia
+            Literal *literal1;
+            literal1 = new Literal;
+            receive_input(literal1);
+            eliminacao_de_equivalencia(literal1);
+            break;
+        
+        case (6):
+            // Modus Ponens
+            Literal *literal1;
+            Literal *literal1;
+            literal1 = new Literal;
+            literal1 = new Literal;
+            receive_input(literal1);
+            receive_input(literal1);
+            modus_ponens(literal1, literal2);
+            break;
+        
+        case (7):
+            // Modus Tollens 
+            Literal *literal1;
+            Literal *literal1;
+            literal1 = new Literal;
+            literal1 = new Literal;
+            receive_input(literal1);
+            receive_input(literal1);
+            modus_tollens(literal1, literal2);
+            break;
+        
+        case (8):
+            // Silogismo Hipotetico
+            Literal *literal1;
+            Literal *literal1;
+            literal1 = new Literal;
+            literal1 = new Literal;
+            receive_input(literal1);
+            receive_input(literal1);
+            silogismo_hipotetico(literal1, literal2);
+            break;
+        
+        case (9):
+            // Silogismo Disjuntivo
+            Literal *literal1;
+            Literal *literal1;
+            literal1 = new Literal;
+            literal1 = new Literal;
+            receive_input(literal1);
+            receive_input(literal1);
+            silogismo_disjuntivo(literal1, literal2);
+            break;
+        
+        case (10):
+            // Dilema Construtivo
+            Literal *literal1;
+    	    Literal *literal2;
+            Literal *literal3;
+    	    literal1 = new Literal;
+	        literal2 = new Literal;
+           	literal3 = new Literal;
+            receive_input(literal1);
+            receive_input(literal2);
+            receive_input(literal3);
+            dilema_construtivo(literal1, literal2, literal3);
+            break;
+
+        case (11):
+            // Exportacao
+            Literal *literal1;
+            literal1 = new Literal;
+            receive_input(literal1);
+            exportacao(literal1);
+            break;
+
+        case (0):
+            cout << 'Voltando para Pagina Principal.';
+            break;
+
         default:
-            // cout << 'Voltando para Main';
+            cout << 'Voltando para Pagina Principal.';
             break;
     }
 }
