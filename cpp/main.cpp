@@ -6,6 +6,7 @@
 #include <sstream>
 #include <cmath>
 
+#include "simplificadorLogico.cpp"
 #include "TableGenerator.cpp"
 #include "Literal.cpp"
 #include "Literal.h"
@@ -25,12 +26,15 @@ void execOpcoes(int opc){
     switch(opc){
         case(1):
             resumoTabela();
+            // execTabela();
             break;
         case(2):
             resumoConversor();
+            // execConversor();
             break;
         case(3):
             resumoExpressoes();
+            // execExpressoes();
             break;
         case(4):
             resumoRegras();
@@ -67,7 +71,8 @@ void execPrincipal(){
 * Método main do programa.
 */
 int main(){
-	execPrincipal();
+    main_de_simplicadores();
+	// execPrincipal();
 	return 0;
 }
 
