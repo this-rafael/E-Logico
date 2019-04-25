@@ -34,7 +34,7 @@ void execOpcoes(int opc){
             break;
         case(3):
             resumoExpressoes();
-            // execExpressoes();
+            execExpressoes();
             break;
         case(4):
             resumoRegras();
