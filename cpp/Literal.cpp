@@ -6,9 +6,6 @@ using namespace std;
 // Created by rafaelsp on 16/04/19.
 //
 
-
-
-
 bool is_a_nil_literal(const Literal *l) 
 {
     return l->unary_operator == empty_str && l->proposition == empty_str && l->binary_operator == empty_str && l->first_value == NULL && l->second_value == NULL;
