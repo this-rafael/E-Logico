@@ -320,7 +320,7 @@ void about_a_literal()
     cout << " um Segundo Valor, e conectando eles temos um Operador Binario." << endl << "Exemplo: (P | Q) & R" << endl << endl;
 }
 
-Literal *_receive_input(Literal *l)
+void *_receive_input(Literal *l)
 {
     choose_a_option_1();
     cout << " >>> ";
@@ -370,10 +370,10 @@ Literal *_receive_input(Literal *l)
     }
 }
 
-Literal *receive_input(Literal *l)
+void *receive_input(Literal *l)
 {
     cout << endl; // dando um espaco antes de comecar
     print_info();
     about_a_literal();
-    return _receive_input(l);
+    // return _receive_input(l);
 }

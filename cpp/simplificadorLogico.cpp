@@ -16,6 +16,28 @@ basic_string<char> introducao_de_equivalencia(Literal *valor1, Literal *valor2);
 
 using namespace std;
 
+void execExpressoes() {
+
+    // char option;
+    // cin  >> option;
+    // cout << endl;
+
+    switch (option)
+    {
+        case (option == 'Modus Ponens'):
+            // Criar 2 Literais
+            // modus_ponens(literal1, literal2);
+            break;
+        case (option == 'Modus Ponens'):
+            // 
+            // 
+            break;
+        default:
+            // cout << 'Voltando para Main';
+            break;
+    }
+}
+
 int main_de_simplicadores(){
 	Literal *literal1;
 	Literal *literal2;
