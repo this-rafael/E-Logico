@@ -71,12 +71,8 @@ void infoAdicao(){
 Apresentação da introdução por equivalência.
 */
 void resumoIntroEquivalencia(){
-<<<<<<< HEAD
-	cout <<"\n Atraves de implicacoes distintas com as mesmas proposicoes, podemos deduzir uma bicondicional entre as proposicoes\n";
-=======
-	cout <<"\n Através de implicações distintas com as mesmas proposições, podemos deduzir uma bicondicional entre as proposições\n";
->>>>>>> dddbba271932c50ee4b11223e6752a91487e6390
-	cout <<" No caso, temos P --> Q, Q --> P, logo podemos deduzir P <--> Q\n";
+	cout << "\n Atraves de implicacoes distintas com as mesmas proposicoes, podemos deduzir uma bicondicional entre as proposicoes\n";
+	cout << " No caso, temos P --> Q, Q --> P, logo podemos deduzir P <--> Q\n";
 }
 
 /**
@@ -205,22 +201,6 @@ void resumoExportacao(){
 Apresentação da opções do menu regras.
 */
 void menuRegras(){
-<<<<<<< HEAD
-	cout << "\n --- Lista de Regras --- \n";
-	cout << " 1 - Negacao\n";
-	cout << " 2 - Conjuncao\n";
-	cout << " 3 - Adicao\n";
-	cout << " 4 - Introducao da Equivalencia\n";
-	cout << " 5 - Eliminacao da Equivalencia\n";
-	cout << " 6 - Modus Ponens\n";
-	cout << " 7 - Modus Tollens\n";
-	cout << " 8 - Silogismo Hipotetico\n";
-	cout << " 9 - Silogismo Disjuntivo\n";
-	cout << " 10 - Dilema Construtivo\n";
-	cout << " 11 - Exportacao\n";
-	cout << " 0 - SAIR\n\n";
-	cout << "Digite a sua opcao!\n";
-=======
 	cout << "\n\t\t --- Lista de Regras --- \n";
 	cout << " \t1 - Negação\n";
 	cout << " \t2 - Conjunção\n";
@@ -235,7 +215,6 @@ void menuRegras(){
 	cout << " \t11 - Exportação\n";
 	cout << " \t0 - Voltar ao menu principal\n\n";
 	cout << "Digite a sua opção!\n";
->>>>>>> dddbba271932c50ee4b11223e6752a91487e6390
 }
 
 bool entradaResposta(){
