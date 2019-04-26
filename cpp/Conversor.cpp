@@ -97,17 +97,17 @@ void listOptions(){
 }
 
 void optionsConversionExplanation(){
-    cout << "\n1 - Explicacao sobre conversao BINARIO -> DECIMAL\n";
-    cout << "2 - Explicacao sobre conversao DECIMAL -> BINARIO\n";
-    cout << "3 - Explicacao sobre conversao BINARIO -> FLOAT\n";
-    cout << "4 - Explicacao sobre conversao FLOAT -> BINARIO\n";
+    cout << "\n\t1 - Explicacao sobre conversao BINARIO -> DECIMAL\n";
+    cout << "\t2 - Explicacao sobre conversao DECIMAL -> BINARIO\n";
+    cout << "\t3 - Explicacao sobre conversao BINARIO -> FLOAT\n";
+    cout << "\t4 - Explicacao sobre conversao FLOAT -> BINARIO\n";
 }
 
 void optionsConversion(){
-    cout << "\n1 - Converter BINARIO -> DECIMAL\n";
-    cout << "2 - Converter DECIMAL -> BINARIO\n";
-    cout << "3 - Converter BINARIO -> FLOAT\n";
-    cout << "4-  Converter FLOAT -> BINARIO\n";
+    cout << "\n\t1 - Converter BINARIO -> DECIMAL\n";
+    cout << "\t2 - Converter DECIMAL -> BINARIO\n";
+    cout << "\t3 - Converter BINARIO -> FLOAT\n";
+    cout << "\t4-  Converter FLOAT -> BINARIO\n";
 }
 
 void explanationBinToDec(){
