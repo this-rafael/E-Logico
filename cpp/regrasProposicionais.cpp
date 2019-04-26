@@ -8,7 +8,7 @@ using namespace std;
 void resumoNegacao(){
 	cout << "\n A Dupla Negacao afirma que se temos uma afirmacao verdadeira, logo, se negarmos a negacao dessa afirmacao teremos uma equivalencia com a afirmacao\n";
 	cout << " Como regra de simplicacao, temos que ~(~P) = P\n";
-	cout << "Que saber mais sobre a Dupla Negacao?\n";
+	cout << " Quer saber mais sobre a Dupla Negacao?\n";
 }
 
 /**
@@ -21,15 +21,15 @@ void infoNegacao(){
 	cout << " P = Game of Thrones estreia hoje.\n";
 	cout << " ~P = Game of Thrones NAO estreia hoje.\n";
 	cout << " ~(~P) = Nao eh verdade que Game Of Thrones NAO estreia hoje.\n";
-	
+
 }
 
 /**
 * Apresentação da Conjunção Lógica
 */
 void resumoConjucao(){
-	cout << "\n A conjucao eh a combinacao de preposicoes que soh resultarah verdade se ambas as proposicoes forem verdade.\n";
-	cout << " Como regra de simplicacao, quando temos as preposicoes P, Q, podemos deduzir que  P ^ Q\n";
+	cout << "\n A conjucao eh a combinacao de preposicoes que soh resultarah verdade se ambas as proposicoes forem verdadeiras.\n";
+	cout << " Como regra de simplicacao, quando temos as preposicoes P, Q, podemos deduzir que  P ^ Q.\n";
 	cout << "Quer saber mais sobre a conjuncao?\n";
 }
 
@@ -57,7 +57,7 @@ void resumoAdicao(){
 }
 
 /**
-* Complemento das informações na adição lógica 
+* Complemento das informações na adição lógica
 */
 void infoAdicao(){
 	cout << "\n Na notacao simbolica temos:\n";
@@ -74,8 +74,8 @@ void infoAdicao(){
 * Apresentação da introdução por equivalência.
 */
 void resumoIntroEquivalencia(){
-	cout << "\n Atraves de implicacoes distintas com as mesmas proposicoes, podemos deduzir uma bicondicional entre as proposicoes\n";
-	cout << " No caso, temos P --> Q, Q --> P, logo podemos deduzir P <--> Q\n";
+	cout << "\n Atraves de implicacoes distintas com as mesmas proposicoes, podemos deduzir uma bicondicional entre as proposicoes.\n";
+	cout << " No caso, temos P --> Q, Q --> P, logo podemos deduzir P <--> Q.\n";
 }
 
 /**
@@ -106,7 +106,7 @@ void infoModusPonens(){
 	cout << " P --> Q = Se tocar O vento eu desisto do show\n";
 	cout << " P = Tocou o vento\n";
 	cout << " Q = Eu desisti do show\n";
-	cout << " Podemos deduzir Q pois em uma implicação, só existe uma maneira de se existir falsidade, sendo V --> F. Assim numa implicação quando sabemos que existe veracidade na implicante, dependemos apenas da implicância\n";
+	cout << " Podemos deduzir Q pois em uma implicação, só existe uma maneira de se existir falsidade, sendo V --> F. Assim numa implicação quando sabemos que existe veracidade na implicante, dependemos apenas da implicância.\n";
 }
 
 /**
@@ -205,18 +205,18 @@ void resumoExportacao(){
 */
 void menuRegras(){
 	cout << "\n\t\t --- Lista de Regras --- \n";
-	cout << " \t1 - Negação\n";
-	cout << " \t2 - Conjunção\n";
-	cout << " \t3 - Adição\n";
-	cout << " \t4 - Introdução da Equivalência\n";
-	cout << " \t5 - Eliminação da Equivalência\n";
-	cout << " \t6 - Modus Ponens\n";
-	cout << " \t7 - Modus Tollens\n";
-	cout << " \t8 - Silogismo Hipotético\n";
-	cout << " \t9 - Silogismo Disjuntivo\n";
-	cout << " \t10 - Dilema Construtivo\n";
-	cout << " \t11 - Exportação\n";
-	cout << " \t0 - Voltar ao menu principal\n\n";
+	cout << " \t1 - Negação;\n";
+	cout << " \t2 - Conjunção;\n";
+	cout << " \t3 - Adição;\n";
+	cout << " \t4 - Introdução da Equivalência;\n";
+	cout << " \t5 - Eliminação da Equivalência;\n";
+	cout << " \t6 - Modus Ponens;\n";
+	cout << " \t7 - Modus Tollens;\n";
+	cout << " \t8 - Silogismo Hipotético;\n";
+	cout << " \t9 - Silogismo Disjuntivo;\n";
+	cout << " \t10 - Dilema Construtivo;\n";
+	cout << " \t11 - Exportação;\n";
+	cout << " \t0 - Voltar ao menu principal;\n\n";
 	cout << "Digite a sua opção!\n";
 }
 
@@ -243,93 +243,92 @@ void opcoesRegras(int opc){
 				infoNegacao();
 			}
 			break;
-			
+
 		case(2):
 			resumoConjucao();
 			if (entradaResposta()) {
 				infoConjucao();
 			}
 			break;
-			
+
 		case(3):
 			resumoAdicao();
 			if (entradaResposta()) {
 				infoAdicao();
 			}
 			break;
-			
+
 		case(4):
 			resumoIntroEquivalencia();
 			break;
-			
+
 		case(5):
 			resumoElimEquivalencia();
 			break;
-			
+
 		case(6):
 			resumoModusPonens();
 			if (entradaResposta()) {
 				infoModusPonens();
 			}
 			break;
-			
+
 		case(7):
 			resumoModusTollens();
 			if (entradaResposta()) {
 				infoModusTollens();
 			}
 			break;
-			
+
 		case(8):
 			resumoHipotetico();
 			if (entradaResposta()) {
 				infoHipotetico();
 			}
 			break;
-			
+
 		case(9):
 			resumoDisjuntivo();
 			if (entradaResposta()) {
 				infoDisjuntivo();
 			}
 			break;
-			
+
 		case(10):
 			resumoDilemaConstrutivo();
 			if (entradaResposta()) {
 				infoDilemaConstrutivo();
 			}
 			break;
-			
+
 		case(11):
 			resumoExportacao();
 			break;
-			
+
 		case(0):
 			cout << "Ciao!\n";
 			break;
 		default:
 			cout << "Desculpa, não entendi. Pode repetir?";
-			
-			
+
+
 		}
-	
+
 }
 
 /**
 * Método de execução dos métodos de regras, destinado para ser chamado no Main.
 */
 void execRegras(){
-	//chamando menu
 	int opc;
-	
+
 	while(true){
 		menuRegras();
 		cout << " >> ";
 		cin >> opc;
 		opcoesRegras(opc);
-		
+
 		if (opc == 0) break;
 	}
-	
+
 }

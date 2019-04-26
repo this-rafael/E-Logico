@@ -40,7 +40,7 @@ void execOpcoes(int opc){
             cout << "ISSO É TUDO PESSOAL !!!\n ";
             break;
         default:
-            cout << "Desculpe? pode repetir?\n";
+            cout << " Excuse-me? pode repetir?\n";
       }
 
 }
@@ -56,10 +56,9 @@ void execPrincipal(){
         cout << " >> ";
         cin >> opc;
         execOpcoes(opc);
-        system("CLS");
-        
+
         if (opc == 0) break;
-        
+
     }
 }
 
