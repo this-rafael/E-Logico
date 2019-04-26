@@ -26,7 +26,7 @@ void execOpcoes(int opc){
             break;
         case(2):
             resumoConversor();
-            // execConversor();
+            execConversor();
             break;
         case(3):
             resumoExpressoes();
