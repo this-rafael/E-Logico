@@ -148,7 +148,7 @@ basic_string<char> conjuncao(Literal *valor1, Literal *valor2) {
         if (valor1->proposition == '1' && valor2->proposition == '1') {
             answer = "Sua Expressao resulta em: 1";
         } else {
-            answer = "Sua Expressao resulta em: 1";
+            answer = "Sua Expressao resulta em: 0";
         }
     } else
     {
@@ -162,7 +162,7 @@ basic_string<char> negacao(Literal *valor1) {
     string answer = "";
     if (valor1->unary_operator == '~' && literals_is_equals(valor1->first_value, valor1->second_value)
         && valor1->first_value->unary_operator == '~') {
-        answer = "Sua dupla negacao resulta em: " + literal_to_string(valor1);
+        answer = "Sua dupla negacao resulta em: " + literal_to_string(valor1->first_value);
     }else
     {
         answer = "Nao eh possivel aplicar Negacao nessa expressao.";
