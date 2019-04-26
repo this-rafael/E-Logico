@@ -12,7 +12,7 @@ void execConversor(){
 
     while (true){
         listOptions();
-        cout << ">> ";
+        cout << " >>> ";
         cin >> option;
         switch(option){
 
@@ -22,7 +22,7 @@ void execConversor(){
             case(1):
                 optionsConversionExplanation();
                 int otherOption;
-                cout << ">> ";
+                cout << " >>> ";
                 cin >> otherOption;
 
                 switch(otherOption){
@@ -51,7 +51,7 @@ void execConversor(){
             case(2):
                 optionsConversion();
                 int otherOption2;
-                cout << ">> ";
+                cout << " >>> ";
                 cin >> otherOption2;
 
                 switch(otherOption2){
@@ -81,7 +81,7 @@ void execConversor(){
 
 
         if (option == 0) {
-            cout << "Voltando ao menu inicial";
+            cout << "Voltando ao menu inicial.";
             break;
         }
         system("CLS");
@@ -90,24 +90,24 @@ void execConversor(){
 
 
 void listOptions(){
-    cout << "\nVoce deseja:\n" << endl;
-    cout << "0) Voltar ao menu inicial\n" << endl;
-    cout << "1) Explicacoes sobre conversoes\n" << endl;
-    cout << "2) Realizar conversoes\n" << endl;
+    cout << "\n\t\t --- Opcoes Numericas --- \n";
+    cout << "\t0 - Voltar ao menu inicial\n";
+    cout << "\t1 - Explicacoes sobre conversoes\n";
+    cout << "\t2 - Realizar conversoes\n";
 }
 
 void optionsConversionExplanation(){
-    cout << "\n1) Explicacao sobre conversao BINARIO -> DECIMAL\n" << endl;
-    cout << "2) Explicacao sobre conversao DECIMAL -> BINARIO\n" << endl;
-    cout << "3) Explicacao sobre conversao BINARIO -> FLOAT\n" << endl;
-    cout << "4) Explicacao sobre conversao FLOAT -> BINARIO\n" << endl;
+    cout << "\n1 - Explicacao sobre conversao BINARIO -> DECIMAL\n";
+    cout << "2 - Explicacao sobre conversao DECIMAL -> BINARIO\n";
+    cout << "3 - Explicacao sobre conversao BINARIO -> FLOAT\n";
+    cout << "4 - Explicacao sobre conversao FLOAT -> BINARIO\n";
 }
 
 void optionsConversion(){
-    cout << "\n1) Converter BINARIO -> DECIMAL\n" << endl;
-    cout << "2) Converter DECIMAL -> BINARIO\n" << endl;
-    cout << "3) Converter BINARIO -> FLOAT\n" << endl;
-    cout << "4) Converter FLOAT -> BINARIO\n" << endl;
+    cout << "\n1 - Converter BINARIO -> DECIMAL\n";
+    cout << "2 - Converter DECIMAL -> BINARIO\n";
+    cout << "3 - Converter BINARIO -> FLOAT\n";
+    cout << "4-  Converter FLOAT -> BINARIO\n";
 }
 
 void explanationBinToDec(){

@@ -27,6 +27,7 @@ void execExpressoes() {
 
     int options;
     listarOpcoes();
+    cout << " >>> ";
     cin  >> options;
     cout << endl;
 
