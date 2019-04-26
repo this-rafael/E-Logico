@@ -232,8 +232,6 @@ bool entradaResposta(){
     return resposta == "sim";
 }
 
-
-
 /**
 * Selecionador de opções do menu de regras.
 */
