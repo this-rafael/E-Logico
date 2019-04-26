@@ -27,9 +27,19 @@ void menuOpcoes(){
 * Breve apresentação da função de Tabela-Verdade
 */
 void resumoTabela(){
-    cout << "\nA Tabela Verdade eh um tipo logico de tabela utilizado em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n";
-    cout << "Quer saber como se constroi uma Tabela Verdade?\n";
-
+   cout << "\nA Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n";
+   cout << "Quer saber como se constroi uma Tabela Verdade?\n";
+   cout << " 1 - sim\n 2 - nao\n";
+   cout << " >>> ";
+   int entrada;
+   cin >> entrada;
+   switch(entrada){
+       case(1):
+           infoTabela();
+           break;
+       default:
+           cout << "Okay, entao vamos la!\n";
+     }
 }
 
 /**
