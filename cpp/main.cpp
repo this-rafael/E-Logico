@@ -22,7 +22,7 @@ void execOpcoes(int opc){
     switch(opc){
         case(1):
             resumoTabela();
-            generate_table_from_literal();
+            execGenerateTable();
             break;
         case(2):
             resumoConversor();

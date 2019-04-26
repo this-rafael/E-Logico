@@ -233,7 +233,7 @@ string &build_first_line(const string &propositions1, int number_propositions, s
     return first_line;
 }
 
-void generate_table_from_literal() {
+void execGenerateTable() {
     cout << "Agora vamos montar o literal do qual será criada a tabela!\n";
 
     Literal *l;
