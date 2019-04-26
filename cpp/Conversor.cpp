@@ -111,18 +111,38 @@ void optionsConversion(){
 }
 
 void explanationBinToDec(){
-    cout << "O sistema binario possui somente dois algarismos. Cada posicao do numero em binario tem\n";
-    cout << "um peso de uma potencia de dois (base do sistema binario). Sendo assim, para se converter\n";
-    cout <<	"um numero de binario para decimal, deve-se multiplicar cada bit pela potencia\n";
-    cout <<	"de sua posicao e somar os resultados.\n";
+	cout << "\nO sistema binario possui somente dois algarismos. Cada posicao do numero em binario tem\n";
+	cout << "um peso de uma potencia de dois (base do sistema binario). Sendo assim, para se converter\n";
+	cout <<	"um numero de binario para decimal, deve-se multiplicar cada bit pela potencia\n";
+	cout <<	"de sua posicao e somar os resultados. Considere o numero 00001110 sendo convertido abaixo:\n\n";
+
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|  1 x 2⁷  |   1 x 2⁶  |   1 x 2⁵  |   1 x 2⁴  |   1 x 2³  |   1 x 2²  |   1 x 2¹  |   1 x 2⁰  |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|  0 x 2⁷  |   0 x 2⁶  |   0 x 2⁵  |   0 x 2⁴  |   1 x 2³  |   1 x 2²  |   1 x 2¹  |   0 x 2⁰  |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|    0     |     0     |     0     |     0     |     8     |     4     |     2     |     0     |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|RESULTADO = 0 + 0 + 0 + 0 + 8 + 4 + 2 + 0 => 14 = 00001110                                    |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
 }
 
 
 void explanationDecToBin(){
-    cout << "O sistema decimal possui 10 algarismos. Esses algarismos podem ser obtidos a partir das\n";
-    cout << "potencias de dois. Sendo assim, para se converter um numero decimal para binario, basta\n";
-    cout <<	"representa-lo como uma cadeia de '0' e '1' onde a soma das potencias de dois sinalizadas\n";
-    cout <<	"com '1' seja igual ao numero fornecido.\n";
+	cout << "\nO sistema decimal possui 10 algarismos. Esses algarismos podem ser obtidos a partir das\n";
+	cout << "potencias de dois. Sendo assim, para se converter um numero decimal para binario, basta\n";
+	cout <<	"representa-lo como uma cadeia de '0' e '1' onde a soma das potencias de dois sinalizadas\n";
+	cout <<	"com '1' seja igual ao numero fornecido. Considere o numero 14 sendo convertido abaixo:\n\n";
+
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|    128   |     64    |     32    |     16    |     8     |     4     |     2     |     1     |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|  0 x 2⁷  |   0 x 2⁶  |   0 x 2⁵  |   0 x 2⁴  |   1 x 2³  |   1 x 2²  |   1 x 2¹  |   0 x 2⁰  |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|    0     |     0     |     0     |     0     |     1     |     1     |     1     |     0     |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
+  cout <<	"|RESULTADO = 00001110 = 14                                                                     |\n";
+  cout <<	"|----------------------------------------------------------------------------------------------|\n";
 }
 
 void explanationFloatToBinIEEE754(){
