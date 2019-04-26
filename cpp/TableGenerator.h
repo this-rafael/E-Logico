@@ -37,5 +37,5 @@ bool result(Literal *literal, string propositions, string possibilities );
 
 string get_truth_table(Literal *literal);
 
-void generate_table_from_literal();
+void execGenerateTable();
 #endif //CPP_TABLE_H//
