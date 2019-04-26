@@ -200,7 +200,7 @@ basic_string<char> modus_tollens(Literal *valor1, Literal *valor2) {
     string answer = "";
     if((valor1->binary_operator == '*') && (("~" + literal_to_string(valor1->second_value)) == literal_to_string(valor2)))
     {
-        answer = "Aplicando-se o metodo Modus Tollens, tem-se o resultado da Expressao: " + 
+        answer = "Aplicando-se o metodo Modus Tollens, tem-se o resultado da Expressao: ";
         answer.push_back('~');
         answer += literal_to_string(valor1->first_value);
     } else
