@@ -84,7 +84,6 @@ void execConversor(){
             cout << "Voltando ao menu inicial.";
             break;
         }
-        system("CLS");
     }
 }
 
