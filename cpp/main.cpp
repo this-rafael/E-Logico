@@ -37,7 +37,7 @@ void execOpcoes(int opc){
             execRegras();
             break;
         case(0):
-            cout << "ISSO É TUDO PESSOAL !!!\n ";
+            cout << " ISSO É TUDO PESSOAL !!!\n ";
             break;
         default:
             cout << " Excuse-me? pode repetir?\n";
@@ -53,7 +53,7 @@ void execPrincipal(){
     apresentacaoInicial();
     while (true){
         menuOpcoes();
-        cout << " >> ";
+        cout << " >>> ";
         cin >> opc;
         execOpcoes(opc);
 

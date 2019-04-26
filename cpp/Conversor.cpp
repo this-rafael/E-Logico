@@ -43,7 +43,7 @@ void execConversor(){
                         explanationFloatToBinIEEE754();
                         break;
                     default:
-                        cout << "Desculpe? pode repetir?\n";
+                        cout << " Desculpe? pode repetir?\n";
                         break;
                 }
 
@@ -72,16 +72,16 @@ void execConversor(){
                         operationFloatToBinIEEE754();
                         break;
                     default:
-                        cout << "Desculpe? pode repetir?\n";
+                        cout << " Desculpe? pode repetir?\n";
                 }
                 break;
             default:
-                cout << "Desculpe? pode repetir?\n";
+                cout << " Desculpe? pode repetir?\n";
         }
 
 
         if (option == 0) {
-            cout << "Voltando ao menu inicial.";
+            cout << " Voltando ao menu inicial.";
             break;
         }
     }
@@ -110,10 +110,10 @@ void optionsConversion(){
 }
 
 void explanationBinToDec(){
-	cout << "\nO sistema binario possui somente dois algarismos. Cada posicao do numero em binario tem\n";
-	cout << "um peso de uma potencia de dois (base do sistema binario). Sendo assim, para se converter\n";
-	cout <<	"um numero de binario para decimal, deve-se multiplicar cada bit pela potencia\n";
-	cout <<	"de sua posicao e somar os resultados. Considere o numero 00001110 sendo convertido abaixo:\n\n";
+	cout << "\n O sistema binario possui somente dois algarismos. Cada posicao do numero em binario tem\n";
+	cout << " um peso de uma potencia de dois (base do sistema binario). Sendo assim, para se converter\n";
+	cout <<	" um numero de binario para decimal, deve-se multiplicar cada bit pela potencia\n";
+	cout <<	" de sua posicao e somar os resultados. Considere o numero 00001110 sendo convertido abaixo:\n\n";
 
   cout <<	"|----------------------------------------------------------------------------------------------|\n";
   cout <<	"|  1 x 2⁷  |   1 x 2⁶  |   1 x 2⁵  |   1 x 2⁴  |   1 x 2³  |   1 x 2²  |   1 x 2¹  |   1 x 2⁰  |\n";
@@ -128,10 +128,10 @@ void explanationBinToDec(){
 
 
 void explanationDecToBin(){
-	cout << "\nO sistema decimal possui 10 algarismos. Esses algarismos podem ser obtidos a partir das\n";
-	cout << "potencias de dois. Sendo assim, para se converter um numero decimal para binario, basta\n";
-	cout <<	"representa-lo como uma cadeia de '0' e '1' onde a soma das potencias de dois sinalizadas\n";
-	cout <<	"com '1' seja igual ao numero fornecido. Considere o numero 14 sendo convertido abaixo:\n\n";
+	cout << "\n O sistema decimal possui 10 algarismos. Esses algarismos podem ser obtidos a partir das\n";
+	cout << " potencias de dois. Sendo assim, para se converter um numero decimal para binario, basta\n";
+	cout <<	" representa-lo como uma cadeia de '0' e '1' onde a soma das potencias de dois sinalizadas\n";
+	cout <<	" com '1' seja igual ao numero fornecido. Considere o numero 14 sendo convertido abaixo:\n\n";
 
   cout <<	"|----------------------------------------------------------------------------------------------|\n";
   cout <<	"|    128   |     64    |     32    |     16    |     8     |     4     |     2     |     1     |\n";
@@ -145,36 +145,36 @@ void explanationDecToBin(){
 }
 
 void explanationFloatToBinIEEE754(){
-    cout << "A representacao de numeros de ponto flutuante em binario pelo padrao IEEE 754 tem 32 bits\n";
-    cout << "de precisao. Desses 32 bits, um eh um bit dedicado ao sinal do numero, oito bits sao\n";
-    cout << "dedicados ao expoente do numero e os outros vinte e tres bits restantes sao destinados a\n";
-    cout << "a mantissa do numero. Considere o numero -9.5 sendo convertido abaixo:\n\n";
+    cout << " A representacao de numeros de ponto flutuante em binario pelo padrao IEEE 754 tem 32 bits\n";
+    cout << " de precisao. Desses 32 bits, um eh um bit dedicado ao sinal do numero, oito bits sao\n";
+    cout << " dedicados ao expoente do numero e os outros vinte e tres bits restantes sao destinados a\n";
+    cout << " a mantissa do numero. Considere o numero -9.5 sendo convertido abaixo:\n\n";
 
-    cout << "I) Bit de sinal: 1 (NEGATIVO = 1, POSITIVO = 0)\n";
-    cout << "II) Conversao para binario: 9.5 --> 1001.1\n";
-    cout << "III) Deslocar a virgula e 'esconder' o primeiro bit: 0011\n";
-    cout << "IV) Multiplicar por 2 elevado a quantidade de deslocamentos: 0011 x 2³\n";
-    cout << "VI) Normalizar o expoente somando com 127: 3 + 127 = 130 = 10000010\n";
-    cout << "VII) Agrupar o resultado na forma: bit sinal | expoente | mantissa\n";
-    cout << "VIII) Resultado: 1 | 10000010 | 00110000000000000000000\n";
+    cout << "1) Bit de sinal: 1 (NEGATIVO = 1, POSITIVO = 0)\n";
+    cout << "2) Conversao para binario: 9.5 --> 1001.1\n";
+    cout << "3) Deslocar a virgula e 'esconder' o primeiro bit: 0011\n";
+    cout << "4) Multiplicar por 2 elevado a quantidade de deslocamentos: 0011 x 2³\n";
+    cout << "5) Normalizar o expoente somando com 127: 3 + 127 = 130 = 10000010\n";
+    cout << "6) Agrupar o resultado na forma: bit sinal | expoente | mantissa\n";
+    cout << "7) Resultado: 1 | 10000010 | 00110000000000000000000\n";
 
 }
 
 void explanationBinaryToFloat32(){
-    cout << "Um numero binario de 32 bits pode ser convertido em um numero decimal com sinal. Para isso\n";
-    cout << "realiza-se o inverso das operacoes aplicadas na conversao de numero float para binario.\n";
-    cout << "Considere o numero 11000001000110000000000000000000 sendo convertido abaixo:\n\n";
+    cout << " Um numero binario de 32 bits pode ser convertido em um numero decimal com sinal. Para isso\n";
+    cout << " realiza-se o inverso das operacoes aplicadas na conversao de numero float para binario.\n";
+    cout << " Considere o numero 11000001000110000000000000000000 sendo convertido abaixo:\n\n";
 
-    cout << "I) Subtrair 127 do expoente: 10000010 = 130 => 130 - 127 = 3\n";
-    cout << "II) Retornar o bit escondido: 1.0011\n";
-    cout << "III) Deslocar a virgula: 1.0011 => 1001.1\n";
-    cout << "IV) Converter para binario: 1001.1 = 9.5\n";
-    cout << "V) Adicionar sinal (se for negativo): -9.5\n";
+    cout << "1) Subtrair 127 do expoente: 10000010 = 130 => 130 - 127 = 3\n";
+    cout << "2) Retornar o bit escondido: 1.0011\n";
+    cout << "3) Deslocar a virgula: 1.0011 => 1001.1\n";
+    cout << "4) Converter para binario: 1001.1 = 9.5\n";
+    cout << "5) Adicionar sinal (se for negativo): -9.5\n";
 }
 
 void operationDecToBin(){
     int decimal;
-    cout << "Digite um numero inteiro: " << endl;
+    cout << " Digite um numero inteiro: " << endl;
     cin >> decimal;
     string result = decToBinary(decimal);
     cout << result << endl;
@@ -199,7 +199,7 @@ string decToBinary(int n) {
 
 void operationFloatToBinIEEE754(){
     float f;
-    cout << "Digite um numero float: " << endl;
+    cout << " Digite um numero float: " << endl;
     cin >> f;
     cout << floatToBinIEEE754(f) << endl;
 }
@@ -230,7 +230,7 @@ int Binary2Hex(string Binary) {
 
 void operationBinaryToFloat32(){
     string binary;
-    cout << "Digite um numero binario: " << endl;
+    cout << " Digite um numero binario: " << endl;
     cin >> binary;
     cout << binaryToFloat32(binary) << endl;
 }
@@ -285,7 +285,7 @@ float binaryToFloat32(string Binary) {
 
 void operationBinaryToDec(){
     string binary;
-    cout << "Digite um numero binary: " << endl;
+    cout << " Digite um numero binary: " << endl;
     cin >> binary;
     cout << binaryToDec(binary) << endl;
 }

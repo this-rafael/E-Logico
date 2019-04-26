@@ -30,7 +30,7 @@ void infoNegacao(){
 void resumoConjucao(){
 	cout << "\n A conjucao eh a combinacao de preposicoes que soh resultarah verdade se ambas as proposicoes forem verdadeiras.\n";
 	cout << " Como regra de simplicacao, quando temos as preposicoes P, Q, podemos deduzir que  P ^ Q.\n";
-	cout << "Quer saber mais sobre a conjuncao?\n";
+	cout << " Quer saber mais sobre a conjuncao?\n";
 }
 
 /**
@@ -52,7 +52,7 @@ void infoConjucao(){
 */
 void resumoAdicao(){
 	cout << "\n A adicao irah unir as preposicoes de maneira que se ao menos uma das preposicoes for verdadeira, o resultado serah verdadeiro.\n";
-	cout << "Como regra de simplicacao, temos que ao possuirmos P, P v Q vai ser verdadeiro, assim como  Q v P.\n";
+	cout << " Como regra de simplicacao, temos que ao possuirmos P, P v Q vai ser verdadeiro, assim como  Q v P.\n";
 	cout << "\n Quer saber mais sobre a adicao?\n";
 }
 
@@ -217,7 +217,7 @@ void menuRegras(){
 	cout << " \t10 - Dilema Construtivo;\n";
 	cout << " \t11 - Exportação;\n";
 	cout << " \t0 - Voltar ao menu principal;\n\n";
-	cout << "Digite a sua opção!\n";
+	cout << " Digite a sua opção!\n";
 }
 
 /**
@@ -226,7 +226,7 @@ void menuRegras(){
 bool entradaResposta(){
 	string resposta;
 	cin.ignore();
-	cout << " >> ";
+	cout << " >>> ";
 	getline(cin, resposta);
 
     return resposta == "sim";
@@ -306,10 +306,10 @@ void opcoesRegras(int opc){
 			break;
 
 		case(0):
-			cout << "Ciao!\n";
+			cout << " Ciao!\n";
 			break;
 		default:
-			cout << "Desculpa, não entendi. Pode repetir?";
+			cout << " Desculpa, não entendi. Pode repetir?";
 
 
 		}
@@ -324,7 +324,7 @@ void execRegras(){
 
 	while(true){
 		menuRegras();
-		cout << " >> ";
+		cout << " >>> ";
 		cin >> opc;
 		opcoesRegras(opc);
 
