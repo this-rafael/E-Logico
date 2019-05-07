@@ -1,0 +1,24 @@
+p :: Literal
+p = (Psi "" "p")
+
+q :: Literal
+q = (Psi "" "q")
+
+pandq :: Literal
+pandq =
+    (
+        Expression
+        ""
+        p
+        "v"
+        q
+    )
+qorpandq :: Literal
+qorpandq = 
+    (
+        Expression
+        ""
+        q
+        "|"
+        pandq
+    )
