@@ -22,3 +22,30 @@ qorpandq =
         "|"
         pandq
     )
+
+
+
+
+-- a & b
+
+buildExpression "" (buildProposition "" "a") "&" (buildProposition "" "b")
+
+-- a & (b | c)
+
+buildExpression "" (buildProposition "" "a") "&" (buildExpression "" (buildProposition "" "b") "|" (buildProposition "" "c"))
+
+-- ~(a | (b & c))
+
+buildExpression "~" (buildProposition "" "a") "|" (buildExpression "" (buildProposition "" "b") "&" (buildProposition "" "c"))
+
+-- a
+
+buildProposition "" "a"
+
+-- ~a
+
+buildProposition "~" "a"
+
+-- ~b
+
+buildProposition "~" "b"
