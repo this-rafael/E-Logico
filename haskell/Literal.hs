@@ -124,11 +124,11 @@ literalsIsEquals j k =
                 then
                     (unaryOpEquals j k) && (propositionEquals j k)
                 else 
-                    (1 == 2) -- aqui eu to querendo gerar o valor False mas nao sei como
+                   False
         else
             if(isAtomic j)
             then 
-                (1 == 2)
+                False
             else 
                 (unaryOpEquals j k) && (firstValueIsEquals j k) && (secondValueIsEquals j k) && (binaryOpEquals j k)
 
