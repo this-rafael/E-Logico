@@ -44,25 +44,55 @@ getPropositions expression = removeRepetitions [] (getPropositionsBrute expressi
 
 --                                   Funcoes para gerar a tabela de possibilidades
 
+{-
+Gera uma sequência de n zeros.
+Ex:
+zeroSequence 5 = "00000"
+-}
 zeroSequence :: Int -> [Char]
 zeroSequence 0 = ""
 zeroSequence n = "0" ++ zeroSequence (n-1)
 
+{-
+Completa um binário incompleto com zeros à esquerda para que o número de caracteres seja controlado.
+Ex:
+completeBinary 5 "101" = "00101"
+-}
 completeBinary :: Int -> [Char] -> [Char]
 completeBinary n bin = zeroSequence (n - (length bin)) ++ bin
 
+{-
+Transforma um inteiro em um binario.
+Ex:
+getBinaryIncomplete 5 = "101"
+-}
 getBinaryIncomplete :: Int -> [Char]
 getBinaryIncomplete 0 = ""
 getBinaryIncomplete n | n `mod` 2 == 1 = getBinaryIncomplete (quot n 2) ++ "1"
                       | n `mod` 2 == 0 = getBinaryIncomplete (quot n 2) ++ "0"
 
+{-
+Transforma um inteiro em um binario, mas com controle no tamanho de caracteres.
+Ex:
+getBinary 5 6 = "000101"
+-}
 getBinary :: Int -> Int -> [Char]
 getBinary 0 size = completeBinary size "0"
 getBinary n size = completeBinary size (getBinaryIncomplete n)
 
+{-
+Retorna uma tabela com todas as interpretacoes possiveis para um determinado numero de variaveis.
+Ex:
+getPossibilitiesTable 2 3 = ["00","01","10","11"]
+-}
 getPossibilitiesTable :: Int -> Int -> [[String]]
 getPossibilitiesTable size (-1) = []
 getPossibilitiesTable size n = getPossibilitiesTable size (n-1) ++ [[getBinary n size]]
 
+{-
+Faz o calculo para saber o numero de linhas da tabela e chama o metodo para obtê-la
+Ex:
+callGetPossibilitiesTable 2 = ["00","01","10","11"]
+-}
 callGetPossibilitiesTable :: Int -> [[String]]
 callGetPossibilitiesTable n = getPossibilitiesTable n ((2 ^ n) - 1)
