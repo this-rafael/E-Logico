@@ -174,6 +174,11 @@ isAtomic (Expression unaryOp fValue binaryOp sValue) = False
 isNegative :: Literal -> Bool
 isNegative p = getUnaryOp p == "~"
 
+isValidProposition :: Char -> Bool
+isValidProposition p =
+    if ((elem p ['a'..'z']) || (elem p ['A'..'Z'])) then True
+    else False 
+    
 
 propositionEquals :: Literal -> Literal -> Bool
 propositionEquals p q = ((getUnaryOp p) ++ (getProposition p)) == ((getUnaryOp q) ++ (getProposition q))
