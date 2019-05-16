@@ -179,6 +179,10 @@ isValidProposition p =
     if ((elem p ['a'..'z']) || (elem p ['A'..'Z'])) then True
     else False 
     
+isBinaryOperator :: Char -> Bool
+isBinaryOperator o = 
+    if ((elem o ['*', '#','&', '|'])) then True
+    else False
 
 propositionEquals :: Literal -> Literal -> Bool
 propositionEquals p q = ((getUnaryOp p) ++ (getProposition p)) == ((getUnaryOp q) ++ (getProposition q))
@@ -216,13 +220,10 @@ secondValueIsEquals
         literalsIsEquals sValue1 sValue2
 
 
+
+
 unaryOpEquals :: Literal -> Literal -> Bool
 unaryOpEquals p q = getUnaryOp p == getUnaryOp q 
-
-
-
-
-
 
 
 
@@ -240,6 +241,6 @@ main = do
     let literalk = (buildProposition "~"  "q") 
 
     putStrLn $ literalToString literalk
-    putStrLn $ show $ literalsIsEquals qorpandq pandq
+   -- putStrLn $ show $ literalsIsEquals qorpandq pandq
 
 
