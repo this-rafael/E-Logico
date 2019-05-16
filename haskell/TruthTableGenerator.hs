@@ -40,3 +40,29 @@ getPropositionsBrute "(p | (p & r))" = "pqr"
 -}
 getPropositions :: [Char] -> [Char]
 getPropositions expression = removeRepetitions [] (getPropositionsBrute expression)
+
+
+--                                   Funcoes para gerar a tabela de possibilidades
+
+zeroSequence :: Int -> [Char]
+zeroSequence 0 = ""
+zeroSequence n = "0" ++ zeroSequence (n-1)
+
+completeBinary :: Int -> [Char] -> [Char]
+completeBinary n bin = zeroSequence (n - (length bin)) ++ bin
+
+getBinaryIncomplete :: Int -> [Char]
+getBinaryIncomplete 0 = ""
+getBinaryIncomplete n | n `mod` 2 == 1 = getBinaryIncomplete (quot n 2) ++ "1"
+                      | n `mod` 2 == 0 = getBinaryIncomplete (quot n 2) ++ "0"
+
+getBinary :: Int -> Int -> [Char]
+getBinary 0 size = completeBinary size "0"
+getBinary n size = completeBinary size (getBinaryIncomplete n)
+
+getPossibilitiesTable :: Int -> Int -> [[String]]
+getPossibilitiesTable size (-1) = []
+getPossibilitiesTable size n = getPossibilitiesTable size (n-1) ++ [[getBinary n size]]
+
+callGetPossibilitiesTable :: Int -> [[String]]
+callGetPossibilitiesTable n = getPossibilitiesTable n ((2 ^ n) - 1)
