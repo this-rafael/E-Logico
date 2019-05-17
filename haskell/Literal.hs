@@ -172,7 +172,9 @@ isAtomic (Expression unaryOp fValue binaryOp sValue) = False
 
 
 isNegative :: Literal -> Bool
-isNegative p = getUnaryOp p == "~"
+isNegative p = 
+    if (getUnaryOp p == "~") then True
+    else False
 
 isValidProposition :: Char -> Bool
 isValidProposition p =

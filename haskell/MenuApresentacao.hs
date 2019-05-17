@@ -16,7 +16,7 @@ module MenuApresentacao where
         putStrLn " 4 - Aprendendo as regras basicas de proposicoes"
         putStrLn " 0 - SAIR\n"
         putStrLn " Digite a sua opcao!"
-        putStrLn " >>> "
+        putStr " >>> "
         
     -- Breve apresentação da função de Tabela-Verdade
     resumoTabela :: IO ()
@@ -24,7 +24,7 @@ module MenuApresentacao where
         putStrLn "\n A Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n"
         putStrLn " Quer saber como se constroi uma Tabela Verdade?\n"
         putStrLn " 1 - sim\n 2 - nao\n"
-        putStrLn " >>> "
+        putStr " >>> "
         entrada <- readLn :: IO Int
         execInfoTabela entrada
 
