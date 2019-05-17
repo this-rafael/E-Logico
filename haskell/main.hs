@@ -1,4 +1,5 @@
 import MenuApresentacao
+import Lit
 
 -- Método main do programa
 main :: IO ()
@@ -25,6 +26,9 @@ execOpcoes opc
         MenuApresentacao.resumoRegras
         -- execRegras
         execMenuApresentacao
+
+   -- |opc == 5 = teste de comp do Lit 
+   --     putStrLn (Lit.aboutALiteral)
     |otherwise = do
         putStrLn (" Excuse-me? Pode repetir?\n")
         execMenuApresentacao
