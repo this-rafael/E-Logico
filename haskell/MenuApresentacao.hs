@@ -9,7 +9,7 @@ module MenuApresentacao where
     -- Apresentação do menu de entrada
     menuOpcoes :: IO ()
     menuOpcoes = do
-        putStrLn "\nMENU: \n";
+        putStrLn "\nMENU: \n"
         putStrLn " 1 - Aprendendo a formular uma Tabela-Verdade!"
         putStrLn " 2 - Aprendendo a converter (Bin - Dec) <---> (Dec - Bin)!"
         putStrLn " 3 - Aprendendo a simplificar expressoes proposicionais!"

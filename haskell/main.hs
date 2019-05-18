@@ -1,4 +1,5 @@
 import MenuApresentacao
+import RegrasProposicionais
 import Lit
 
 -- Método main do programa
@@ -24,7 +25,7 @@ execOpcoes opc
         execMenuApresentacao
     |opc == 4 = do
         MenuApresentacao.resumoRegras
-        -- execRegras
+        RegrasProposicionais.execRegras
         execMenuApresentacao
 
    -- |opc == 5 = teste de comp do Lit 
