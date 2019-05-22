@@ -87,16 +87,16 @@ module TruthTableGenerator where
     Ex:
     getPossibilitiesTable 2 3 = ["00","01","10","11"]
     -}
-    getPossibilitiesTable :: Int -> Int -> [[String]]
+    getPossibilitiesTable :: Int -> Int -> [[Char]]
     getPossibilitiesTable size (-1) = []
-    getPossibilitiesTable size n = getPossibilitiesTable size (n-1) ++ [[getBinary n size]]
+    getPossibilitiesTable size n = getPossibilitiesTable size (n-1) ++ [getBinary n size]
 
     {-
     Faz o calculo para saber o numero de linhas da tabela e chama o metodo para obtê-la
     Ex:
     callGetPossibilitiesTable 2 = ["00","01","10","11"]
     -}
-    callGetPossibilitiesTable :: Int -> [[String]]
+    callGetPossibilitiesTable :: Int -> [[Char]]
     callGetPossibilitiesTable n = getPossibilitiesTable n ((2 ^ n) - 1)
 
 
@@ -122,15 +122,19 @@ module TruthTableGenerator where
                                                 | binOp == "*" = checkUnOP ((not (result v1 list poss)) || (result v2 list poss)) unOp
                                                 | otherwise = checkUnOP (((result v1 list poss) && (result v2 list poss)) || (( not (result v1 list poss)) && ( not (result v2 list poss)))) unOp
 
+    resToString :: Bool -> String
+    resToString True = "1"
+    resToString False = "0"
+
     {-
     métodos de criação da tabela, falta a introdução da proposição 
     -}
     firstLine :: [Char] -> [Char]
-    firstLine "" = "| Resposta "
+    firstLine "" = "| Resultado "
     firstLine (x:xs) = [x] ++ " " ++ (firstLine xs)  
 
-    otherLine :: [Char] ->[Char] -> [Char] -> Literal -> [Char]
-    otherLine "" valor prop  lit = "| " ++ "1 "  
+    otherLine :: [Char] -> [Char] -> [Char] -> Literal -> [Char]
+    otherLine "" valor prop  lit = "| " ++ resToString(result lit prop valor) 
     otherLine (x:xs) valor prop lit = [x] ++ " " ++ (otherLine xs valor prop lit)
 
     tailTable :: [[Char]] -> [Char] -> Literal ->[Char]
@@ -140,6 +144,20 @@ module TruthTableGenerator where
     table :: [[Char]] -> [Char] -> Literal -> [Char]
     table lista prop lit =  (firstLine prop) ++ "\n" ++ (tailTable lista prop lit )
 
+    callTable :: Literal -> IO()
+    callTable lit = putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
+
     -- testando a implementação do módulo
     teste :: IO()
     teste = putStrLn "deu certo implementar o módulo"
+
+    -- testando a tabela
+    a :: IO ()
+    a = putStrLn $ table ["000","001","010","011","100","101","110","111"] "abc" (Expression "" (Proposition "" "a") "&" ((Expression "" (Proposition "" "b") "&" (Proposition "" "c"))))
+
+    execTruthTable :: IO()
+    execTruthTable = callTable (Expression "" (Proposition "" "a") "&" ((Expression "" (Proposition "" "b") "&" (Proposition "" "c"))))
+
+
+
+    
