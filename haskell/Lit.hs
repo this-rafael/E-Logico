@@ -224,20 +224,3 @@ module Lit  where
     unaryOpEquals :: Literal -> Literal -> Bool
     unaryOpEquals p q = getUnaryOp p == getUnaryOp q 
 
-
-    --main :: IO()
-    --main = do 
-      --  putStrLn printInfo
-      --  putStrLn aboutALiteral
-
-      --  let test = (ioLiteralToLiteral _receiveInput)
-      --  let literal = (buildProposition "~"  "p") 
-        
-       -- putStrLn $ literalToString  literal
-
-      --  let literalk = (buildProposition "~"  "q") 
-
-      --  putStrLn $ literalToString literalk
-    --- putStrLn $ show $ literalsIsEquals qorpandq pandq
-
-
