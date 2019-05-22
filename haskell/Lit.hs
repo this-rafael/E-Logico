@@ -133,7 +133,7 @@ module Lit  where
 
     interativePropositionConstruct:: IO(Literal)
     interativePropositionConstruct = do 
-        putStrLn " Digite a Variavel associada a sua Proposicao:"
+        putStrLn " Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"
         putStr ">>> "
         basicString <- getLine
         if(length basicString == 2)
