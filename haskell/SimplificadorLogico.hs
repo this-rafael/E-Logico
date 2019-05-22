@@ -11,6 +11,7 @@ module SimplificadorLogico where
     --
     -- Mantem, Renova Expressao ou Menu Principal
 
+
     -- Executavel
     execSimplificador :: IO()
     execSimplificador = do
@@ -27,12 +28,10 @@ module SimplificadorLogico where
             putStrLn "Voltando ao menu inicial"
         else 
             auxExe
-            -- 
-            -- putStrLn "ooi"
 
     auxExe :: IO()
     auxExe = do
-        putStrLn "Primeiro digite o literal que deseja-se aplicar a avaliacao"
+        putStrLn "Primeiro digite a expressao que deseja-se aplicar a avaliacao"
         lit <- Lit._receiveInput
         executandoOpcao lit
 
@@ -55,7 +54,7 @@ module SimplificadorLogico where
         then
             putStrLn "Saindo..."
         else
-            putStrLn "OPÇÃO INVALIDA"
+            putStrLn "OPCAO INVALIDA"
 
     criaNovoLiteral :: IO()
     criaNovoLiteral = do
