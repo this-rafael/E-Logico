@@ -1,4 +1,5 @@
 module TruthTableGenerator where 
+
     import Lit
     --                                   Funcoes para obter as proposicoes da tabela
 
@@ -128,18 +129,18 @@ module TruthTableGenerator where
     firstLine "" = "| Resposta "
     firstLine (x:xs) = [x] ++ " " ++ (firstLine xs)  
 
-    otherLine :: [Char] -> [Char]
-    otherLine "" = "| " ++ "1 "  
-    otherLine (x:xs) = [x] ++ " " ++ (otherLine xs)
+    otherLine :: [Char] ->[Char] -> [Char] -> Literal -> [Char]
+    otherLine "" valor prop  lit = "| " ++ "1 "  
+    otherLine (x:xs) valor prop lit = [x] ++ " " ++ (otherLine xs valor prop lit)
 
-    tailTable :: [[Char]] ->[Char]
-    tailTable [] = ""
-    tailTable (x:xs) = otherLine x ++ "\n" ++ tailTable xs
+    tailTable :: [[Char]] -> [Char] -> Literal ->[Char]
+    tailTable [] prop lit = ""
+    tailTable (x:xs) prop lit = otherLine x x prop lit ++ "\n" ++ tailTable xs prop lit
 
-    table :: [[Char]] -> [Char] -> IO()
-    table lista prop = do
+    table :: [[Char]] -> [Char] -> Literal -> IO()
+    table lista prop lit = do
         putStrLn (firstLine prop) 
-        putStrLn (tailTable lista)
+        putStrLn (tailTable lista prop lit )
 
     -- testando a implementação do módulo
     teste :: IO()
