@@ -1,6 +1,5 @@
 import MenuApresentacao
 import RegrasProposicionais
-import Lit
 import TruthTableGenerator
 
 -- Método main do programa
@@ -30,8 +29,6 @@ execOpcoes opc
         RegrasProposicionais.execRegras
         execMenuApresentacao
 
-   -- |opc == 5 = teste de comp do Lit 
-   --     putStrLn (Lit.aboutALiteral)
     |otherwise = do
         putStrLn (" Excuse-me? Pode repetir?\n")
         execMenuApresentacao
