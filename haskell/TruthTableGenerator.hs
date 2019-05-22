@@ -1,4 +1,4 @@
-import Literal
+import Lit
 --                                   Funcoes para obter as proposicoes da tabela
 
 {-
@@ -96,3 +96,26 @@ callGetPossibilitiesTable 2 = ["00","01","10","11"]
 -}
 callGetPossibilitiesTable :: Int -> [[String]]
 callGetPossibilitiesTable n = getPossibilitiesTable n ((2 ^ n) - 1)
+
+
+
+--                                   Funcoes para obter os resultados
+
+getPropPosition :: [Char] -> [Char] -> Int
+getPropPosition prop (h:t) | prop == [h] = 0
+                           | otherwise = 1 + getPropPosition prop t 
+
+getPropositionValue :: [Char] -> [Char] -> [Char] -> Bool
+getPropositionValue prop list poss | (poss !! (getPropPosition prop list)) == '0' = False
+                                   | otherwise = True
+
+checkUnOP :: Bool -> String -> Bool
+checkUnOP value unOp | unOp == "~" = not value
+                     | otherwise = value
+
+result :: Literal -> [Char] -> [Char] -> Bool
+result (Proposition unOp prop) list poss = checkUnOP (getPropositionValue prop list poss) unOp
+result (Expression unOp v1 binOp v2) list poss | binOp == "&" = checkUnOP ((result v1 list poss) && (result v2 list poss)) unOp
+                                               | binOp == "|" = checkUnOP ((result v1 list poss) || (result v2 list poss)) unOp
+                                               | binOp == "*" = checkUnOP ((not (result v1 list poss)) || (result v2 list poss)) unOp
+                                               | otherwise = checkUnOP (((result v1 list poss) && (result v2 list poss)) || (( not (result v1 list poss)) && ( not (result v2 list poss)))) unOp
