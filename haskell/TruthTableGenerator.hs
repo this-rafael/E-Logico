@@ -129,9 +129,9 @@ module TruthTableGenerator where
     {-
     métodos de criação da tabela, falta a introdução da proposição 
     -}
-    firstLine :: [Char] -> [Char]
-    firstLine "" = "| Resultado "
-    firstLine (x:xs) = [x] ++ " " ++ (firstLine xs)  
+    firstLine :: [Char] -> [Char] -> [Char]
+    firstLine "" exp = "| " ++ exp
+    firstLine (x:xs) exp = [x] ++ " " ++ (firstLine xs exp)  
 
     otherLine :: [Char] -> [Char] -> [Char] -> Literal -> [Char]
     otherLine "" valor prop  lit = "| " ++ resToString(result lit prop valor) 
@@ -142,7 +142,7 @@ module TruthTableGenerator where
     tailTable (x:xs) prop lit = otherLine x x prop lit ++ "\n" ++ tailTable xs prop lit
 
     table :: [[Char]] -> [Char] -> Literal -> [Char]
-    table lista prop lit =  (firstLine prop) ++ "\n" ++ (tailTable lista prop lit )
+    table lista prop lit =  (firstLine prop (literalToString lit)) ++ "\n" ++ (tailTable lista prop lit )
 
     callTable :: Literal -> IO()
     callTable lit = putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
@@ -155,9 +155,52 @@ module TruthTableGenerator where
     a :: IO ()
     a = putStrLn $ table ["000","001","010","011","100","101","110","111"] "abc" (Expression "" (Proposition "" "a") "&" ((Expression "" (Proposition "" "b") "&" (Proposition "" "c"))))
 
+    -- execTruthTable :: IO()
+    -- execTruthTable = callTable (Expression "" (Proposition "" "a") "&" ((Expression "" (Proposition "" "b") "&" (Proposition "" "c"))))
+
+ 
+
+
+
+    --                               MAIN
+
     execTruthTable :: IO()
-    execTruthTable = callTable (Expression "" (Proposition "" "a") "&" ((Expression "" (Proposition "" "b") "&" (Proposition "" "c"))))
-
-
-
+    execTruthTable = do
+        putStrLn "0. Retornar ao Menu."
+        putStrLn "1. Tutorial como inserir expressao."
+        putStrLn "2. Gerar a tabela verdade de uma expressao."
+        escolherOpcoes
     
+    escolherOpcoes :: IO()
+    escolherOpcoes = do
+        opcao <- readLn :: IO Int
+        if (opcao == 0)
+        then
+            putStrLn "Voltando ao menu inicial"
+        else if (opcao == 1)
+        then
+            explicaLit
+        else
+            auxExe
+
+    auxExe :: IO()
+    auxExe = do
+        putStrLn "Primeiro digite o literal que deseja-se aplicar a avaliacao"
+        lit <- Lit._receiveInput
+        putStrLn "\n\nEssa eh a tabela verdade da expressao:"
+        callTable lit
+        -- executandoOpcao lit
+
+    explicaLit :: IO()
+    explicaLit = do
+        putStrLn "---------------------------------------------------------------------------------"
+        putStrLn "\n\nUm literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"
+        putStrLn "- Um operador unario (~, ) para dizer se o valor da expressao eh negado;"
+        putStrLn "- Um valor A: esse valor pode ser uma outra expressao ou uma simples proposicao;"
+        putStrLn "- Um operador binario (&,|,*,#), que serve para dizer se a expressao eh uma conjuncao, uma disjuncao, uma implicacao ou uma bi-implicacao;"
+        putStrLn "- Um valor B: esse valor pode ser uma outra expressao ou uma simples proposicao;\n"     
+        putStrLn "Uma proposicao eh formada por:"
+        putStrLn "- Um operador unario (~, ) para dizer se o valor da proposicao eh negado;"
+        putStrLn "- Um valor: esse valor eh obrigatoriamente uma string, que no caso, vai ser a letra que representa a proposicao."
+        putStrLn "Agora que ja sabemos como eh formado um literal, podemos criar um a seguir:\n"
+        auxExe
