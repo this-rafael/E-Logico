@@ -1,6 +1,7 @@
 import MenuApresentacao
 import RegrasProposicionais
 import Lit
+import TruthTableGenerator
 
 -- Método main do programa
 main :: IO ()
@@ -13,6 +14,7 @@ execOpcoes opc
         putStrLn (" ISSO É TUDO PESSOAL!!! ")
     |opc == 1 = do
         MenuApresentacao.resumoTabela
+        TruthTableGenerator.teste -- só um teste 
         -- execGenerateTable
         execMenuApresentacao
     |opc == 2 = do
