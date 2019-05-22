@@ -31,7 +31,7 @@ module TruthTableGenerator where
     -}
     getPropositionsBrute :: [Char] -> [Char]
     getPropositionsBrute [] = []
-    getPropositionsBrute (head:tail) | notIn head "|&() " = [head] ++ getPropositionsBrute tail
+    getPropositionsBrute (head:tail) | notIn head "|&()*# " = [head] ++ getPropositionsBrute tail
                                     | otherwise = getPropositionsBrute tail
 
     {-
@@ -145,20 +145,12 @@ module TruthTableGenerator where
     table lista prop lit =  (firstLine prop (literalToString lit)) ++ "\n" ++ (tailTable lista prop lit )
 
     callTable :: Literal -> IO()
-    callTable lit = putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
-
-    -- testando a implementação do módulo
-    teste :: IO()
-    teste = putStrLn "deu certo implementar o módulo"
-
-    -- testando a tabela
-    a :: IO ()
-    a = putStrLn $ table ["000","001","010","011","100","101","110","111"] "abc" (Expression "" (Proposition "" "a") "&" ((Expression "" (Proposition "" "b") "&" (Proposition "" "c"))))
-
-    -- execTruthTable :: IO()
-    -- execTruthTable = callTable (Expression "" (Proposition "" "a") "&" ((Expression "" (Proposition "" "b") "&" (Proposition "" "c"))))
-
- 
+    callTable lit = do
+        putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
+        putStrLn "\nDeseja criar uma nova tabela ou voltar ao menu?"
+        putStrLn "0 - Criar nova!"
+        putStrLn "1 - Voltar ao menu!"
+        repeatTruthTable
 
 
 
@@ -167,8 +159,8 @@ module TruthTableGenerator where
     execTruthTable :: IO()
     execTruthTable = do
         putStrLn "0. Retornar ao Menu."
-        putStrLn "1. Tutorial como inserir expressao."
-        putStrLn "2. Gerar a tabela verdade de uma expressao."
+        putStrLn "1. Tutorial como inserir expressao e criar uma tabela verdade."
+        putStrLn "2. Apenas gerar a tabela verdade de uma expressao."
         escolherOpcoes
     
     escolherOpcoes :: IO()
@@ -187,9 +179,17 @@ module TruthTableGenerator where
     auxExe = do
         putStrLn "Primeiro digite o literal que deseja-se aplicar a avaliacao"
         lit <- Lit._receiveInput
-        putStrLn "\n\nEssa eh a tabela verdade da expressao:"
+        putStrLn "\nEssa eh a tabela verdade da expressao:"
         callTable lit
-        -- executandoOpcao lit
+
+    repeatTruthTable :: IO()
+    repeatTruthTable = do
+        op <- readLn :: IO Int
+        if (op == 0)
+        then
+            execTruthTable
+        else
+            putStrLn "Voltando ao menu inicial"
 
     explicaLit :: IO()
     explicaLit = do
