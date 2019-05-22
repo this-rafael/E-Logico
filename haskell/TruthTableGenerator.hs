@@ -137,10 +137,8 @@ module TruthTableGenerator where
     tailTable [] prop lit = ""
     tailTable (x:xs) prop lit = otherLine x x prop lit ++ "\n" ++ tailTable xs prop lit
 
-    table :: [[Char]] -> [Char] -> Literal -> IO()
-    table lista prop lit = do
-        putStrLn (firstLine prop) 
-        putStrLn (tailTable lista prop lit )
+    table :: [[Char]] -> [Char] -> Literal -> [Char]
+    table lista prop lit =  (firstLine prop) ++ "\n" ++ (tailTable lista prop lit )
 
     -- testando a implementação do módulo
     teste :: IO()
