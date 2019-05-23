@@ -231,6 +231,8 @@ module TruthTableGenerator where
     --                              ##   MAIN   ##
 
     {-
+    Funcao principal.
+    Da as boas vindas e chama o menu de opcoes.
     -}
     execTruthTable :: IO()
     execTruthTable = do
@@ -239,6 +241,8 @@ module TruthTableGenerator where
     
 
     {-
+    Mostra as opcoes para o usuario.
+    Chama a funcao de escolha de opcoes.
     -}
     printOptions :: IO()
     printOptions = do
@@ -250,6 +254,11 @@ module TruthTableGenerator where
         escolherOpcoes
 
     {-
+    Menu de opcoes:
+    0 - Retorna ao menu principal
+    1 - Chama a funcao que mostra uma explicacao sobre a tabela verdade.
+    2 - Chama a funcao que explica como montar um literal.
+    3 - Chama a funcao auxiliar para montar o literal.
     -}
     escolherOpcoes :: IO()
     escolherOpcoes = do
@@ -267,6 +276,8 @@ module TruthTableGenerator where
             auxExe
 
     {-
+    Recebe o literal do usuario e chama a funcao de montagem da tabela
+    para o literal montado pelo usuario.
     -}
     auxExe :: IO()
     auxExe = do
@@ -276,6 +287,9 @@ module TruthTableGenerator where
         callTable lit
 
     {-
+    Escolha do usuario:
+    0 - Voltar ao menu principal
+    1 - Montar outra tabela
     -}
     repeatTruthTable :: IO()
     repeatTruthTable = do
@@ -287,6 +301,7 @@ module TruthTableGenerator where
             printOptions
 
     {-
+    Explicacao sobre a tabela verdade.
     -}
     explicaTable :: IO()
     explicaTable = do
@@ -304,6 +319,7 @@ module TruthTableGenerator where
         printOptions
 
     {-
+    Explicacao sobre literal.
     -}
     explicaLit :: IO()
     explicaLit = do
