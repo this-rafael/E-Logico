@@ -107,6 +107,12 @@ module Lit  where
     getProposition :: Literal -> String
     getProposition (Proposition unaryOp value) = value
 
+    getFValue:: Literal -> Literal
+    getFValue (Expression unaryOp fValue binaryOp sValue) = fValue
+
+    getSValue:: Literal -> Literal
+    getSValue (Expression unaryOp fValue binaryOp sValue) = sValue
+
     literalToString :: Literal -> String
     literalToString (Proposition unaryOp value) = unaryOp ++ "" ++ value
     literalToString (Expression unaryOp fValue binaryOp sValue) = unaryOp ++ "(" ++ (literalToString fValue) ++" "++ binaryOp ++" "++ (literalToString sValue) ++ ")"
