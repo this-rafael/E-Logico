@@ -44,9 +44,9 @@ module MenuApresentacao where
     -}
     resumoTabela :: IO ()
     resumoTabela = do
-        putStrLn "\n A Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n"
-        putStrLn " Quer saber como se constroi uma Tabela Verdade?\n"
-        putStrLn " 1 - sim\n 2 - nao\n"
+        putStrLn "\nA Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n"
+        putStrLn "Quer saber como se constroi uma Tabela Verdade?\n"
+        putStrLn "1. Sim\n2. Nao\n"
         putStr " >>> "
         entrada <- readLn :: IO Int
         execInfoTabela entrada
@@ -63,11 +63,11 @@ module MenuApresentacao where
     -}
     infoTabela :: IO ()
     infoTabela = do
-        putStrLn "\nCOMO CONSTRUIR UMA TABELA?\n\n"
-        putStrLn " a) O numero de linhas contidas em uma Tabela Verdade vai ser calculada por Linhas = 2^n, onde (n) eh a quantidade de preposicoes.\n "
-        putStrLn " b) Incluimos nas linhas valores correspondentes em binario de (0 ... [2^n - 1]). Exemplo: Com uma tabela de 2 preposicoes teremos 4 linhas, em linha[1] = 0 0, 0 em binario com 2 casas decimais. na linha[2] = 0 1, 1 em binario com 2 casas. linha[3] = 1 0 , linha[4] = 1 1 \n"
-        putStrLn " c) Enquanto ao numero de colunas, vai depender de voce, mas temos que ter obrigatoriamente n colunas + 1. Onde n eh definido como o numero de preposicoes e 1 coluna de resposta.\n"
-        putStrLn " d) Na coluna de resposta, temos o resultado das operacoes. Cada linha com seu respectivo bit resposta\n"
+        putStrLn "\nCOMO CONSTRUIR UMA TABELA MANUALMENTE?\n"
+        putStrLn "a) O numero de linhas contidas em uma Tabela Verdade vai ser calculada por Linhas = 2^n, onde (n) eh a quantidade de preposicoes.\n "
+        putStrLn "b) Incluimos nas linhas valores correspondentes em binario de (0 ... [2^n - 1]). Exemplo: Com uma tabela de 2 preposicoes teremos 4 linhas, em linha[1] = 0 0, 0 em binario com 2 casas decimais. na linha[2] = 0 1, 1 em binario com 2 casas. linha[3] = 1 0 , linha[4] = 1 1 \n"
+        putStrLn "c) Enquanto ao numero de colunas, vai depender de voce, mas temos que ter obrigatoriamente n colunas + 1. Onde n eh definido como o numero de preposicoes e 1 coluna de resposta.\n"
+        putStrLn "d) Na coluna de resposta, temos o resultado das operacoes. Cada linha com seu respectivo bit resposta\n"
 
     {-
     Breve apresentação sobre o conversor binário

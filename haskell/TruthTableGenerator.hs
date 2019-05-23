@@ -222,7 +222,8 @@ module TruthTableGenerator where
     callTable :: Literal -> IO()
     callTable lit = do
         putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
-        putStrLn "Deseja criar uma nova tabela ou voltar ao menu?"
+        putStrLn "-----------------------------------------------------------\n"
+        putStrLn "Deseja criar uma nova tabela ou voltar ao menu?\n"
         putStrLn "0 - Voltar ao menu!"
         putStrLn "1 - Criar nova!"
         repeatTruthTable
@@ -236,7 +237,7 @@ module TruthTableGenerator where
     -}
     execTruthTable :: IO()
     execTruthTable = do
-        putStrLn "\nBem vindo ao gerador de Tabela Verdade!"
+        putStrLn "--------------GERADOR DE TABELA VERDADE-------------------"
         printOptions
     
 
@@ -262,14 +263,16 @@ module TruthTableGenerator where
     -}
     escolherOpcoes :: IO()
     escolherOpcoes = do
-        opcao <- readLn :: IO Int
-        if (opcao == 0)
+        putStr ">>> "
+        op <- readLn :: IO Int
+        putStr "\n"
+        if (op == 0)
         then
             putStrLn "\nVolte sempre!\n"
-        else if (opcao == 1)
+        else if (op == 1)
         then
             explicaTable
-        else if (opcao == 2)
+        else if (op == 2)
         then
             explicaLit
         else
@@ -283,7 +286,8 @@ module TruthTableGenerator where
     auxExe = do
         putStrLn "Primeiro digite o literal que deseja-se aplicar a avaliacao"
         lit <- Lit._receiveInput
-        putStrLn "\nEssa eh a tabela verdade da expressao:"
+        putStrLn "\nEssa eh a tabela verdade da expressao:\n"
+        putStrLn "--------------------TABELA VERDADE------------------------\n"
         callTable lit
 
     {-
@@ -293,7 +297,9 @@ module TruthTableGenerator where
     -}
     repeatTruthTable :: IO()
     repeatTruthTable = do
+        putStr ">>> "
         op <- readLn :: IO Int
+        putStr "\n"
         if (op == 0)
         then
             putStrLn "\nVolte sempre!\n"
