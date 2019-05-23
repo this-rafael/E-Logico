@@ -44,9 +44,9 @@ module MenuApresentacao where
     -}
     resumoTabela :: IO ()
     resumoTabela = do
-        putStrLn "\nA Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n"
+        putStrLn "\n A Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n"
         putStrLn " Quer saber como se constroi uma Tabela Verdade?\n"
-        putStrLn " 1. Sim\n2. Nao\n"
+        putStrLn " 1. Sim\n 2. Nao\n"
         putStr " >>> "
         entrada <- readLn :: IO Int
         execInfoTabela entrada
