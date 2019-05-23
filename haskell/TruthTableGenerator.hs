@@ -1,7 +1,9 @@
 module TruthTableGenerator where 
 
     import Lit
-    --                                   Funcoes para obter as proposicoes da tabela
+
+
+    --                                  0 Funcoes para obter as proposicoes da tabela
 
     {-
     Verifica se um char NAO estah contido em uma string.
@@ -22,7 +24,7 @@ module TruthTableGenerator where
     removeRepetitions :: [Char] -> [Char] -> [Char]
     removeRepetitions list [] = []
     removeRepetitions list (head:tail) | notIn head list = [head] ++ removeRepetitions (list ++ [head]) tail
-                                    | otherwise = removeRepetitions list tail
+                                       | otherwise = removeRepetitions list tail
 
     {-
     Obtem as proposicoes recebendo a expressao, mas com repeticoes.
@@ -32,7 +34,7 @@ module TruthTableGenerator where
     getPropositionsBrute :: [Char] -> [Char]
     getPropositionsBrute [] = []
     getPropositionsBrute (head:tail) | notIn head "|&()*#~ " = [head] ++ getPropositionsBrute tail
-                                    | otherwise = getPropositionsBrute tail
+                                     | otherwise = getPropositionsBrute tail
 
     {-
     Obtem as proposicoes recebendo a expressao.
@@ -71,7 +73,7 @@ module TruthTableGenerator where
     getBinaryIncomplete :: Int -> [Char]
     getBinaryIncomplete 0 = ""
     getBinaryIncomplete n | n `mod` 2 == 1 = getBinaryIncomplete (quot n 2) ++ "1"
-                        | n `mod` 2 == 0 = getBinaryIncomplete (quot n 2) ++ "0"
+                          | n `mod` 2 == 0 = getBinaryIncomplete (quot n 2) ++ "0"
 
     {-
     Transforma um inteiro em um binario, mas com controle no tamanho de caracteres.
@@ -100,7 +102,6 @@ module TruthTableGenerator where
     callGetPossibilitiesTable n = getPossibilitiesTable n ((2 ^ n) - 1)
 
 
-
     --                                   Funcoes para obter os resultados
 
     getPropPosition :: [Char] -> [Char] -> Int
@@ -118,17 +119,17 @@ module TruthTableGenerator where
     result :: Literal -> [Char] -> [Char] -> Bool
     result (Proposition unOp prop) list poss = checkUnOP (getPropositionValue prop list poss) unOp
     result (Expression unOp v1 binOp v2) list poss | binOp == "&" = checkUnOP ((result v1 list poss) && (result v2 list poss)) unOp
-                                                | binOp == "|" = checkUnOP ((result v1 list poss) || (result v2 list poss)) unOp
-                                                | binOp == "*" = checkUnOP ((not (result v1 list poss)) || (result v2 list poss)) unOp
-                                                | otherwise = checkUnOP (((result v1 list poss) && (result v2 list poss)) || (( not (result v1 list poss)) && ( not (result v2 list poss)))) unOp
+                                                   | binOp == "|" = checkUnOP ((result v1 list poss) || (result v2 list poss)) unOp
+                                                   | binOp == "*" = checkUnOP ((not (result v1 list poss)) || (result v2 list poss)) unOp
+                                                   | otherwise = checkUnOP (((result v1 list poss) && (result v2 list poss)) || (( not (result v1 list poss)) && ( not (result v2 list poss)))) unOp
 
     resToString :: Bool -> String
     resToString True = "1"
     resToString False = "0"
 
-    {-
-    métodos de criação da tabela, falta a introdução da proposição 
-    -}
+
+    --                                   Funlões para a montagem da tabela
+
     firstLine :: [Char] -> [Char] -> [Char]
     firstLine "" exp = "| " ++ exp
     firstLine (x:xs) exp = [x] ++ " " ++ (firstLine xs exp)  
@@ -153,24 +154,33 @@ module TruthTableGenerator where
         repeatTruthTable
 
 
-
-    --                               MAIN
+    --                              ##   MAIN   ##
 
     execTruthTable :: IO()
     execTruthTable = do
         putStrLn "\nBem vindo ao gerador de Tabela Verdade!"
-        putStrLn "\n0. Retornar ao Menu."
-        putStrLn "1. Tutorial como inserir expressao."
-        putStrLn "2. Apenas gerar a tabela verdade de uma expressao."
-        escolherOpcoes
+        printOptions
     
+
+    printOptions :: IO()
+    printOptions = do
+        putStrLn "\nEscolha sua opcao! (0, 1, 2 ou 3)"
+        putStrLn "0. Retornar ao Menu."
+        putStrLn "1. Qual o objetivo do gerador de Tabela Verdade?"
+        putStrLn "2. Tutorial como funciona o literal (util para criar a expressao)."
+        putStrLn "3. Gerar a tabela verdade de uma expressao."
+        escolherOpcoes
+
     escolherOpcoes :: IO()
     escolherOpcoes = do
         opcao <- readLn :: IO Int
         if (opcao == 0)
         then
-            putStrLn "Volte sempre!\n"
+            putStrLn "\nVolte sempre!\n"
         else if (opcao == 1)
+        then
+            explicaTable
+        else if (opcao == 2)
         then
             explicaLit
         else
@@ -188,9 +198,25 @@ module TruthTableGenerator where
         op <- readLn :: IO Int
         if (op == 0)
         then
-            putStrLn "Volte sempre!\n"
+            putStrLn "\nVolte sempre!\n"
         else
-            execTruthTable
+            printOptions
+
+
+    explicaTable :: IO()
+    explicaTable = do
+        putStrLn "--------------------TABELA VERDADE------------------------"
+        putStrLn "\nTabela verdade eh um dispositivo utilizado no estudo da logica."
+        putStrLn "Com o uso desta tabela eh possível definir o valor logico de uma expressao,"
+        putStrLn "ou seja, saber quando uma sentenca eh verdadeira ou falsa.\n"
+        putStrLn "Quanto mais variaveis fizerem parte da expressao, maior o numero de linhas, que eh obtido por (2 ^ n),"
+        putStrLn "onde n eh o numero de variaveis."
+        putStrLn "Eh simples fazer manualmente uma tabela com duas variaveis, e ate tres."
+        putStrLn "Mas quanto mais adicionamos variaveis a expressao, o numero de linhas fica exponencialmente maior.\n"
+        putStrLn "O objetivo dessa parte do programa eh justamente facilitar a construcao da tabela de qualquer expressao,"
+        putStrLn "Nao importando o numero de variaveis.\n"
+        putStrLn "-----------------------------------------------------------"
+        printOptions
 
     explicaLit :: IO()
     explicaLit = do
@@ -205,4 +231,4 @@ module TruthTableGenerator where
         putStrLn "- Um valor: esse valor eh obrigatoriamente uma string, que no caso, vai ser a letra que representa a proposicao."
         putStrLn "Agora que ja sabemos como eh formado um literal, podemos criar um a seguir:\n"
         putStrLn "-----------------------------------------------------------"
-        execTruthTable
+        printOptions
