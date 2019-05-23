@@ -1,5 +1,5 @@
 module RegrasProposicionais where
-
+--mudanca para criacao de branch
     resumoNegacao :: IO ()
     resumoNegacao = do
         putStrLn " A Dupla Negacao afirma que se temos uma afirmacao verdadeira, logo, se negarmos a negacao dessa afirmacao teremos uma equivalencia com a afirmacao"
