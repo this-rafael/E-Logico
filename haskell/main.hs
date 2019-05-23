@@ -13,8 +13,7 @@ execOpcoes opc
         putStrLn (" ISSO É TUDO PESSOAL!!! ")
     |opc == 1 = do
         MenuApresentacao.resumoTabela
-        TruthTableGenerator.teste -- só um teste 
-        -- execGenerateTable
+        TruthTableGenerator.execTruthTable
         execMenuApresentacao
     |opc == 2 = do
         MenuApresentacao.resumoConversor
