@@ -111,14 +111,20 @@ module SimplificadorLogico where
     -- modus_ponens ((P -> Q), P) retorna Q
     execModusPonens :: Literal -> String
     execModusPonens (Expression unaryOp fValue binaryOp sValue)
-        | ((getProposition (getFValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*")) = (" Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: " ++ (literalToString (getSValue fValue)))
+        | ((getProposition (getFValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*")) = ("\n Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: " ++ (literalToString (getSValue fValue)))
         | otherwise = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
 
     -- modus_tollens (P -> Q) ^ ~Q) retorna ~P
     execModusTollens :: Literal -> String
     execModusTollens (Expression unaryOp fValue binaryOp sValue)
-        | ((getProposition (getSValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*") && (getUnaryOp sValue == "~")) = (" Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: ~" ++ (literalToString (getFValue fValue)))
+        | ((getProposition (getSValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*") && (getUnaryOp sValue == "~")) = ("\n Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: ~" ++ (literalToString (getFValue fValue)))
         | otherwise = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
+
+    -- silogismo_hipotetico (P -> Q) ^ (Q -> R) retorna (P -> R)
+    execSilogismoHipotetico :: Literal -> String
+    execSilogismoHipotetico (Expression unaryOp fValue binaryOp sValue)
+        | (((getProposition (getSValue fValue)) == (getProposition (getFValue sValue))) && ((getBinaryOp fValue) == "*") && ((getBinaryOp sValue) == "*") && (binaryOp == "&")) = ("\n Aplicando-se o metodo Silogismo Hipotetico, tem-se o resultado da Expressao: (" ++ (getProposition (getFValue fValue)) ++ " -> " ++ (getProposition (getSValue sValue)) ++ ")")
+        | otherwise = (" Nao eh possivel aplicar Silogismo Hipotetico nessa expressao.")
 
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
@@ -145,9 +151,9 @@ module SimplificadorLogico where
         else if (opcao == 7)
         then
             putStrLn (execModusTollens l)
-        --else if (opcao == 8)
-        --then
-            --execSilogismoHipotetico l
+        else if (opcao == 8)
+        then
+            putStrLn (execSilogismoHipotetico l)
         --else if (opcao == 9)
         --then
             --execSilogismoDisjuntivo l
