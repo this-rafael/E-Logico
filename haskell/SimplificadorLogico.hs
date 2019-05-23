@@ -126,6 +126,12 @@ module SimplificadorLogico where
         | (((getProposition (getSValue fValue)) == (getProposition (getFValue sValue))) && ((getBinaryOp fValue) == "*") && ((getBinaryOp sValue) == "*") && (binaryOp == "&")) = ("\n Aplicando-se o metodo Silogismo Hipotetico, tem-se o resultado da Expressao: (" ++ (getProposition (getFValue fValue)) ++ " -> " ++ (getProposition (getSValue sValue)) ++ ")")
         | otherwise = (" Nao eh possivel aplicar Silogismo Hipotetico nessa expressao.")
 
+    -- silogismo_disjuntivo (P v Q) ^ ~Q retorna P
+    execSilogismoDisjuntivo :: Literal -> String
+    execSilogismoDisjuntivo (Expression unaryOp fValue binaryOp sValue)
+        | (((getProposition (getSValue fValue)) == (getProposition sValue)) && ((getBinaryOp fValue) == "|") && (binaryOp == "&") && ((getUnaryOp sValue) == "~")) = ("\n Aplicando-se o metodo Silogismo Disjuntivo, tem-se o resultado da Expressao: " ++ (getProposition (getFValue fValue)))
+        | otherwise = (" Nao eh possivel aplicar Silogismo Disjuntivo nessa expressao.")
+
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
         informaOpcoes
@@ -154,9 +160,9 @@ module SimplificadorLogico where
         else if (opcao == 8)
         then
             putStrLn (execSilogismoHipotetico l)
-        --else if (opcao == 9)
-        --then
-            --execSilogismoDisjuntivo l
+        else if (opcao == 9)
+        then
+            putStrLn (execSilogismoDisjuntivo l)
         --else if (opcao == 10)
         --then
             --execDilemaConstrutivo l
