@@ -6,7 +6,7 @@ module Lit  where
     _receiveInput = do
         putStrLn " 1- Para inserir uma Proposicao"  
         putStrLn " 2- Para inserir uma Expressao" 
-        putStr " >>> "
+        putStrLn " >>> "
 
         option <- getLine
         if(option == "0")
@@ -62,7 +62,7 @@ module Lit  where
 
     chooseAUnaryOperator :: IO(String)
     chooseAUnaryOperator = do
-        putStrLn " pressione '~' caso deseje inserir uma negacao a sua expressao, ou pressione enter para continuar"
+        putStrLn "\n Pressione '~' caso deseje inserir uma negacao a sua expressao, ou pressione enter para continuar"
         putStr " >>> "
         op <- getLine
         return op
@@ -133,8 +133,8 @@ module Lit  where
 
     interativePropositionConstruct:: IO(Literal)
     interativePropositionConstruct = do 
-        putStrLn " Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"
-        putStr " >>> "
+        putStrLn "\n Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"
+        putStrLn " >>> "
         basicString <- getLine
         if(length basicString == 2)
         then 
