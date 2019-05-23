@@ -1,7 +1,7 @@
 module RegrasProposicionais where
     
     {-
-    Funcao que retorna o resumo da opcao Negacao
+    Função que retorna o resumo da opção Negação
     -} 
     resumoNegacao :: IO ()
     resumoNegacao = do
@@ -10,7 +10,7 @@ module RegrasProposicionais where
         putStrLn " Quer saber mais sobre a Dupla Negacao?"
     
     {-
-    Funcao que retorna informacoes adicionais a opcao Negacao
+    Função que retorna informações adicionais à opção Negação
     -}
     infoNegacao :: IO ()
     infoNegacao = do
@@ -22,7 +22,7 @@ module RegrasProposicionais where
         putStrLn " ~(~P) = Nao eh verdade que Game Of Thrones NAO estreia hoje."
     
     {-
-    Funcao que retorna um resumo da opcao Conjuncao
+    Função que retorna um resumo da opção Conjunção
     -}
     resumoConjuncao :: IO ()
     resumoConjuncao = do 
@@ -32,7 +32,7 @@ module RegrasProposicionais where
     
 
     {-
-    Funcao que retorna informacoes adicionais da opcao conjuncao
+    Função que retorna informações adicionais da opção conjunção
     -}
     infoConjuncao :: IO ()
     infoConjuncao = do
@@ -46,7 +46,7 @@ module RegrasProposicionais where
         putStrLn " 1 ^ 1 = 1    1 ^ 0 = 0    0 ^ 0 = 0"
     
     {-
-    Funcao que retorna informacoes da opcao Adicao
+    Função que retorna informações da opção Adição
     -}
     resumoAdicao :: IO()
     resumoAdicao = do
@@ -55,7 +55,7 @@ module RegrasProposicionais where
         putStrLn " Quer saber mais sobre a adicao?"
     
     {-
-    Funcao que retorna informacoes adicionais da opcao Adicao
+    Função que retorna informações adicionais da opção Adição
     -}
     infoAdicao :: IO()
     infoAdicao = do
@@ -69,7 +69,7 @@ module RegrasProposicionais where
         putStrLn " 1 v 1 = 1    1 v 0 = 1    0 v 0 = 0"
     
     {-
-    Funcao que retorna informacoes da opcao Introducao a Equivalencia
+    Função que retorna informações da opção Introdução a Equivalência
     -}
     resumoIntroEquivalencia :: IO()
     resumoIntroEquivalencia = do 
@@ -77,7 +77,7 @@ module RegrasProposicionais where
         putStrLn" No caso, temos P --> Q, Q --> P, logo podemos deduzir P <--> Q."
     
     {-
-    Funcao que retorna informacoes da opcao Eliminacao de Equivalencia
+    Função que retorna informações da opção Eliminação de Equivalência
     -}
     resumoElimEquivalencia :: IO()
     resumoElimEquivalencia = do
@@ -85,7 +85,7 @@ module RegrasProposicionais where
         putStrLn " No caso, temos P <--> Q, podemos deduzir P --> Q, ou Q --> P "
     
     {-
-    Funcao que retorna informacoes da opcao Modus Ponens
+    Função que retorna informações da opção Modus Ponens
     -}
     resumoModusPonens :: IO()
     resumoModusPonens = do
@@ -94,7 +94,7 @@ module RegrasProposicionais where
         putStrLn " Quer saber mais sobre Modus Ponnens?"
     
     {-
-    Funcao que retorna informacoes adicionais da opcao Modus Ponens
+    Função que retorna informações adicionais da opção Modus Ponens
     -}
     infoModusPonens :: IO()
     infoModusPonens = do 
@@ -108,7 +108,7 @@ module RegrasProposicionais where
         putStrLn " Podemos deduzir Q pois em uma implicação, só existe uma maneira de se existir falsidade, sendo V --> F. Assim numa implicação quando sabemos que existe veracidade na implicante, dependemos apenas da implicância."
     
     {-
-    Funcao que retorna informacao da opcao Modus Tollens
+    Função que retorna informação da opção Modus Tollens
     -}
     resumoModusTollens :: IO()
     resumoModusTollens = do
@@ -117,7 +117,7 @@ module RegrasProposicionais where
         putStrLn " Quer saber mais sobre Modus Tollens?"
     
     {-
-    Funcao que retorna informacoes adicionais da opcao Modus Tollens
+    Função que retorna informações adicionais da opção Modus Tollens
     -}
     infoModusTollens :: IO()
     infoModusTollens = do
@@ -129,7 +129,7 @@ module RegrasProposicionais where
         putStrLn " Podemos deduzir ~P pois em uma implicação quando temos a negação da implicÂncia, só temos a corretude no caso de termos a negação do implicante. assim no caso F --> V, F --> V continuam corretos"
     
     {-
-    Funcao que retorna informacoes da opcao do Silogismo Hipotetico
+    Função que retorna informações da opção do Silogismo Hipotético
     -}
     resumoHipotetico :: IO()
     resumoHipotetico = do
@@ -138,7 +138,7 @@ module RegrasProposicionais where
         putStrLn " Quer saber mais sobre Silogismo Hipotético?"
     
     {-
-    Funcao que retorna informacoes adicionais do Silogismo Hipotetico
+    Função que retorna informações adicionais do Silogismo Hipotético
     -}
     infoHipotetico :: IO()
     infoHipotetico = do
@@ -150,7 +150,7 @@ module RegrasProposicionais where
     
 
     {-
-    Funcao que retorna informacoes da opcao do Silogismo Disjuntivo
+    Função que retorna informações da opção do Silogismo Disjuntivo
     -}
     resumoDisjuntivo :: IO()
     resumoDisjuntivo = do 
@@ -159,7 +159,7 @@ module RegrasProposicionais where
         putStrLn " Quer saber mais sobre Silogismo Disjuntivo?"
 
     {-
-    Funcao que retorna informacoes adicionais do Silogismo Disjuntivo
+    Função que retorna informações adicionais do Silogismo Disjuntivo
     -}
     infoDisjuntivo :: IO()
     infoDisjuntivo = do
@@ -170,7 +170,7 @@ module RegrasProposicionais where
         putStrLn " Q = Então faço cursinho de inglês."
     
     {-
-    Funcao que retorna informacoes do Dilema Construtivo
+    Função que retorna informações do Dilema Construtivo
     -}
     resumoDilemaConstrutivo :: IO()
     resumoDilemaConstrutivo = do
@@ -179,7 +179,7 @@ module RegrasProposicionais where
         putStrLn " Quer saber mais sobre Silogismo Disjuntivo?"
     
     {-
-    Funcao que retorna informacoes adicionais do Dilema Construtivos
+    Função que retorna informações adicionais do Dilema Construtivos
     -}
     infoDilemaConstrutivo :: IO()
     infoDilemaConstrutivo = do
@@ -191,7 +191,7 @@ module RegrasProposicionais where
         putStrLn " Q v S = Eu tenho um emprego ou tenho um carro."
     
     {-
-    Funcao que retorna informacoes da opcao Exportacao
+    Função que retorna informações da opção Exportação
     -}
     resumoExportacao :: IO()
     resumoExportacao = do 
@@ -199,7 +199,7 @@ module RegrasProposicionais where
         putStrLn " Sendo (P ^ Q) --> S, temos P --> (Q --> S)."
     
     {-
-    Funcao que retorna a lista de opcoes da classe
+    Função que retorna a lista de opções da classe
     -}
     menuRegras :: IO()
     menuRegras = do 
@@ -219,7 +219,7 @@ module RegrasProposicionais where
         putStrLn " Digite a sua opção!"
     
     {-
-    Funcao que valida a resposta do usuario
+    Função que valida a resposta do usuário
     -}
     valida :: String -> Bool
     valida resposta = 
@@ -227,7 +227,7 @@ module RegrasProposicionais where
         else False
     
     {-
-    Menu de opcao de entrada para as regras
+    Menu de opção de entrada para as regras
     -}
     opcoesRegras :: Int -> IO()
     opcoesRegras opc
@@ -310,7 +310,7 @@ module RegrasProposicionais where
             putStrLn " Abaixa o volume da TV e me escuta pelo telefone! pode repetir?"
 
     {-
-    Funcao que simula o laco em regras proposicionais
+    Função que simula o laço em regras proposicionais
     -}
     laco :: Int -> IO()
     laco 0 = putStrLn " Ciao! "
@@ -323,7 +323,7 @@ module RegrasProposicionais where
         laco opc
         
     {-
-    Funcao de chamada na classe main do projeto
+    Função de chamada na classe main do projeto
     -}
     execRegras :: IO()
     execRegras = laco 666 -- tem que iniciar com um Int qualquer ...

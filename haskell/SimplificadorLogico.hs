@@ -4,19 +4,19 @@ module SimplificadorLogico where
 
     -- Necessidade de:
     --
-    -- Criar uma Expressao
-    -- Oferecer Opcoes de uso
+    -- Criar uma Expressão
+    -- Oferecer Opções de uso
     -- Avaliar compatibilidade
-    -- Retornar Simplificacao ou Incompatibilidade
+    -- Retornar Simplificação ou Incompatibilidade
     --
-    -- Mantem, Renova Expressao ou Menu Principal
+    -- Mantém, Renova Expressão ou Menu Principal
 
 
-    -- Executavel
+    -- Executável
     execSimplificador :: IO()
     execSimplificador = do
-        putStrLn "0. Retornar ao Menu."
-        putStrLn "1. Avaliar uma Expressao"
+        putStrLn " 0. Retornar ao Menu."
+        putStrLn " 1. Avaliar uma Expressao"
         escolherOpcoes
     
 
@@ -25,19 +25,19 @@ module SimplificadorLogico where
         opcao <- readLn :: IO Int
         if(opcao == 0)
         then
-            putStrLn "Voltando ao menu inicial"
+            putStrLn " Voltando ao menu inicial"
         else 
             auxExe
 
     auxExe :: IO()
     auxExe = do
-        putStrLn "Primeiro digite a expressao que deseja-se aplicar a avaliacao"
+        putStrLn " Primeiro digite a expressao que deseja-se aplicar a avaliacao"
         lit <- Lit._receiveInput
         executandoOpcao lit
 
     executandoOpcao :: Literal -> IO()
     executandoOpcao literal = do
-        putStrLn "Voce deseja usar sua expressao(U), reusa-la (R), criar uma nova expressao(N) ou sair(S)"
+        putStrLn " Voce deseja usar sua expressao(U), reusa-la (R), criar uma nova expressao(N) ou sair(S)"
         putStr " >>> "
         op <- getLine
         putStrLn ""
@@ -52,9 +52,9 @@ module SimplificadorLogico where
             criaNovoLiteral
         else if(op == "S")
         then
-            putStrLn "Saindo..."
+            putStrLn " Saindo..."
         else
-            putStrLn "OPCAO INVALIDA"
+            putStrLn " OPCAO INVALIDA"
 
     criaNovoLiteral :: IO()
     criaNovoLiteral = do
@@ -73,19 +73,19 @@ module SimplificadorLogico where
 
     -- Necessidade de:
     --
-    -- Criar uma Expressao
-    -- Oferecer Opcoes de uso
+    -- Criar uma Expressão
+    -- Oferecer Opções de uso
     -- Avaliar compatibilidade
-    -- Retornar Simplificacao ou Incompatibilidade
+    -- Retornar Simplificação ou Incompatibilidade
     --
-    -- Mantem, Renova Expressao ou Menu Principal
+    -- Mantém, Renova Expressão ou Menu Principal
 
 
-    -- Executavel
+    -- Executável
     execSimplificador :: IO()
     execSimplificador = do
-        putStrLn "0. Retornar ao Menu."
-        putStrLn "1. Avaliar uma Expressao"
+        putStrLn " 0. Retornar ao Menu."
+        putStrLn " 1. Avaliar uma Expressao"
         escolherOpcoes
     
 
@@ -94,19 +94,19 @@ module SimplificadorLogico where
         opcao <- readLn :: IO Int
         if(opcao == 0)
         then
-            putStrLn "Voltando ao menu inicial"
+            putStrLn " Voltando ao menu inicial"
         else 
             auxExe
 
     auxExe :: IO()
     auxExe = do
-        putStrLn "Primeiro digite a expressao que deseja-se aplicar a avaliacao"
+        putStrLn " Primeiro digite a expressao que deseja-se aplicar a avaliacao"
         lit <- Lit._receiveInput
         executandoOpcao lit
 
     executandoOpcao :: Literal -> IO()
     executandoOpcao literal = do
-        putStrLn "Voce deseja usar sua expressao(U), reusa-la (R), criar uma nova expressao(N) ou sair(S)"
+        putStrLn " Voce deseja usar sua expressao(U), reusa-la (R), criar uma nova expressao(N) ou sair(S)"
         putStr " >>> "
         op <- getLine
         putStrLn ""
@@ -121,9 +121,9 @@ module SimplificadorLogico where
             criaNovoLiteral
         else if(op == "S")
         then
-            putStrLn "Saindo..."
+            putStrLn " Saindo..."
         else
-            putStrLn "OPCAO INVALIDA"
+            putStrLn " OPCAO INVALIDA"
 
     criaNovoLiteral :: IO()
     criaNovoLiteral = do
@@ -160,7 +160,7 @@ module SimplificadorLogico where
 
     -- conjuncao (1 | 0) ^ (1 | 0) retorna True | False
     execConjuncao :: Literal -> String
-    execConjuncao (Expression unaryOp fValue binaryOp sValue) = "Retorno qualquer provisorio (ler linha abaixo)."
+    execConjuncao (Expression unaryOp fValue binaryOp sValue) = " Retorno qualquer provisorio (ler linha abaixo)."
        -- | (Preciso coletar o fValue e sValue dentro do fValue), mesma coisa para o sValue.
 
     -- adicao_disjuntiva (P) retorna P | "Qualquer Expressão"
@@ -169,7 +169,7 @@ module SimplificadorLogico where
 
     -- introducao_de_equivalencia (P -> Q) ^ (Q -> P) retorna (P <-> Q)
     execIntroducaoDaEquivalencia :: Literal -> String
-    execIntroducaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue) = "Retorno qualquer provisorio (ler linha abaixo)."
+    execIntroducaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue) = " Retorno qualquer provisorio (ler linha abaixo)."
         -- | (Preciso coletar o fValue e sValue dentro do fValue), mesma coisa para o sValue.
 
     avaliaExpressao :: Literal -> IO()
@@ -210,7 +210,7 @@ module SimplificadorLogico where
             --execExportacao l
         --then
         else
-            putStrLn "Opcao invalida"
+            putStrLn " Opcao invalida"
     
     -- execModusPonens :: Literal -> IO()
     -- execModusPonens l = do

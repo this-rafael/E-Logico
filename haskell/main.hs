@@ -14,7 +14,7 @@ Método de chamada das funções principais de execução de cada arquivo
 execOpcoes :: Int -> IO ()
 execOpcoes opc
     |opc == 0 = do  
-        putStrLn ("\n                                   ISSO É TUDO PESSOAL!!! \n")
+        putStrLn ("\n                                   ISSO É TUDO, PESSOAL!!! \n")
     |opc == 1 = do
         MenuApresentacao.resumoTabela
         TruthTableGenerator.execTruthTable
@@ -33,7 +33,7 @@ execOpcoes opc
         execMenuApresentacao
 
     |otherwise = do
-        putStrLn (" Excuse-me? Pode repetir?\n")
+        putStrLn (" Excuse-me, pode repetir?\n")
         execMenuApresentacao
 
 {-
