@@ -177,8 +177,8 @@ module TruthTableGenerator where
     otherLine "11" "11" "ab" "(a & b)" = "1 1 | 1"
     -}
     otherLine :: [Char] -> [Char] -> [Char] -> Literal -> [Char]
-    otherLine "" valor prop  lit = "| " ++ resToString(result lit prop valor) 
-    otherLine (x:xs) valor prop lit = [x] ++ " " ++ (otherLine xs valor prop lit)
+    otherLine "" valor prop  lit = " | " ++ resToString(result lit prop valor) 
+    otherLine (x:xs) valor prop lit = " " ++ [x] ++ (otherLine xs valor prop lit)
 
     {-
     Junta todas linhas da tabela.
@@ -204,7 +204,7 @@ module TruthTableGenerator where
     "
     -}
     table :: [[Char]] -> [Char] -> Literal -> [Char]
-    table lista prop lit =  (firstLine prop (literalToString lit)) ++ "\n" ++ (tailTable lista prop lit )
+    table lista prop lit =  " " ++ (firstLine prop (literalToString lit)) ++ "\n" ++ (tailTable lista prop lit )
 
     {-
     Retorna a tabela do literal.
