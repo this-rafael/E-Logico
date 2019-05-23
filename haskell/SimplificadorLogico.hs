@@ -152,10 +152,25 @@ module SimplificadorLogico where
         putStrLn " 0 - Voltar ao menu principal"
         putStrLn "        --- Digite a sua opção! ---"
 
+    -- negacao ~(~P) retorna P
     execNegacao :: Literal -> String
     execNegacao (Expression unaryOp fValue binaryOp sValue)
         | ((unaryOp == "~") && (getUnaryOp fValue == "~") && (binaryOp == "&")) = (" Sua dupla negacao resulta em: " ++ (getProposition fValue) ++ binaryOp ++ (getProposition sValue))
         | otherwise = " Nao eh possivel aplicar Negacao nessa expressao."
+
+    -- conjuncao (1 | 0) ^ (1 | 0) retorna True | False
+    execConjuncao :: Literal -> String
+    execConjuncao (Expression unaryOp fValue binaryOp sValue) = "Retorno qualquer provisorio (ler linha abaixo)."
+       -- | (Preciso coletar o fValue e sValue dentro do fValue), mesma coisa para o sValue.
+
+    -- adicao_disjuntiva (P) retorna P | "Qualquer Expressão"
+    execAdicao :: Literal -> String
+    execAdicao litera = (" Essa Expressao pode ser considerada igual a: " ++ (literalToString litera) ++ " | Qualquer Expressão")
+
+    -- introducao_de_equivalencia (P -> Q) ^ (Q -> P) retorna (P <-> Q)
+    execIntroducaoDaEquivalencia :: Literal -> String
+    execIntroducaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue) = "Retorno qualquer provisorio (ler linha abaixo)."
+        -- | (Preciso coletar o fValue e sValue dentro do fValue), mesma coisa para o sValue.
 
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
