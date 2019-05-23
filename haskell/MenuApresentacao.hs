@@ -1,15 +1,22 @@
 module MenuApresentacao where
-
+    
+    {-
+    Funcao de retorno do logo do programa
+    -}
     logo:: IO()
     logo = putStrLn "Aqui vem a logo"
 
-    -- menu de apresentacao
+    {- 
+    Menu de apresentacao
+    -}
     apresentacaoInicial :: IO ()
     apresentacaoInicial = do
         putStrLn ("\n Ola, Bem vindo ao Aprendendo? Logico!\n")
         putStrLn (" Programa Interativo de Aprendizagem e auxilio a assuntos Logicos\n")
     
-    -- Apresentação do menu de entrada
+    {-
+    Apresentação do menu de entrada
+    -}
     menuOpcoes :: IO ()
     menuOpcoes = do
         putStrLn "\nMENU: \n"
@@ -21,7 +28,9 @@ module MenuApresentacao where
         putStrLn " Digite a sua opcao!"
         putStr " >>> "
         
-    -- Breve apresentação da função de Tabela-Verdade
+    {-
+    Breve apresentação da função de Tabela-Verdade
+    -}
     resumoTabela :: IO ()
     resumoTabela = do
         putStrLn "\n A Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta.\n"
@@ -31,12 +40,16 @@ module MenuApresentacao where
         entrada <- readLn :: IO Int
         execInfoTabela entrada
 
-    -- Decide se vai imprimir as informacoes sobre tabela verdade ou nao
+    {-
+    Decide se vai imprimir as informacoes sobre tabela verdade ou nao
+    -}
     execInfoTabela :: Int -> IO ()
     execInfoTabela 1 = infoTabela
     execInfoTabela x = putStrLn " Okay, entao vamos la!\n"
 
-    -- Informativo sobre a tabela-verdade
+    {-
+    Informativo sobre a tabela-verdade
+    -}
     infoTabela :: IO ()
     infoTabela = do
         putStrLn "\nCOMO CONSTRUIR UMA TABELA?\n\n"
@@ -45,14 +58,18 @@ module MenuApresentacao where
         putStrLn " c) Enquanto ao numero de colunas, vai depender de voce, mas temos que ter obrigatoriamente n colunas + 1. Onde n eh definido como o numero de preposicoes e 1 coluna de resposta.\n"
         putStrLn " d) Na coluna de resposta, temos o resultado das operacoes. Cada linha com seu respectivo bit resposta\n"
 
-    -- Breve apresentação sobre o conversor binário
+    {-
+    Breve apresentação sobre o conversor binário
+    -}
     resumoConversor :: IO ()
     resumoConversor = do
         putStrLn "\n O conversor faz a traducao entre numeros de bases diferentes\n"
         putStrLn " Convertendo Bin --> Dec, teremos a conversao de Binario (base 2) para Decimal (base 10)\n"
         putStrLn " Convertendo Dec --> Bin, teremos a conversao de Decimal (base 10) para Binario (base 2)\n"
 
-    -- Informativo sobre o conversor
+    {-
+    Informativo sobre o conversor
+    -}
     infoConversor :: IO ()
     infoConversor = do
         putStrLn "\nCOMO CONVERTER UM NUMERO?\n\n"
@@ -66,13 +83,17 @@ module MenuApresentacao where
         putStrLn "   c) Chegando a ultima divisao com resto inteiro possivel, temos que reunir os restos das divisoes com o ultimo resultado possivel. Exemplo: 4, 4 % 2 = 0, 4/2 = 2, como 2 ainda pode ser divisivel por 2, 2 % 2 = 0 e 2 / 2 = 1. Juntando os restos com o ultimo resultado, temos:  0 0 1\n"
         putStrLn "   d) Com o resultado da divisao por 2 e seus restos concatenado, temos que apenas inverter a ordem. Exemplo anterior 0 0 1, invertemos 1 0 0, que equivale a 4\n\n"
     
-    -- Breve impressão sobre expressões proposicionais
+    {-
+    Breve impressão sobre expressões proposicionais
+    -}
     resumoExpressoes :: IO ()
     resumoExpressoes = do
         putStrLn "\n Expressoes Proposicionais podem ser gigantes."
         putStrLn " No entranto, existem várias regras de simplificacao que podem transformar expressoes gigantescas em expressões simples com a mesma equivalencia logica!\n"
 
-    -- Informativo sobre o simplificador proposicional
+    {-
+    Informativo sobre o simplificador proposicional
+    -}
     infoExpressoes :: IO ()
     infoExpressoes = do
         putStrLn "\n COMO SIMPLIFICAR UMA EXPRESSAO PROPOSICIONAL?\n\n"
@@ -80,7 +101,9 @@ module MenuApresentacao where
         putStrLn " b) Assumimos uma regra que se encaixe com as proposicoes destinadas e aplicamos.\n"
         putStrLn " c) Repetimos os passos podendo utilizar a mesma regra ou uma regra diferente, ate chegarmos a uma expressao que nao aceite mais nenhuma regra. Em tese serah a expressao simplificada\n"
 
-    -- Resumo sobre a função de apresentação das regras proposicionais
+    {-
+    Resumo sobre a função de apresentação das regras proposicionais
+    -}
     resumoRegras :: IO ()
     resumoRegras = do
         putStrLn "\n Regras para simplificacao de expressoes logicas\n"
