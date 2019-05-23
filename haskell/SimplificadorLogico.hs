@@ -101,6 +101,12 @@ module SimplificadorLogico where
     execIntroducaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue) = " Retorno qualquer provisorio (ler linha abaixo)."
         -- | (Preciso coletar o fValue e sValue dentro do fValue), mesma coisa para o sValue.
 
+    -- eliminacao_de_equivalencia (P <-> Q) retorna (P -> Q) ^ (Q -> P)
+    execEliminacaoDaEquivalencia :: Literal -> String
+    execEliminacaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue)
+        | (binaryOp == "#") = ("\n Aplicando-se o metodo Eliminacao de Equivalencia, tem-se o resultado da Expressao: (" ++ (literalToString fValue) ++ " -> " ++ (literalToString sValue) ++ ") ^ (" ++ (literalToString sValue) ++ " -> " ++ (literalToString fValue) ++ ")")
+        | otherwise = " Nao eh possivel aplicar Eliminacao de Equivalencia nessa expressao."
+
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
         informaOpcoes
@@ -117,9 +123,9 @@ module SimplificadorLogico where
         --else if (opcao == 4)
         --then
             --execIntroducaoDaEquivalencia l
-        --else if (opcao == 5)
-        --then
-            --execEliminacaoDaEquivalencia l
+        else if (opcao == 5)
+        then
+            putStrLn (execEliminacaoDaEquivalencia l)
         --else if (opcao == 6)
         --then
             --execModusPonens l
