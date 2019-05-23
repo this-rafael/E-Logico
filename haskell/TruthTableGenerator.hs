@@ -222,10 +222,10 @@ module TruthTableGenerator where
     callTable :: Literal -> IO()
     callTable lit = do
         putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
-        putStrLn "-----------------------------------------------------------\n"
-        putStrLn "Deseja criar uma nova tabela ou voltar ao menu?\n"
-        putStrLn "0 - Voltar ao menu!"
-        putStrLn "1 - Criar nova!"
+        putStrLn " -----------------------------------------------------------\n"
+        putStrLn " Deseja criar uma nova tabela ou voltar ao menu?\n"
+        putStrLn " 0 - Voltar ao menu!"
+        putStrLn " 1 - Criar nova!"
         repeatTruthTable
 
 
@@ -237,7 +237,7 @@ module TruthTableGenerator where
     -}
     execTruthTable :: IO()
     execTruthTable = do
-        putStrLn "--------------GERADOR DE TABELA VERDADE-------------------"
+        putStrLn " --------------GERADOR DE TABELA VERDADE-------------------"
         printOptions
     
 
@@ -247,11 +247,11 @@ module TruthTableGenerator where
     -}
     printOptions :: IO()
     printOptions = do
-        putStrLn "\nEscolha sua opcao! (0, 1, 2 ou 3)"
-        putStrLn "0. Retornar ao Menu."
-        putStrLn "1. Qual o objetivo do gerador de Tabela Verdade?"
-        putStrLn "2. Tutorial como funciona o literal (util para criar a expressao)."
-        putStrLn "3. Gerar a tabela verdade de uma expressao."
+        putStrLn "\n Escolha sua opcao! (0, 1, 2 ou 3)"
+        putStrLn " 0. Retornar ao Menu."
+        putStrLn " 1. Qual o objetivo do gerador de Tabela Verdade?"
+        putStrLn " 2. Tutorial como funciona o literal (util para criar a expressao)."
+        putStrLn " 3. Gerar a tabela verdade de uma expressao."
         escolherOpcoes
 
     {-
@@ -263,12 +263,12 @@ module TruthTableGenerator where
     -}
     escolherOpcoes :: IO()
     escolherOpcoes = do
-        putStr ">>> "
+        putStr " >>> "
         op <- readLn :: IO Int
         putStr "\n"
         if (op == 0)
         then
-            putStrLn "\nVolte sempre!\n"
+            putStrLn "\n Volte sempre!\n"
         else if (op == 1)
         then
             explicaTable
@@ -284,10 +284,10 @@ module TruthTableGenerator where
     -}
     auxExe :: IO()
     auxExe = do
-        putStrLn "Primeiro digite o literal que deseja-se aplicar a avaliacao"
+        putStrLn " Primeiro digite o literal que deseja-se aplicar a avaliacao"
         lit <- Lit._receiveInput
-        putStrLn "\nEssa eh a tabela verdade da expressao:\n"
-        putStrLn "--------------------TABELA VERDADE------------------------\n"
+        putStrLn "\n Essa eh a tabela verdade da expressao:\n"
+        putStrLn " --------------------TABELA VERDADE------------------------\n"
         callTable lit
 
     {-
@@ -297,12 +297,12 @@ module TruthTableGenerator where
     -}
     repeatTruthTable :: IO()
     repeatTruthTable = do
-        putStr ">>> "
+        putStr " >>> "
         op <- readLn :: IO Int
         putStr "\n"
         if (op == 0)
         then
-            putStrLn "\nVolte sempre!\n"
+            putStrLn "\n Volte sempre!\n"
         else
             printOptions
 
@@ -311,17 +311,17 @@ module TruthTableGenerator where
     -}
     explicaTable :: IO()
     explicaTable = do
-        putStrLn "--------------------TABELA VERDADE------------------------"
-        putStrLn "\nTabela verdade eh um dispositivo utilizado no estudo da logica."
-        putStrLn "Com o uso desta tabela eh possível definir o valor logico de uma expressao,"
-        putStrLn "ou seja, saber quando uma sentenca eh verdadeira ou falsa.\n"
-        putStrLn "Quanto mais variaveis fizerem parte da expressao, maior o numero de linhas, que eh obtido por (2 ^ n),"
-        putStrLn "onde n eh o numero de variaveis."
-        putStrLn "Eh simples fazer manualmente uma tabela com duas variaveis, e ate tres."
-        putStrLn "Mas quanto mais adicionamos variaveis a expressao, o numero de linhas fica exponencialmente maior.\n"
-        putStrLn "O objetivo dessa parte do programa eh justamente facilitar a construcao da tabela de qualquer expressao,"
-        putStrLn "Nao importando o numero de variaveis.\n"
-        putStrLn "-----------------------------------------------------------"
+        putStrLn " --------------------TABELA VERDADE------------------------"
+        putStrLn " \nTabela verdade eh um dispositivo utilizado no estudo da logica."
+        putStrLn " Com o uso desta tabela eh possível definir o valor logico de uma expressao,"
+        putStrLn " ou seja, saber quando uma sentenca eh verdadeira ou falsa.\n"
+        putStrLn " Quanto mais variaveis fizerem parte da expressao, maior o numero de linhas, que eh obtido por (2 ^ n),"
+        putStrLn " onde n eh o numero de variaveis."
+        putStrLn " Eh simples fazer manualmente uma tabela com duas variaveis, e ate tres."
+        putStrLn " Mas quanto mais adicionamos variaveis a expressao, o numero de linhas fica exponencialmente maior.\n"
+        putStrLn " O objetivo dessa parte do programa eh justamente facilitar a construcao da tabela de qualquer expressao,"
+        putStrLn " Nao importando o numero de variaveis.\n"
+        putStrLn " -----------------------------------------------------------"
         printOptions
 
     {-
@@ -329,15 +329,15 @@ module TruthTableGenerator where
     -}
     explicaLit :: IO()
     explicaLit = do
-        putStrLn "---------------------LITERAL TUTORIAL----------------------"
-        putStrLn "\nUm literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"
-        putStrLn "- Um operador unario (~, ) para dizer se o valor da expressao eh negado;"
-        putStrLn "- Um valor A: esse valor pode ser uma outra expressao ou uma simples proposicao;"
-        putStrLn "- Um operador binario (&,|,*,#), que serve para dizer se a expressao eh uma conjuncao, uma disjuncao, uma implicacao ou uma bi-implicacao;"
-        putStrLn "- Um valor B: esse valor pode ser uma outra expressao ou uma simples proposicao;\n"     
-        putStrLn "Uma proposicao eh formada por:"
-        putStrLn "- Um operador unario (~, ) para dizer se o valor da proposicao eh negado;"
-        putStrLn "- Um valor: esse valor eh obrigatoriamente uma string, que no caso, vai ser a letra que representa a proposicao."
-        putStrLn "Agora que ja sabemos como eh formado um literal, podemos criar um a seguir:\n"
-        putStrLn "-----------------------------------------------------------"
+        putStrLn " ---------------------LITERAL TUTORIAL----------------------"
+        putStrLn "\n Um literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"
+        putStrLn " - Um operador unario (~, ) para dizer se o valor da expressao eh negado;"
+        putStrLn " - Um valor A: esse valor pode ser uma outra expressao ou uma simples proposicao;"
+        putStrLn " - Um operador binario (&,|,*,#), que serve para dizer se a expressao eh uma conjuncao, uma disjuncao, uma implicacao ou uma bi-implicacao;"
+        putStrLn " - Um valor B: esse valor pode ser uma outra expressao ou uma simples proposicao;\n"     
+        putStrLn " Uma proposicao eh formada por:"
+        putStrLn " - Um operador unario (~, ) para dizer se o valor da proposicao eh negado;"
+        putStrLn " - Um valor: esse valor eh obrigatoriamente uma string, que no caso, vai ser a letra que representa a proposicao."
+        putStrLn " Agora que ja sabemos como eh formado um literal, podemos criar um a seguir:\n"
+        putStrLn " -----------------------------------------------------------"
         printOptions
