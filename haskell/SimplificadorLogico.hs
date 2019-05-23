@@ -107,6 +107,12 @@ module SimplificadorLogico where
         | (binaryOp == "#") = ("\n Aplicando-se o metodo Eliminacao de Equivalencia, tem-se o resultado da Expressao: (" ++ (literalToString fValue) ++ " -> " ++ (literalToString sValue) ++ ") ^ (" ++ (literalToString sValue) ++ " -> " ++ (literalToString fValue) ++ ")")
         | otherwise = " Nao eh possivel aplicar Eliminacao de Equivalencia nessa expressao."
 
+    -- modus_ponens ((P -> Q), P) retorna Q
+    execModusPonens :: Literal -> String
+    execModusPonens (Expression unaryOp fValue binaryOp sValue)
+        | ((getProposition (getFValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*")) = (" Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: " ++ (literalToString (getSValue fValue)))
+        | otherwise = " Nao eh possivel aplicar Modus Ponens nessa expressao."
+
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
         informaOpcoes
@@ -126,9 +132,9 @@ module SimplificadorLogico where
         else if (opcao == 5)
         then
             putStrLn (execEliminacaoDaEquivalencia l)
-        --else if (opcao == 6)
-        --then
-            --execModusPonens l
+        else if (opcao == 6)
+        then
+            putStrLn (execModusPonens l)
         --else if (opcao == 7)
         --then
             --execModusTollens l
