@@ -2,11 +2,15 @@ import MenuApresentacao
 import RegrasProposicionais
 import TruthTableGenerator
 
--- Método main do programa
+{-
+Método main do programa
+-}
 main :: IO ()
 main = execPrincipal
 
--- Método de chamada das funções principais de execução de cada arquivo
+{-
+Método de chamada das funções principais de execução de cada arquivo
+-}
 execOpcoes :: Int -> IO ()
 execOpcoes opc
     |opc == 0 = do  
@@ -32,13 +36,18 @@ execOpcoes opc
         putStrLn (" Excuse-me? Pode repetir?\n")
         execMenuApresentacao
 
--- Método de execução da chamada principal dos métodos executáveis.
+{-
+Método de execução da chamada principal dos métodos executáveis.
+-}
 execPrincipal :: IO()
 execPrincipal = do
+    MenuApresentacao.logo
     MenuApresentacao.apresentacaoInicial
     execMenuApresentacao
 
--- Método do loop necessario para funcionamento do menu
+{-
+Método do loop necessario para funcionamento do menu
+-}
 execMenuApresentacao :: IO ()
 execMenuApresentacao = do
     MenuApresentacao.menuOpcoes

@@ -1,5 +1,8 @@
 module MenuApresentacao where
 
+    logo:: IO()
+    logo = putStrLn "Aqui vem a logo"
+
     -- menu de apresentacao
     apresentacaoInicial :: IO ()
     apresentacaoInicial = do
