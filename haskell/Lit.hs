@@ -173,11 +173,17 @@ module Lit  where
         if (getUnaryOp p == "~") then True
         else False
 
+    {-
+    Funcao de verificacao se o valor recebido eh uma proposicao
+    -}
     isValidProposition :: Char -> Bool
     isValidProposition p =
         if ((elem p ['a'..'z']) || (elem p ['A'..'Z'])) then True
         else False 
-        
+    
+    {-
+    Funcao de verificacao se o valor recebido eh um operador binario
+    -}
     isBinaryOperator :: Char -> Bool
     isBinaryOperator o = 
         if ((elem o ['*', '#','&', '|'])) then True
