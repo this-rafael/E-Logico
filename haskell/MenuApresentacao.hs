@@ -22,7 +22,7 @@ module MenuApresentacao where
     -}
     apresentacaoInicial :: IO ()
     apresentacaoInicial = do
-        putStrLn ("\n Ola, Bem vindo ao Aprendendo? Logico!\n")
+        putStrLn ("\n Ola, Bem vindo ao E-LOGICO!\n")
         putStrLn (" Programa Interativo de Aprendizagem e auxilio a assuntos Logicos\n")
     
     {-
