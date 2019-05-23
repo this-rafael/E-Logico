@@ -114,6 +114,12 @@ module SimplificadorLogico where
         | ((getProposition (getFValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*")) = (" Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: " ++ (literalToString (getSValue fValue)))
         | otherwise = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
 
+    -- modus_tollens (P -> Q) ^ ~Q) retorna ~P
+    execModusTollens :: Literal -> String
+    execModusTollens (Expression unaryOp fValue binaryOp sValue)
+        | ((getProposition (getSValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*") && (getUnaryOp sValue == "~")) = (" Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: ~" ++ (literalToString (getFValue fValue)))
+        | otherwise = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
+
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
         informaOpcoes
@@ -136,9 +142,9 @@ module SimplificadorLogico where
         else if (opcao == 6)
         then
             putStrLn (execModusPonens l)
-        --else if (opcao == 7)
-        --then
-            --execModusTollens l
+        else if (opcao == 7)
+        then
+            putStrLn (execModusTollens l)
         --else if (opcao == 8)
         --then
             --execSilogismoHipotetico l
