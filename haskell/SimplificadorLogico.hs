@@ -89,8 +89,8 @@ module SimplificadorLogico where
 
     -- conjuncao (1 | 0) ^ (1 | 0) retorna True | False
     execConjuncao :: Literal -> String
-    execConjuncao (Expression unaryOp fValue binaryOp sValue) = " Retorno qualquer provisorio (ler linha abaixo)."
-       -- | (Preciso coletar o fValue e sValue dentro do fValue), mesma coisa para o sValue.
+    execConjuncao (Expression unaryOp fValue binaryOp sValue) = "Falta concluir"
+        -- | ((getProposition (getFValue fValue)) == (getProposition sValue)), mesma coisa para o sValue.
 
     -- adicao_disjuntiva (P) retorna P | "Qualquer Expressão"
     execAdicao :: Literal -> String
@@ -98,20 +98,21 @@ module SimplificadorLogico where
 
     -- introducao_de_equivalencia (P -> Q) ^ (Q -> P) retorna (P <-> Q)
     execIntroducaoDaEquivalencia :: Literal -> String
-    execIntroducaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue) = " Retorno qualquer provisorio (ler linha abaixo)."
-        -- | (Preciso coletar o fValue e sValue dentro do fValue), mesma coisa para o sValue.
+    execIntroducaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue)
+        | (((getProposition (getFValue fValue)) == (getProposition (getSValue sValue))) && ((getProposition (getFValue sValue)) == (getProposition (getSValue fValue))) && (binaryOp == "&")) = ("\n Aplicando-se o metodo Eliminacao de Equivalencia, tem-se o resultado da Expressao: (" ++ (getProposition (getFValue fValue)) ++ " <-> " ++ (getProposition (getFValue sValue)) ++ ")")
+        | otherwise = (" Nao eh possivel aplicar Introducao de Equivalencia nessa expressao.")
 
     -- eliminacao_de_equivalencia (P <-> Q) retorna (P -> Q) ^ (Q -> P)
     execEliminacaoDaEquivalencia :: Literal -> String
     execEliminacaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue)
         | (binaryOp == "#") = ("\n Aplicando-se o metodo Eliminacao de Equivalencia, tem-se o resultado da Expressao: (" ++ (literalToString fValue) ++ " -> " ++ (literalToString sValue) ++ ") ^ (" ++ (literalToString sValue) ++ " -> " ++ (literalToString fValue) ++ ")")
-        | otherwise = " Nao eh possivel aplicar Eliminacao de Equivalencia nessa expressao."
+        | otherwise = (" Nao eh possivel aplicar Eliminacao de Equivalencia nessa expressao.")
 
     -- modus_ponens ((P -> Q), P) retorna Q
     execModusPonens :: Literal -> String
     execModusPonens (Expression unaryOp fValue binaryOp sValue)
         | ((getProposition (getFValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*")) = (" Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: " ++ (literalToString (getSValue fValue)))
-        | otherwise = " Nao eh possivel aplicar Modus Ponens nessa expressao."
+        | otherwise = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
 
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
@@ -126,9 +127,9 @@ module SimplificadorLogico where
         else if(opcao == 3)
         then
             putStrLn (execAdicao l)
-        --else if (opcao == 4)
-        --then
-            --execIntroducaoDaEquivalencia l
+        else if (opcao == 4)
+        then
+            putStrLn (execIntroducaoDaEquivalencia l)
         else if (opcao == 5)
         then
             putStrLn (execEliminacaoDaEquivalencia l)
