@@ -8,9 +8,7 @@ module SimplificadorLogico where
     -- Oferecer Opções de uso
     -- Avaliar compatibilidade
     -- Retornar Simplificação ou Incompatibilidade
-    --
     -- Mantém, Renova Expressão ou Menu Principal
-
 
     -- Executável
     execSimplificador :: IO()
@@ -19,7 +17,6 @@ module SimplificadorLogico where
         putStrLn " 1. Avaliar uma Expressao"
         escolherOpcoes
     
-
     escolherOpcoes :: IO()
     escolherOpcoes = do
         opcao <- readLn :: IO Int
@@ -31,22 +28,20 @@ module SimplificadorLogico where
 
     auxExe :: IO()
     auxExe = do
-        putStrLn " Primeiro digite a expressao que deseja-se aplicar a avaliacao"
+        putStrLn "\n Primeiro digite a expressao que deseja-se aplicar a avaliacao."
         lit <- Lit._receiveInput
+        putStrLn ("\nSua Expressao: " ++ (literalToString lit))
         executandoOpcao lit
 
     executandoOpcao :: Literal -> IO()
     executandoOpcao literal = do
-        putStrLn " Voce deseja usar sua expressao(U), reusa-la (R), criar uma nova expressao(N) ou sair(S)"
+        putStrLn " Voce deseja usar sua expressao(U), criar uma nova expressao(N) ou sair(S)\n"
         putStr " >>> "
         op <- getLine
         putStrLn ""
         if(op == "U")
         then
-            avaliaExpressao literal
-        else if(op == "R")
-        then
-            reusaLiteral literal
+            usarExpressao literal
         else if(op == "N")
         then
             criaNovoLiteral
@@ -56,84 +51,18 @@ module SimplificadorLogico where
         else
             putStrLn " OPCAO INVALIDA"
 
+
+    usarExpressao :: Literal -> IO()
+    usarExpressao literal = do
+        avaliaExpressao literal
+        putStrLn ("\nSua Expressao: " ++ (literalToString literal))
+        executandoOpcao literal
+    
     criaNovoLiteral :: IO()
     criaNovoLiteral = do
         lit <- Lit._receiveInput
-        executandoOpcao lit
-
-    reusaLiteral :: Literal -> IO()
-    reusaLiteral literal = do  
-        avaliaExpressao literal
-        executandoOpcao literal
-
-    
-module SimplificadorLogico where
-
-    import Lit
-
-    -- Necessidade de:
-    --
-    -- Criar uma Expressão
-    -- Oferecer Opções de uso
-    -- Avaliar compatibilidade
-    -- Retornar Simplificação ou Incompatibilidade
-    --
-    -- Mantém, Renova Expressão ou Menu Principal
-
-
-    -- Executável
-    execSimplificador :: IO()
-    execSimplificador = do
-        putStrLn " 0. Retornar ao Menu."
-        putStrLn " 1. Avaliar uma Expressao"
-        escolherOpcoes
-    
-
-    escolherOpcoes :: IO()
-    escolherOpcoes = do
-        opcao <- readLn :: IO Int
-        if(opcao == 0)
-        then
-            putStrLn " Voltando ao menu inicial"
-        else 
-            auxExe
-
-    auxExe :: IO()
-    auxExe = do
-        putStrLn " Primeiro digite a expressao que deseja-se aplicar a avaliacao"
-        lit <- Lit._receiveInput
-        executandoOpcao lit
-
-    executandoOpcao :: Literal -> IO()
-    executandoOpcao literal = do
-        putStrLn " Voce deseja usar sua expressao(U), reusa-la (R), criar uma nova expressao(N) ou sair(S)"
-        putStr " >>> "
-        op <- getLine
-        putStrLn ""
-        if(op == "U")
-        then
-            avaliaExpressao literal
-        else if(op == "R")
-        then
-            reusaLiteral literal
-        else if(op == "N")
-        then
-            criaNovoLiteral
-        else if(op == "S")
-        then
-            putStrLn " Saindo..."
-        else
-            putStrLn " OPCAO INVALIDA"
-
-    criaNovoLiteral :: IO()
-    criaNovoLiteral = do
-        lit <- Lit._receiveInput
-        executandoOpcao lit
-
-    reusaLiteral :: Literal -> IO()
-    reusaLiteral literal = do  
-        avaliaExpressao literal
-        executandoOpcao literal
+        putStrLn ("\nSua Expressao: " ++ (literalToString lit))
+        executandoOpcao lit    
 
     informaOpcoes :: IO()
     informaOpcoes = do
@@ -152,11 +81,11 @@ module SimplificadorLogico where
         putStrLn " 0 - Voltar ao menu principal"
         putStrLn "        --- Digite a sua opção! ---"
 
-    -- negacao ~(~P) retorna P
+    -- negacao ~(~P&Q) retorna P&Q
     execNegacao :: Literal -> String
     execNegacao (Expression unaryOp fValue binaryOp sValue)
-        | ((unaryOp == "~") && (getUnaryOp fValue == "~") && (binaryOp == "&")) = (" Sua dupla negacao resulta em: " ++ (getProposition fValue) ++ binaryOp ++ (getProposition sValue))
-        | otherwise = " Nao eh possivel aplicar Negacao nessa expressao."
+        | ((unaryOp == "~") && (getUnaryOp fValue == "~") && (binaryOp == "&")) = ("\n Sua dupla negacao resulta em: " ++ (getProposition fValue) ++ binaryOp ++ (getProposition sValue))
+        | otherwise = (" Nao eh possivel aplicar Negacao nessa expressao.")
 
     -- conjuncao (1 | 0) ^ (1 | 0) retorna True | False
     execConjuncao :: Literal -> String
@@ -165,7 +94,7 @@ module SimplificadorLogico where
 
     -- adicao_disjuntiva (P) retorna P | "Qualquer Expressão"
     execAdicao :: Literal -> String
-    execAdicao litera = (" Essa Expressao pode ser considerada igual a: " ++ (literalToString litera) ++ " | Qualquer Expressão")
+    execAdicao litera = ("\n Essa Expressao pode ser considerada igual a: " ++ (literalToString litera) ++ " | Qualquer Expressão")
 
     -- introducao_de_equivalencia (P -> Q) ^ (Q -> P) retorna (P <-> Q)
     execIntroducaoDaEquivalencia :: Literal -> String
@@ -179,36 +108,36 @@ module SimplificadorLogico where
         if(opcao == 1)
         then
             putStrLn (execNegacao l)
-        --else if (opcao == 2)
-            --execConjuncao l
-        --then
-        --else if (opcao == 3)
-            -- execAdicao l
-        --then
+    --  else if (opcao == 2)
+    --      execConjuncao l
+    --  then
+        else if(opcao == 3)
+        then
+            putStrLn (execAdicao l)
         --else if (opcao == 4)
+        --then
             --execIntroducaoDaEquivalencia l
-        --then
         --else if (opcao == 5)
+        --then
             --execEliminacaoDaEquivalencia l
-        --then
         --else if (opcao == 6)
+        --then
             --execModusPonens l
-        --then
         --else if (opcao == 7)
+        --then
             --execModusTollens l
-        --then
         --else if (opcao == 8)
+        --then
             --execSilogismoHipotetico l
-        --then
         --else if (opcao == 9)
+        --then
             --execSilogismoDisjuntivo l
-        --then
         --else if (opcao == 10)
+        --then
             --execDilemaConstrutivo l
-        --then
         --else if (opcao == 11)
-            --execExportacao l
         --then
+            --execExportacao l
         else
             putStrLn " Opcao invalida"
     
