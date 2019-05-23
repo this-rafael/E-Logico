@@ -31,7 +31,7 @@ module TruthTableGenerator where
     -}
     getPropositionsBrute :: [Char] -> [Char]
     getPropositionsBrute [] = []
-    getPropositionsBrute (head:tail) | notIn head "|&()*# " = [head] ++ getPropositionsBrute tail
+    getPropositionsBrute (head:tail) | notIn head "|&()*#~ " = [head] ++ getPropositionsBrute tail
                                     | otherwise = getPropositionsBrute tail
 
     {-
@@ -147,9 +147,9 @@ module TruthTableGenerator where
     callTable :: Literal -> IO()
     callTable lit = do
         putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
-        putStrLn "\nDeseja criar uma nova tabela ou voltar ao menu?"
-        putStrLn "0 - Criar nova!"
-        putStrLn "1 - Voltar ao menu!"
+        putStrLn "Deseja criar uma nova tabela ou voltar ao menu?"
+        putStrLn "0 - Voltar ao menu!"
+        putStrLn "1 - Criar nova!"
         repeatTruthTable
 
 
@@ -158,8 +158,9 @@ module TruthTableGenerator where
 
     execTruthTable :: IO()
     execTruthTable = do
-        putStrLn "0. Retornar ao Menu."
-        putStrLn "1. Tutorial como inserir expressao e criar uma tabela verdade."
+        putStrLn "\nBem vindo ao gerador de Tabela Verdade!"
+        putStrLn "\n0. Retornar ao Menu."
+        putStrLn "1. Tutorial como inserir expressao."
         putStrLn "2. Apenas gerar a tabela verdade de uma expressao."
         escolherOpcoes
     
@@ -168,7 +169,7 @@ module TruthTableGenerator where
         opcao <- readLn :: IO Int
         if (opcao == 0)
         then
-            putStrLn "Voltando ao menu inicial"
+            putStrLn "Volte sempre!\n"
         else if (opcao == 1)
         then
             explicaLit
@@ -187,14 +188,14 @@ module TruthTableGenerator where
         op <- readLn :: IO Int
         if (op == 0)
         then
-            execTruthTable
+            putStrLn "Volte sempre!\n"
         else
-            putStrLn "Voltando ao menu inicial"
+            execTruthTable
 
     explicaLit :: IO()
     explicaLit = do
-        putStrLn "---------------------------------------------------------------------------------"
-        putStrLn "\n\nUm literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"
+        putStrLn "---------------------LITERAL TUTORIAL----------------------"
+        putStrLn "\nUm literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"
         putStrLn "- Um operador unario (~, ) para dizer se o valor da expressao eh negado;"
         putStrLn "- Um valor A: esse valor pode ser uma outra expressao ou uma simples proposicao;"
         putStrLn "- Um operador binario (&,|,*,#), que serve para dizer se a expressao eh uma conjuncao, uma disjuncao, uma implicacao ou uma bi-implicacao;"
@@ -203,4 +204,5 @@ module TruthTableGenerator where
         putStrLn "- Um operador unario (~, ) para dizer se o valor da proposicao eh negado;"
         putStrLn "- Um valor: esse valor eh obrigatoriamente uma string, que no caso, vai ser a letra que representa a proposicao."
         putStrLn "Agora que ja sabemos como eh formado um literal, podemos criar um a seguir:\n"
-        auxExe
+        putStrLn "-----------------------------------------------------------"
+        execTruthTable
