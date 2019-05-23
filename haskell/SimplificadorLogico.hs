@@ -89,8 +89,9 @@ module SimplificadorLogico where
 
     -- conjuncao (1 | 0) ^ (1 | 0) retorna True | False
     execConjuncao :: Literal -> String
-    execConjuncao (Expression unaryOp fValue binaryOp sValue) = "Falta concluir"
-        -- | ((getProposition (getFValue fValue)) == (getProposition sValue)), mesma coisa para o sValue.
+    execConjuncao (Expression unaryOp fValue binaryOp sValue)
+        | (binaryOp == "&") = ("\n Aplicando-se o metodo Conjuncao, tem-se o resultado da Expressao: " ++ unaryOp ++ (literalToString fValue) ++ (literalToString sValue))
+        | otherwise = (" Nao eh possivel aplicar Conjuncao nessa expressao.")
 
     -- adicao_disjuntiva (P) retorna P | "Qualquer Expressão"
     execAdicao :: Literal -> String
@@ -151,9 +152,9 @@ module SimplificadorLogico where
         if(opcao == 1)
         then
             putStrLn (execNegacao l)
-    --  else if (opcao == 2)
-    --      execConjuncao l
-    --  then
+        else if (opcao == 2)
+        then
+            putStrLn (execConjuncao l)
         else if(opcao == 3)
         then
             putStrLn (execAdicao l)
@@ -183,19 +184,3 @@ module SimplificadorLogico where
             putStrLn (execExportacao l)
         else
             putStrLn " Opcao invalida"
-    
-    -- execModusPonens :: Literal -> IO()
-    -- execModusPonens l = do
-    --     putStrLn (modusPonens l)
-    
-    -- implementar
-    -- modusPonens :: Literal -> String
-    
-    
-    -- execModusPonens :: Literal -> IO()
-    -- execModusPonens l = do
-    --     putStrLn (modusPonens l)
-    
-    -- implementar
-    -- modusPonens :: Literal -> String
-    
