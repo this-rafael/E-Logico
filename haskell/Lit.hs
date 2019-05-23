@@ -4,8 +4,8 @@ module Lit  where
 
     _receiveInput :: IO(Literal)
     _receiveInput = do
-        putStrLn "1- Para inserir uma Proposicao"  
-        putStrLn "2- Para inserir uma Expressao" 
+        putStrLn " 1- Para inserir uma Proposicao"  
+        putStrLn " 2- Para inserir uma Expressao" 
         putStr " >>> "
 
         option <- getLine
@@ -62,7 +62,7 @@ module Lit  where
 
     chooseAUnaryOperator :: IO(String)
     chooseAUnaryOperator = do
-        putStrLn "pressione '~' caso deseje inserir uma negacao a sua expressao, ou pressione enter para continuar"
+        putStrLn " pressione '~' caso deseje inserir uma negacao a sua expressao, ou pressione enter para continuar"
         putStr " >>> "
         op <- getLine
         return op
@@ -134,7 +134,7 @@ module Lit  where
     interativePropositionConstruct:: IO(Literal)
     interativePropositionConstruct = do 
         putStrLn " Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"
-        putStr ">>> "
+        putStr " >>> "
         basicString <- getLine
         if(length basicString == 2)
         then 
@@ -173,11 +173,17 @@ module Lit  where
         if (getUnaryOp p == "~") then True
         else False
 
+    {-
+    Função que verifica se o valor recebido é uma proposição
+    -}
     isValidProposition :: Char -> Bool
     isValidProposition p =
         if ((elem p ['a'..'z']) || (elem p ['A'..'Z'])) then True
         else False 
-        
+    
+    {-
+    Funcao que verifica se o valor recebido é um operador binário
+    -}
     isBinaryOperator :: Char -> Bool
     isBinaryOperator o = 
         if ((elem o ['*', '#','&', '|'])) then True
