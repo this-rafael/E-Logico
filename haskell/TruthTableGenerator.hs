@@ -162,29 +162,62 @@ module TruthTableGenerator where
     --                                   Funlões para a montagem da tabela
 
     {-
+    Monta a primeira linha da tabela.
+    Ex:
+    firstLine "abc" "(a & (b | c))" = a b c | (a & (b | c))
     -}
     firstLine :: [Char] -> [Char] -> [Char]
     firstLine "" exp = "| " ++ exp
     firstLine (x:xs) exp = [x] ++ " " ++ (firstLine xs exp)  
 
     {-
+    Monta cada linha da tabela.
+    Ex:
+    otherLine "01" "01" "ab" "(a & b)" = "0 1 | 0"
+    otherLine "11" "11" "ab" "(a & b)" = "1 1 | 1"
     -}
     otherLine :: [Char] -> [Char] -> [Char] -> Literal -> [Char]
     otherLine "" valor prop  lit = "| " ++ resToString(result lit prop valor) 
     otherLine (x:xs) valor prop lit = [x] ++ " " ++ (otherLine xs valor prop lit)
 
     {-
+    Junta todas linhas da tabela.
+    Ex:
+    tailTable ["0","1"], "a" "(a)" =
+    "
+    0 | 0
+    1 | 1
+    "
     -}
     tailTable :: [[Char]] -> [Char] -> Literal ->[Char]
     tailTable [] prop lit = ""
     tailTable (x:xs) prop lit = otherLine x x prop lit ++ "\n" ++ tailTable xs prop lit
 
     {-
+    Junta a cauda da tabela com a primeira linha.
+    Ex:
+    table ["0","1"], "a", "(-a)" = 
+    "
+    a | ~a
+    0 | 1
+    1 | 0
+    "
     -}
     table :: [[Char]] -> [Char] -> Literal -> [Char]
     table lista prop lit =  (firstLine prop (literalToString lit)) ++ "\n" ++ (tailTable lista prop lit )
 
     {-
+    Retorna a tabela do literal.
+    Ex:
+    literalToString lit = (a & b)
+    callTable lit =
+    "
+    a b | (a & b)
+    0 0 | 0
+    0 1 | 0
+    1 0 | 0
+    1 1 | 1 
+    "
     -}
     callTable :: Literal -> IO()
     callTable lit = do
