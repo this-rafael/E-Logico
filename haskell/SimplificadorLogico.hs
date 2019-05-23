@@ -132,6 +132,12 @@ module SimplificadorLogico where
         | (((getProposition (getSValue fValue)) == (getProposition sValue)) && ((getBinaryOp fValue) == "|") && (binaryOp == "&") && ((getUnaryOp sValue) == "~")) = ("\n Aplicando-se o metodo Silogismo Disjuntivo, tem-se o resultado da Expressao: " ++ (getProposition (getFValue fValue)))
         | otherwise = (" Nao eh possivel aplicar Silogismo Disjuntivo nessa expressao.")
 
+    -- dilema_construtivo (P -> Q) ^ (r -> s) ^ (P ^ r) retorna q v s
+    execDilemaConstrutivo :: Literal -> String
+    execDilemaConstrutivo (Expression unaryOp fValue binaryOp sValue)
+        | (((getProposition (getFValue (getFValue fValue))) == (getProposition (getFValue sValue))) && ( (getProposition (getFValue (getSValue fValue))) == (getProposition (getSValue sValue)) ) && (binaryOp == "&") && ((getBinaryOp fValue) == "&") && ((getBinaryOp (getFValue fValue)) == "*") && ((getBinaryOp (getSValue fValue)) == "*") && ((getBinaryOp sValue) == "&")) = ("\n Aplicando-se o metodo Dilema Construtivo, tem-se o resultado da Expressao: (" ++ (getProposition (getSValue (getFValue fValue))) ++ " v " ++ (getProposition (getSValue (getSValue fValue))) ++ ")")
+        | otherwise = (" Nao eh possivel aplicar Dilema Construtivo nessa expressao.")
+
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
         informaOpcoes
@@ -163,9 +169,9 @@ module SimplificadorLogico where
         else if (opcao == 9)
         then
             putStrLn (execSilogismoDisjuntivo l)
-        --else if (opcao == 10)
-        --then
-            --execDilemaConstrutivo l
+        else if (opcao == 10)
+        then
+            putStrLn (execDilemaConstrutivo l)
         --else if (opcao == 11)
         --then
             --execExportacao l
