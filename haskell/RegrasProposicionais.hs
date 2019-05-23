@@ -1,11 +1,17 @@
 module RegrasProposicionais where
---mudanca para criacao de branch
+    
+    {-
+    Funcao que retorna o resumo da opcao Negacao
+    -} 
     resumoNegacao :: IO ()
     resumoNegacao = do
         putStrLn " A Dupla Negacao afirma que se temos uma afirmacao verdadeira, logo, se negarmos a negacao dessa afirmacao teremos uma equivalencia com a afirmacao"
         putStrLn " Como regra de simplicacao, temos que ~(~P) = P"
         putStrLn " Quer saber mais sobre a Dupla Negacao?"
     
+    {-
+    Funcao que retorna informacoes adicionais a opcao Negacao
+    -}
     infoNegacao :: IO ()
     infoNegacao = do
         putStrLn " Na notacao simbolica temos:"
@@ -15,12 +21,19 @@ module RegrasProposicionais where
         putStrLn " ~P = Game of Thrones NAO estreia hoje."
         putStrLn " ~(~P) = Nao eh verdade que Game Of Thrones NAO estreia hoje."
     
+    {-
+    Funcao que retorna um resumo da opcao Conjuncao
+    -}
     resumoConjuncao :: IO ()
     resumoConjuncao = do 
         putStrLn " A conjucao eh a combinacao de preposicoes que soh resultarah verdade se ambas as proposicoes forem verdadeiras."
         putStrLn " Como regra de simplicacao, quando temos as preposicoes P, Q, podemos deduzir que  P ^ Q."
         putStrLn " Quer saber mais sobre a conjuncao?"
     
+
+    {-
+    Funcao que retorna informacoes adicionais da opcao conjuncao
+    -}
     infoConjuncao :: IO ()
     infoConjuncao = do
         putStrLn " Na notacao simbolica temos:"
@@ -32,12 +45,18 @@ module RegrasProposicionais where
         putStrLn " Em operacoes logicas, a conjuncao funciona como a multiplicacao, Exemplo:"
         putStrLn " 1 ^ 1 = 1    1 ^ 0 = 0    0 ^ 0 = 0"
     
+    {-
+    Funcao que retorna informacoes da opcao Adicao
+    -}
     resumoAdicao :: IO()
     resumoAdicao = do
         putStrLn " A adicao irah unir as preposicoes de maneira que se ao menos uma das preposicoes for verdadeira, o resultado serah verdadeiro."
         putStrLn " Como regra de simplicacao, temos que ao possuirmos P, P v Q vai ser verdadeiro, assim como  Q v P."
         putStrLn " Quer saber mais sobre a adicao?"
     
+    {-
+    Funcao que retorna informacoes adicionais da opcao Adicao
+    -}
     infoAdicao :: IO()
     infoAdicao = do
         putStrLn " Na notacao simbolica temos:"
@@ -49,22 +68,34 @@ module RegrasProposicionais where
         putStrLn " Em operacoes, a adicao conservarah a veracidade, ao menos que nao exista. Exemplo:"
         putStrLn " 1 v 1 = 1    1 v 0 = 1    0 v 0 = 0"
     
+    {-
+    Funcao que retorna informacoes da opcao Introducao a Equivalencia
+    -}
     resumoIntroEquivalencia :: IO()
     resumoIntroEquivalencia = do 
         putStrLn " Atraves de implicacoes distintas com as mesmas proposicoes, podemos deduzir uma bicondicional entre as proposicoes."
         putStrLn" No caso, temos P --> Q, Q --> P, logo podemos deduzir P <--> Q."
     
+    {-
+    Funcao que retorna informacoes da opcao Eliminacao de Equivalencia
+    -}
     resumoElimEquivalencia :: IO()
     resumoElimEquivalencia = do
         putStrLn " Através de uma bicondicional, podemos deduzir que existe uma implicação em ambos os termos."
         putStrLn " No caso, temos P <--> Q, podemos deduzir P --> Q, ou Q --> P "
     
+    {-
+    Funcao que retorna informacoes da opcao Modus Ponens
+    -}
     resumoModusPonens :: IO()
     resumoModusPonens = do
         putStrLn " Através de uma implicação, caso a implicante seja confirmada, temos a dedução da implicância."
         putStrLn " Seja P --> Q, tendo P confirmado, podemos deduzir Q."
         putStrLn " Quer saber mais sobre Modus Ponnens?"
     
+    {-
+    Funcao que retorna informacoes adicionais da opcao Modus Ponens
+    -}
     infoModusPonens :: IO()
     infoModusPonens = do 
         putStrLn " As vezes chamada de regra do desapego, Modus Ponens é utilizado para a retirada da implicação, encurtando a fórmula lógica."
@@ -76,12 +107,18 @@ module RegrasProposicionais where
         putStrLn " Q = Eu desisti do show"
         putStrLn " Podemos deduzir Q pois em uma implicação, só existe uma maneira de se existir falsidade, sendo V --> F. Assim numa implicação quando sabemos que existe veracidade na implicante, dependemos apenas da implicância."
     
+    {-
+    Funcao que retorna informacao da opcao Modus Tollens
+    -}
     resumoModusTollens :: IO()
     resumoModusTollens = do
         putStrLn " A partir de uma implicação, quando temos a negação do implicante, podemos deduzir a negação da implicante."
         putStrLn " Assim P --> Q, ~Q, temos ~P"
         putStrLn " Quer saber mais sobre Modus Tollens?"
     
+    {-
+    Funcao que retorna informacoes adicionais da opcao Modus Tollens
+    -}
     infoModusTollens :: IO()
     infoModusTollens = do
         putStrLn " Também chamado de Prova Indireta, ou negação consequente, Modus Tollens é utilizado para a retirada da implicação, encurtando a fórmula lógica."
@@ -91,12 +128,18 @@ module RegrasProposicionais where
         putStrLn " ~P = Não tinha ingressos"
         putStrLn " Podemos deduzir ~P pois em uma implicação quando temos a negação da implicÂncia, só temos a corretude no caso de termos a negação do implicante. assim no caso F --> V, F --> V continuam corretos"
     
+    {-
+    Funcao que retorna informacoes da opcao do Silogismo Hipotetico
+    -}
     resumoHipotetico :: IO()
     resumoHipotetico = do
         putStrLn " A partir de duas implicações onde a implicância de uma seja o implicante da segunda implicação, podemos deduzir que o implicante da primeira implica a implicância da segunda"
         putStrLn " Seja P --> Q, Q --> R então P --> R"
         putStrLn " Quer saber mais sobre Silogismo Hipotético?"
     
+    {-
+    Funcao que retorna informacoes adicionais do Silogismo Hipotetico
+    -}
     infoHipotetico :: IO()
     infoHipotetico = do
         putStrLn " Utilizado na teoria da consequência, O silogismo hipotético não retira a implicação, apenas diminui o numero de termos e implicações presentes na fórmula."
@@ -106,12 +149,18 @@ module RegrasProposicionais where
         putStrLn " P --> R = Se sou aluno de Computação, então sei programar."
     
 
+    {-
+    Funcao que retorna informacoes da opcao do Silogismo Disjuntivo
+    -}
     resumoDisjuntivo :: IO()
     resumoDisjuntivo = do 
         putStrLn " A partir de uma operação de disjunção quando temos a negação de um termo, podemos deduzir o termo restante."
         putStrLn " Seja  P v Q. tendo  ~P, logo temos Q"
         putStrLn " Quer saber mais sobre Silogismo Disjuntivo?"
 
+    {-
+    Funcao que retorna informacoes adicionais do Silogismo Disjuntivo
+    -}
     infoDisjuntivo :: IO()
     infoDisjuntivo = do
         putStrLn " Conhecido historicamente como Modus Tollendo Ponens, o silogismo disjuntivo é indicado apenas para a simplificação de termos."
@@ -120,12 +169,18 @@ module RegrasProposicionais where
         putStrLn " ~P = não viajo de férias."
         putStrLn " Q = Então faço cursinho de inglês."
     
+    {-
+    Funcao que retorna informacoes do Dilema Construtivo
+    -}
     resumoDilemaConstrutivo :: IO()
     resumoDilemaConstrutivo = do
         putStrLn " A partir de duas implicações totalmente distintas, se possuímos uma disjunção entre o implicante da primeira com o implicante da segunda implicação, podemos deduzir uma disjunção entre a implicância da primeira com a implicância da segunda disjunção."
         putStrLn " Sendo assim P --> Q, R --> S. Tendo P v R, podemos deduzir Q v S"
         putStrLn " Quer saber mais sobre Silogismo Disjuntivo?"
     
+    {-
+    Funcao que retorna informacoes adicionais do Dilema Construtivos
+    -}
     infoDilemaConstrutivo :: IO()
     infoDilemaConstrutivo = do
         putStrLn " Também conhecido como dilema de transferência, serve para a simplificação de duas implicações resultando em uma disjunção"
@@ -135,11 +190,17 @@ module RegrasProposicionais where
         putStrLn " P v R = Eu me formei ou tenho dinheiro."
         putStrLn " Q v S = Eu tenho um emprego ou tenho um carro."
     
+    {-
+    Funcao que retorna informacoes da opcao Exportacao
+    -}
     resumoExportacao :: IO()
     resumoExportacao = do 
         putStrLn " A partir de uma implicação, se o implicante for formado por uma conjunção, podemos deduzir uma implicação do primeiro termo da conjunção implicando numa implicação do segundo termo da conjunção implicando na implicância original."
         putStrLn " Sendo (P ^ Q) --> S, temos P --> (Q --> S)."
     
+    {-
+    Funcao que retorna a lista de opcoes da classe
+    -}
     menuRegras :: IO()
     menuRegras = do 
         putStrLn "\t\t --- Lista de Regras --- "
@@ -157,11 +218,17 @@ module RegrasProposicionais where
         putStrLn " \t0 - Voltar ao menu principal;\n"
         putStrLn " Digite a sua opção!"
     
+    {-
+    Funcao que valida a resposta do usuario
+    -}
     valida :: String -> Bool
     valida resposta = 
         if (resposta == "sim") then True
         else False
     
+    {-
+    Menu de opcao de entrada para as regras
+    -}
     opcoesRegras :: Int -> IO()
     opcoesRegras opc
         | opc == 1 = do
@@ -241,7 +308,10 @@ module RegrasProposicionais where
         
         | otherwise = do
             putStrLn " Abaixa o volume da TV e me escuta pelo telefone! pode repetir?"
-    
+
+    {-
+    Funcao que simula o laco em regras proposicionais
+    -}
     laco :: Int -> IO()
     laco 0 = putStrLn " Ciao! "
     laco opc = do 
@@ -251,7 +321,9 @@ module RegrasProposicionais where
         opcoesRegras opc
 
         laco opc
-
-
+        
+    {-
+    Funcao de chamada na classe main do projeto
+    -}
     execRegras :: IO()
     execRegras = laco 666 -- tem que iniciar com um Int qualquer ...
