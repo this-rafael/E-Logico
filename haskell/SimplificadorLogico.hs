@@ -138,6 +138,12 @@ module SimplificadorLogico where
         | (((getProposition (getFValue (getFValue fValue))) == (getProposition (getFValue sValue))) && ( (getProposition (getFValue (getSValue fValue))) == (getProposition (getSValue sValue)) ) && (binaryOp == "&") && ((getBinaryOp fValue) == "&") && ((getBinaryOp (getFValue fValue)) == "*") && ((getBinaryOp (getSValue fValue)) == "*") && ((getBinaryOp sValue) == "&")) = ("\n Aplicando-se o metodo Dilema Construtivo, tem-se o resultado da Expressao: (" ++ (getProposition (getSValue (getFValue fValue))) ++ " v " ++ (getProposition (getSValue (getSValue fValue))) ++ ")")
         | otherwise = (" Nao eh possivel aplicar Dilema Construtivo nessa expressao.")
 
+    -- exportacao ((P ^ Q) -> R) retorna P -> (Q -> R)
+    execExportacao :: Literal -> String
+    execExportacao (Expression unaryOp fValue binaryOp sValue)
+        | ((getBinaryOp fValue == "&") && (binaryOp == "*")) = ("\n Aplicando-se o metodo Exportacao, tem-se o resultado da Expressao: ") ++ (getProposition (getFValue fValue)) ++ " -> (" ++ (getProposition (getSValue fValue)) ++ " -> " ++ (getProposition sValue) ++ ")"
+        | otherwise = (" Nao eh possivel aplicar Exportacao nessa expressao.")
+    
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
         informaOpcoes
@@ -172,9 +178,9 @@ module SimplificadorLogico where
         else if (opcao == 10)
         then
             putStrLn (execDilemaConstrutivo l)
-        --else if (opcao == 11)
-        --then
-            --execExportacao l
+        else if (opcao == 11)
+        then
+            putStrLn (execExportacao l)
         else
             putStrLn " Opcao invalida"
     
