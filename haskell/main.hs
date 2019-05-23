@@ -1,6 +1,7 @@
 import MenuApresentacao
 import RegrasProposicionais
 import TruthTableGenerator
+import SimplificadorLogico
 
 {-
 Método main do programa
@@ -25,7 +26,7 @@ execOpcoes opc
         execMenuApresentacao
     |opc == 3 = do
         MenuApresentacao.resumoExpressoes
-        -- execExpressoes
+        SimplificadorLogico.execSimplificador
         execMenuApresentacao
     |opc == 4 = do
         MenuApresentacao.resumoRegras
