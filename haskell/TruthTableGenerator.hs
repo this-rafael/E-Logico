@@ -104,18 +104,43 @@ module TruthTableGenerator where
 
     --                                   Funcoes para obter os resultados
 
+    {-
+    Obtem a posicao de uma proposicao na string de proposicoes.
+    Ex:
+    getPropPosition "p" "pqr" = 0
+    getPropPosition "q" "pqr" = 1
+    -}
     getPropPosition :: [Char] -> [Char] -> Int
     getPropPosition prop (h:t) | prop == [h] = 0
-                            | otherwise = 1 + getPropPosition prop t 
+                               | otherwise = 1 + getPropPosition prop t 
 
+    {-
+    Obtem o valor de uma proposicao de acordo com sua posicao em relacao a interpretacao.
+    Ex:
+    getPropositionValue "p" "pqr" "010" = False
+    getPropositionValue "q" "pqr" "010" = True
+    -}
     getPropositionValue :: [Char] -> [Char] -> [Char] -> Bool
     getPropositionValue prop list poss | (poss !! (getPropPosition prop list)) == '0' = False
-                                    | otherwise = True
+                                       | otherwise = True
 
+    {-
+    Inverte o valor de uma proposicao baseado no seu operador unario.
+    Ex:
+    checkUnOP True "~" = False
+    checkUnOP True "" = True
+    -}
     checkUnOP :: Bool -> String -> Bool
     checkUnOP value unOp | unOp == "~" = not value
-                        | otherwise = value
+                         | otherwise = value
 
+    {-
+    Varre toda a arvore do literal para obter o valor da expressao, realizando as operacoes da arvore para determinada interpretacao.
+    Ex:
+    literalToString <literal> = "(a & b)"
+    result <literal> "ab" "00" = False
+    result <literal> "ab" "11" = True
+    -}
     result :: Literal -> [Char] -> [Char] -> Bool
     result (Proposition unOp prop) list poss = checkUnOP (getPropositionValue prop list poss) unOp
     result (Expression unOp v1 binOp v2) list poss | binOp == "&" = checkUnOP ((result v1 list poss) && (result v2 list poss)) unOp
@@ -123,6 +148,12 @@ module TruthTableGenerator where
                                                    | binOp == "*" = checkUnOP ((not (result v1 list poss)) || (result v2 list poss)) unOp
                                                    | otherwise = checkUnOP (((result v1 list poss) && (result v2 list poss)) || (( not (result v1 list poss)) && ( not (result v2 list poss)))) unOp
 
+    {-
+    Transforma um booleano em uma string representativa "0" ou "1".
+    Ex:
+    resToString True = "1"
+    resToString False = "0"
+    -}
     resToString :: Bool -> String
     resToString True = "1"
     resToString False = "0"
@@ -130,21 +161,31 @@ module TruthTableGenerator where
 
     --                                   Funlões para a montagem da tabela
 
+    {-
+    -}
     firstLine :: [Char] -> [Char] -> [Char]
     firstLine "" exp = "| " ++ exp
     firstLine (x:xs) exp = [x] ++ " " ++ (firstLine xs exp)  
 
+    {-
+    -}
     otherLine :: [Char] -> [Char] -> [Char] -> Literal -> [Char]
     otherLine "" valor prop  lit = "| " ++ resToString(result lit prop valor) 
     otherLine (x:xs) valor prop lit = [x] ++ " " ++ (otherLine xs valor prop lit)
 
+    {-
+    -}
     tailTable :: [[Char]] -> [Char] -> Literal ->[Char]
     tailTable [] prop lit = ""
     tailTable (x:xs) prop lit = otherLine x x prop lit ++ "\n" ++ tailTable xs prop lit
 
+    {-
+    -}
     table :: [[Char]] -> [Char] -> Literal -> [Char]
     table lista prop lit =  (firstLine prop (literalToString lit)) ++ "\n" ++ (tailTable lista prop lit )
 
+    {-
+    -}
     callTable :: Literal -> IO()
     callTable lit = do
         putStrLn $ table (callGetPossibilitiesTable (length(getPropositions (literalToString lit)))) (getPropositions (literalToString lit)) (lit)
@@ -156,12 +197,16 @@ module TruthTableGenerator where
 
     --                              ##   MAIN   ##
 
+    {-
+    -}
     execTruthTable :: IO()
     execTruthTable = do
         putStrLn "\nBem vindo ao gerador de Tabela Verdade!"
         printOptions
     
 
+    {-
+    -}
     printOptions :: IO()
     printOptions = do
         putStrLn "\nEscolha sua opcao! (0, 1, 2 ou 3)"
@@ -171,6 +216,8 @@ module TruthTableGenerator where
         putStrLn "3. Gerar a tabela verdade de uma expressao."
         escolherOpcoes
 
+    {-
+    -}
     escolherOpcoes :: IO()
     escolherOpcoes = do
         opcao <- readLn :: IO Int
@@ -186,6 +233,8 @@ module TruthTableGenerator where
         else
             auxExe
 
+    {-
+    -}
     auxExe :: IO()
     auxExe = do
         putStrLn "Primeiro digite o literal que deseja-se aplicar a avaliacao"
@@ -193,6 +242,8 @@ module TruthTableGenerator where
         putStrLn "\nEssa eh a tabela verdade da expressao:"
         callTable lit
 
+    {-
+    -}
     repeatTruthTable :: IO()
     repeatTruthTable = do
         op <- readLn :: IO Int
@@ -202,7 +253,8 @@ module TruthTableGenerator where
         else
             printOptions
 
-
+    {-
+    -}
     explicaTable :: IO()
     explicaTable = do
         putStrLn "--------------------TABELA VERDADE------------------------"
@@ -218,6 +270,8 @@ module TruthTableGenerator where
         putStrLn "-----------------------------------------------------------"
         printOptions
 
+    {-
+    -}
     explicaLit :: IO()
     explicaLit = do
         putStrLn "---------------------LITERAL TUTORIAL----------------------"
