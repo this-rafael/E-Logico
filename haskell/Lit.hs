@@ -153,10 +153,16 @@ module Lit  where
     interativeExpressionConstruct :: IO(Literal)
     interativeExpressionConstruct = do
         
+        putStrLn "\nestado atual do literal: ()"
         unaryOp <- chooseAUnaryOperator
+        putStrLn ("\nestado atual do literal:" ++ unaryOp ++ " ( ")
         valueA <- _receiveInput
+        putStrLn  ("\nestado atual do literal:" ++ unaryOp ++ " ( " ++ (literalToString valueA) )
         binaryOp <- chooseABinaryOperator
+        putStrLn  ("\nestado atual do literal:" ++ unaryOp ++ " ( " ++ (literalToString valueA) ++ " " ++ binaryOp ++ " ")
         valueB <- _receiveInput
+        putStrLn  ("\nestado atual do literal:" ++ unaryOp ++ " ( " ++ (literalToString valueA) ++ " " ++ binaryOp ++ " " ++ (literalToString valueB) ++ " )") 
+
 
         return (buildExpression unaryOp valueA (changeForValidBinaryOperator binaryOp) valueB)
 
@@ -180,7 +186,7 @@ module Lit  where
         else False
 
     {-
-    Função que verifica se o valor recebido é uma proposição
+    FunÃ§Ã£o que verifica se o valor recebido Ã© uma proposiÃ§Ã£o
     -}
     isValidProposition :: Char -> Bool
     isValidProposition p =
@@ -188,7 +194,7 @@ module Lit  where
         else False 
     
     {-
-    Funcao que verifica se o valor recebido é um operador binário
+    Funcao que verifica se o valor recebido Ã© um operador binÃ¡rio
     -}
     isBinaryOperator :: Char -> Bool
     isBinaryOperator o = 
