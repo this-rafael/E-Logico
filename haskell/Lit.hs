@@ -4,8 +4,8 @@ module Lit  where
 
     _receiveInput :: IO(Literal)
     _receiveInput = do
-        putStrLn "1- Para inserir uma Proposicao"  
-        putStrLn "2- Para inserir uma Expressao" 
+        putStrLn " 1- Para inserir uma Proposicao"  
+        putStrLn " 2- Para inserir uma Expressao" 
         putStr " >>> "
 
         option <- getLine
@@ -62,7 +62,7 @@ module Lit  where
 
     chooseAUnaryOperator :: IO(String)
     chooseAUnaryOperator = do
-        putStrLn "pressione '~' caso deseje inserir uma negacao a sua expressao, ou pressione enter para continuar"
+        putStrLn "\n Pressione '~' caso deseje inserir uma negacao a sua expressao, ou pressione enter para continuar"
         putStr " >>> "
         op <- getLine
         return op
@@ -107,6 +107,12 @@ module Lit  where
     getProposition :: Literal -> String
     getProposition (Proposition unaryOp value) = value
 
+    getFValue:: Literal -> Literal
+    getFValue (Expression unaryOp fValue binaryOp sValue) = fValue
+
+    getSValue:: Literal -> Literal
+    getSValue (Expression unaryOp fValue binaryOp sValue) = sValue
+
     literalToString :: Literal -> String
     literalToString (Proposition unaryOp value) = unaryOp ++ "" ++ value
     literalToString (Expression unaryOp fValue binaryOp sValue) = unaryOp ++ "(" ++ (literalToString fValue) ++" "++ binaryOp ++" "++ (literalToString sValue) ++ ")"
@@ -133,8 +139,8 @@ module Lit  where
 
     interativePropositionConstruct:: IO(Literal)
     interativePropositionConstruct = do 
-        putStrLn " Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"
-        putStr ">>> "
+        putStrLn "\n Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"
+        putStr " >>> "
         basicString <- getLine
         if(length basicString == 2)
         then 
@@ -147,10 +153,16 @@ module Lit  where
     interativeExpressionConstruct :: IO(Literal)
     interativeExpressionConstruct = do
         
+        putStrLn "\nestado atual do literal: ()"
         unaryOp <- chooseAUnaryOperator
+        putStrLn ("\nestado atual do literal:" ++ unaryOp ++ " ( ")
         valueA <- _receiveInput
+        putStrLn  ("\nestado atual do literal:" ++ unaryOp ++ " ( " ++ (literalToString valueA) )
         binaryOp <- chooseABinaryOperator
+        putStrLn  ("\nestado atual do literal:" ++ unaryOp ++ " ( " ++ (literalToString valueA) ++ " " ++ binaryOp ++ " ")
         valueB <- _receiveInput
+        putStrLn  ("\nestado atual do literal:" ++ unaryOp ++ " ( " ++ (literalToString valueA) ++ " " ++ binaryOp ++ " " ++ (literalToString valueB) ++ " )") 
+
 
         return (buildExpression unaryOp valueA (changeForValidBinaryOperator binaryOp) valueB)
 
@@ -173,11 +185,17 @@ module Lit  where
         if (getUnaryOp p == "~") then True
         else False
 
+    {-
+    FunÃ§Ã£o que verifica se o valor recebido Ã© uma proposiÃ§Ã£o
+    -}
     isValidProposition :: Char -> Bool
     isValidProposition p =
         if ((elem p ['a'..'z']) || (elem p ['A'..'Z'])) then True
         else False 
-        
+    
+    {-
+    Funcao que verifica se o valor recebido Ã© um operador binÃ¡rio
+    -}
     isBinaryOperator :: Char -> Bool
     isBinaryOperator o = 
         if ((elem o ['*', '#','&', '|'])) then True
