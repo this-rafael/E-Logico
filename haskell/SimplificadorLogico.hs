@@ -19,7 +19,6 @@ module SimplificadorLogico where
     
     escolherOpcoes :: IO()
     escolherOpcoes = do
-        putStr " >>> "
         opcao <- readLn :: IO Int
         if(opcao == 0)
         then
@@ -87,12 +86,14 @@ module SimplificadorLogico where
     execNegacao (Expression unaryOp fValue binaryOp sValue)
         | ((unaryOp == "~") && (getUnaryOp fValue == "~") && (binaryOp == "&")) = ("\n Sua dupla negacao resulta em: " ++ (getProposition fValue) ++ binaryOp ++ (getProposition sValue))
         | otherwise = (" Nao eh possivel aplicar Negacao nessa expressao.")
+    execNegacao (Proposition unaryOp value) = (" Nao eh possivel aplicar Negacao nessa expressao.")
 
     -- conjuncao (1 | 0) ^ (1 | 0) retorna True | False
     execConjuncao :: Literal -> String
     execConjuncao (Expression unaryOp fValue binaryOp sValue)
         | (binaryOp == "&") = ("\n Aplicando-se o metodo Conjuncao, tem-se o resultado da Expressao: " ++ unaryOp ++ (literalToString fValue) ++ (literalToString sValue))
         | otherwise = (" Nao eh possivel aplicar Conjuncao nessa expressao.")
+    execConjuncao (Proposition unaryOp value) = (" Nao eh possivel aplicar Conjuncao nessa expressao.")
 
     -- adicao_disjuntiva (P) retorna P | "Qualquer Expressão"
     execAdicao :: Literal -> String
@@ -103,48 +104,56 @@ module SimplificadorLogico where
     execIntroducaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue)
         | (((getProposition (getFValue fValue)) == (getProposition (getSValue sValue))) && ((getProposition (getFValue sValue)) == (getProposition (getSValue fValue))) && (binaryOp == "&")) = ("\n Aplicando-se o metodo Eliminacao de Equivalencia, tem-se o resultado da Expressao: (" ++ (getProposition (getFValue fValue)) ++ " <-> " ++ (getProposition (getFValue sValue)) ++ ")")
         | otherwise = (" Nao eh possivel aplicar Introducao de Equivalencia nessa expressao.")
+    execIntroducaoDaEquivalencia (Proposition unaryOp value) = (" Nao eh possivel aplicar Introducao de Equivalencia nessa expressao.")
 
     -- eliminacao_de_equivalencia (P <-> Q) retorna (P -> Q) ^ (Q -> P)
     execEliminacaoDaEquivalencia :: Literal -> String
     execEliminacaoDaEquivalencia (Expression unaryOp fValue binaryOp sValue)
         | (binaryOp == "#") = ("\n Aplicando-se o metodo Eliminacao de Equivalencia, tem-se o resultado da Expressao: (" ++ (literalToString fValue) ++ " -> " ++ (literalToString sValue) ++ ") ^ (" ++ (literalToString sValue) ++ " -> " ++ (literalToString fValue) ++ ")")
         | otherwise = (" Nao eh possivel aplicar Eliminacao de Equivalencia nessa expressao.")
+    execEliminacaoDaEquivalencia (Proposition unaryOp value) = (" Nao eh possivel aplicar Eliminacao de Equivalencia nessa expressao.")
 
     -- modus_ponens ((P -> Q), P) retorna Q
     execModusPonens :: Literal -> String
     execModusPonens (Expression unaryOp fValue binaryOp sValue)
         | ((getProposition (getFValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*")) = ("\n Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: " ++ (literalToString (getSValue fValue)))
         | otherwise = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
+    execModusPonens (Proposition unaryOp value) = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
 
     -- modus_tollens (P -> Q) ^ ~Q) retorna ~P
     execModusTollens :: Literal -> String
     execModusTollens (Expression unaryOp fValue binaryOp sValue)
         | ((getProposition (getSValue fValue)) == (getProposition sValue) && (binaryOp == "&") && ((getBinaryOp fValue) == "*") && (getUnaryOp sValue == "~")) = ("\n Aplicando-se o metodo Modus Ponens, tem-se o resultado da Expressao: ~" ++ (literalToString (getFValue fValue)))
         | otherwise = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
+    execModusTollens (Proposition unaryOp value) = (" Nao eh possivel aplicar Modus Ponens nessa expressao.")
 
     -- silogismo_hipotetico (P -> Q) ^ (Q -> R) retorna (P -> R)
     execSilogismoHipotetico :: Literal -> String
     execSilogismoHipotetico (Expression unaryOp fValue binaryOp sValue)
         | (((getProposition (getSValue fValue)) == (getProposition (getFValue sValue))) && ((getBinaryOp fValue) == "*") && ((getBinaryOp sValue) == "*") && (binaryOp == "&")) = ("\n Aplicando-se o metodo Silogismo Hipotetico, tem-se o resultado da Expressao: (" ++ (getProposition (getFValue fValue)) ++ " -> " ++ (getProposition (getSValue sValue)) ++ ")")
         | otherwise = (" Nao eh possivel aplicar Silogismo Hipotetico nessa expressao.")
+    execSilogismoHipotetico (Proposition unaryOp value) = (" Nao eh possivel aplicar Silogismo Hipotetico nessa expressao.")
 
     -- silogismo_disjuntivo (P v Q) ^ ~Q retorna P
     execSilogismoDisjuntivo :: Literal -> String
     execSilogismoDisjuntivo (Expression unaryOp fValue binaryOp sValue)
         | (((getProposition (getSValue fValue)) == (getProposition sValue)) && ((getBinaryOp fValue) == "|") && (binaryOp == "&") && ((getUnaryOp sValue) == "~")) = ("\n Aplicando-se o metodo Silogismo Disjuntivo, tem-se o resultado da Expressao: " ++ (getProposition (getFValue fValue)))
         | otherwise = (" Nao eh possivel aplicar Silogismo Disjuntivo nessa expressao.")
+    execSilogismoDisjuntivo (Proposition unaryOp value) = (" Nao eh possivel aplicar Silogismo Disjuntivo nessa expressao.")
 
     -- dilema_construtivo (P -> Q) ^ (r -> s) ^ (P ^ r) retorna q v s
     execDilemaConstrutivo :: Literal -> String
     execDilemaConstrutivo (Expression unaryOp fValue binaryOp sValue)
         | (((getProposition (getFValue (getFValue fValue))) == (getProposition (getFValue sValue))) && ( (getProposition (getFValue (getSValue fValue))) == (getProposition (getSValue sValue)) ) && (binaryOp == "&") && ((getBinaryOp fValue) == "&") && ((getBinaryOp (getFValue fValue)) == "*") && ((getBinaryOp (getSValue fValue)) == "*") && ((getBinaryOp sValue) == "&")) = ("\n Aplicando-se o metodo Dilema Construtivo, tem-se o resultado da Expressao: (" ++ (getProposition (getSValue (getFValue fValue))) ++ " v " ++ (getProposition (getSValue (getSValue fValue))) ++ ")")
         | otherwise = (" Nao eh possivel aplicar Dilema Construtivo nessa expressao.")
+    execDilemaConstrutivo (Proposition unaryOp value) = (" Nao eh possivel aplicar Dilema Construtivo nessa expressao.")
 
     -- exportacao ((P ^ Q) -> R) retorna P -> (Q -> R)
     execExportacao :: Literal -> String
     execExportacao (Expression unaryOp fValue binaryOp sValue)
         | ((getBinaryOp fValue == "&") && (binaryOp == "*")) = ("\n Aplicando-se o metodo Exportacao, tem-se o resultado da Expressao: ") ++ (getProposition (getFValue fValue)) ++ " -> (" ++ (getProposition (getSValue fValue)) ++ " -> " ++ (getProposition sValue) ++ ")"
         | otherwise = (" Nao eh possivel aplicar Exportacao nessa expressao.")
+    execExportacao (Proposition unaryOp value) = (" Nao eh possivel aplicar Exportacao nessa expressao.")
     
     avaliaExpressao :: Literal -> IO()
     avaliaExpressao l = do
