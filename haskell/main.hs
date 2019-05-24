@@ -2,6 +2,7 @@
 import RegrasProposicionais
 import TruthTableGenerator
 import SimplificadorLogico
+import Conversor 
 
 {-
 Método main do programa
