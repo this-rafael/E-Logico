@@ -19,6 +19,7 @@ module SimplificadorLogico where
     
     escolherOpcoes :: IO()
     escolherOpcoes = do
+        putStr " >>> "
         opcao <- readLn :: IO Int
         if(opcao == 0)
         then
