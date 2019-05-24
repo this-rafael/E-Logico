@@ -23,7 +23,7 @@ execOpcoes opc
         execMenuApresentacao
     |opc == 2 = do
         MenuApresentacao.resumoConversor
-        -- execConversor
+        execConversor
         execMenuApresentacao
     |opc == 3 = do
         MenuApresentacao.resumoExpressoes
