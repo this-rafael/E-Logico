@@ -1,7 +1,8 @@
-import MenuApresentacao
+﻿import MenuApresentacao
 import RegrasProposicionais
 import TruthTableGenerator
 import SimplificadorLogico
+import Conversor 
 
 {-
 Método main do programa
@@ -15,7 +16,7 @@ Método de chamada das funções principais de execução de cada arquivo
 execOpcoes :: Int -> IO ()
 execOpcoes opc
     |opc == 0 = do  
-        putStrLn ("\n                                   ISSO EH TUDO, PESSOAL!!! \n")
+        putStrLn ("\n                                   ISSO EH TUDO, PESSOAL! \n")
     |opc == 1 = do
         MenuApresentacao.resumoTabela
         TruthTableGenerator.execTruthTable
