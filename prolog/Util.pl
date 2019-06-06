@@ -1,5 +1,3 @@
-
-
 % ============================================================[{ENTRADA E SAIDA}]====================================================== %
 
 
@@ -33,10 +31,12 @@ stringCharAt(String, Index, Return) :-
 % ============================================================[{MANIPULACAO DE NUMEROS}=================================================== %
 
 % X = true se x é impar, e X = false nos outros casos.
-even(X) :- 0 is mod(X, 2).
+even(X) :-
+    0 is mod(X, 2).
 
 % X = true se x é par, e X = false nos outros casos.
-odd(X) :- 1 is mod(X, 2).
+odd(X) :-
+    1 is mod(X, 2).
 
 % ============================================================[{FUNCAO PARA ARRAYS}======================================================= %
 
@@ -44,7 +44,7 @@ odd(X) :- 1 is mod(X, 2).
 getIndexToArray(0, [Head|_], Head).
 getIndexToArray(X, [_|Tail], Element) :- 
     K is X - 1, 
-    getIndex(K, Tail, Element).
+    getIndexToArray(K, Tail, Element).
 
 % true se a lista passado como argumento for vazia 
 isEmpty([]).
