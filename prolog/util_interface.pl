@@ -2,7 +2,7 @@
     [str_input/1, number_input/1, cls/0, 
     or/2, and/2, if/3, stringCharAt/3,
     odd/1,even/1,getIndexToArray/3,isEmptyArray/1,
-    fibonacci/2, factorial/2]).
+    fibonacci/2, factorial/2, if_elif/5]).
 
 
 :- use_module('artimetic_features').
@@ -34,6 +34,9 @@ or(A, B) :-
 
 if(Condition, Then, Else) :-
     logical_features:aux_if(Condition, Then, Else).
+
+if_elif(IfCondition, ThenIf, ElifCondition, ThenElif, Else):-
+    logical_features:aux_if_elif(IfCondition, ThenIf, ElifCondition, ThenElif, Else).
 % % ============================================================[{MANIPULACAO DE STRINGS}]====================================================== %
 
 

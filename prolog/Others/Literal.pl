@@ -1,4 +1,4 @@
-:- use_module('Util').
+
 
 changesToValidBinaryOperator(TypedEntry, Return) :-
     Return = TypedEntry. %% metodo descrito no git de haskell "changeForValidBinaryOperator"
