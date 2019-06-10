@@ -1,6 +1,9 @@
 :- use_module("util_interface").
 :- initialization(main).
 
+
+
+
 changesToValidBinaryOperator(TypedEntry, Return) :-
     Return = TypedEntry. %% metodo descrito no git de haskell "changeForValidBinaryOperator"
 
@@ -13,7 +16,6 @@ isValidProposition(Proposition, Return):- % retorna true or false
 
 chooseBinaryOperator(Return) :-
     writeln("Digite o operador binario: "),
-    write(" >>> "),
     str_input(TypedEntry),
     isValidUnaryOperator(TypedEntry, IsValidBinaryOperator),
     if(
@@ -21,8 +23,8 @@ chooseBinaryOperator(Return) :-
         (
             Return = TypedEntry
         ),
-        % else
         (
+        % else
             writeln("O operador unario digitado, nao eh valido... Tente outra vez"),
             chooseBinaryOperator(Return)
         )
@@ -31,7 +33,6 @@ chooseBinaryOperator(Return) :-
 
 chooseUnaryOperator(Return) :-
     writeln("Digite o operador unario: "),
-    write(" >>> "),
     str_input(TypedEntry),
     isValidUnaryOperator(TypedEntry, IsValidUnaryOperator),
     if(
@@ -73,13 +74,12 @@ treatsLongProposition(Proposition, Length, Return) :-
             ),
         (       % else
             stringCharAt(Proposition, ValuePosition, Value),
-            Return = proposition("", Value), write(Value)
+            Return = proposition("", Value)
         )
     ).
 
 propositionConstruct(Return) :-
     writeln("\n Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"),
-    write(" >>> "),
     str_input(Proposition),
     isValidProposition(Proposition, EhExpressaoValida),
     if(
@@ -108,10 +108,11 @@ propositionConstruct(Return) :-
         )
     ).
 
+
+
 verifyEntryAndCreatesANewLiteral(Return) :-
     writeln(" 1- Para inserir uma Proposicao") , 
-    writeln(" 2- Para inserir uma Expressao" ),
-    write(" >>> "),
+    writeln(" 2- Para inserir uma Expressao"),
     str_input(Option),
     if(
         (Option == "0"),
@@ -160,4 +161,65 @@ getSecondValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
 isAtomic(proposition(UnaryOp, Value), Return) :- Return = true.
 isAtomic(expression(Uop, ValueA, Bop, ValueB), Return) :- Return =  false.
 
+binaryOperatorToString(BinaryOp, Return) :- 
+    if_elif(
+        (BinaryOp ==  "*"),
+            (Return = "->"),
+        (BinaryOp == "#"),
+            (Return = "<->"),
+        (
+            Return = BinaryOp
+        )    
+    ).
 
+changeForValidBinaryOperator("*", Return):- Return = "*".
+changeForValidBinaryOperator("->", Return):- Return = "*".
+changeForValidBinaryOperator("#", Return):- Return = "#".
+changeForValidBinaryOperator("<->", Return):- Return = "#".
+changeForValidBinaryOperator("^", Return):- Return = "&".
+changeForValidBinaryOperator(".", Return):- Return = "&".
+changeForValidBinaryOperator("&", Return):- Return = "&".
+changeForValidBinaryOperator("v", Return):- Return = "|".
+changeForValidBinaryOperator("+", Return):- Return = "|".
+changeForValidBinaryOperator("|", Return):- Return = "|".
+changeForValidBinaryOperator(_, Return):- Return = "§".
+
+
+chooseABinaryOperator(Return) :-
+    writeln( " Escolha entre os Operadores abaixo: "),
+    writeln( " E: &, ^, ." ),
+    writeln( " Ou: |, v, +" ),
+    writeln( " Implica: ->, *" ),
+    writeln( " Bi-Implica: <->, #" ),
+    str_input(Valor),
+    Return = Valor.
+
+
+isNegative(proposition("~~", _), Return) :- Return = false. 
+isNegative(proposition("~", _), Return) :- Return = true.
+isNegative(proposition("", _), Return) :- Return = false.
+
+isNegative(expression("~~",_,_,_), Return) :- Return = false.
+isNegative(expression("~",_,_,_), Return) :- Return = true.
+isNegative(expression("",_,_,_), Return) :- Return = false.
+
+
+literalsToString(proposition(UnaryOp, Value), Return):- string_concat(UnaryOp, Value, Return).
+literalsToString(expression(UnaryOp, ValueA, BinaryOp, ValueB), Return) :-
+    string_concat(UnaryOp,"(", A), writeln("A"),  writeln(A), 
+    
+    literalsToString(ValueA, ValueAToStr),
+    string_concat(A, ValueAToStr, B),
+
+    binaryOperatorToString(BinaryOp, BinaryOpToString),     
+    string_concat(B, BinaryOpToString, C),
+    literalsToString(ValueB, D), 
+    string_concat(C, D, E), 
+    string_concat(E,")", F), 
+    Return = F.
+
+main :-
+    verifyEntryAndCreatesANewLiteral(L),
+    literalsToString(L, R),
+    writeln(L),
+    writeln(R).
