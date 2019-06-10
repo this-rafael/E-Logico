@@ -1,15 +1,6 @@
 :- use_module("util_interface").
 :- initialization(main).
 
-main(R) :- 
-    verifyEntryAndCreatesANewLiteral(A),
-    R = A.
-    
-
-    
-    
-
-
 changesToValidBinaryOperator(TypedEntry, Return) :-
     Return = TypedEntry. %% metodo descrito no git de haskell "changeForValidBinaryOperator"
 
@@ -150,3 +141,23 @@ expressionContruct(Return):-
     chooseBinaryOperator(Bop),
     verifyEntryAndCreatesANewLiteral(ValueB),
     Return = expression(Uop, ValueA, Bop, ValueB).
+
+
+getUnaryOperator(expression(Uop, ValueA, Bop, ValueB), Return) :-
+    Return = Uop.
+
+getBinaryOperator(expression(Uop, ValueA, Bop, ValueB), Return) :-
+    Return = Bop.
+
+getFirstValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
+    Return = ValueA.
+
+getSecondValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
+    Return = ValueB.
+
+
+
+isAtomic(proposition(UnaryOp, Value), Return) :- Return = true.
+isAtomic(expression(Uop, ValueA, Bop, ValueB), Return) :- Return =  false.
+
+
