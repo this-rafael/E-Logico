@@ -4,18 +4,15 @@
 
 
 
-changesToValidBinaryOperator(TypedEntry, Return) :-
-    Return = TypedEntry. %% metodo descrito no git de haskell "changeForValidBinaryOperator"
-
-
 isValidUnaryOperator(Operator, Return):- % retorna true or false
     Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
 
 isValidProposition(Proposition, Return):- % retorna true or false
     Return = true. % considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
 
+% escolhe um operador binario apartir da entrada do usuario
 chooseBinaryOperator(Return) :-
-    writeln("Digite o operador binario: "),
+    writeln("\nDigite o operador binario: "),
     str_input(TypedEntry),
     isValidUnaryOperator(TypedEntry, IsValidBinaryOperator),
     if(
@@ -30,9 +27,9 @@ chooseBinaryOperator(Return) :-
         )
     ).
 
-
+% escolhe do usuario um operador unario
 chooseUnaryOperator(Return) :-
-    writeln("Digite o operador unario: "),
+    writeln("\nDigite o operador unario: "),
     str_input(TypedEntry),
     isValidUnaryOperator(TypedEntry, IsValidUnaryOperator),
     if(
@@ -47,6 +44,7 @@ chooseUnaryOperator(Return) :-
         )
     ).
 
+% trata uma proposicao "curta"
 treatsValidProposition(Proposition, Length, Return) :- 
     if_elif(
         (Length =:= 1),% if
@@ -64,7 +62,8 @@ treatsValidProposition(Proposition, Length, Return) :-
         )
     ).
 
-treatsLongProposition(Proposition, Length, Return) :-
+% trata uma proposicao com um length muito grande (causdo por uma sequencia de "~~~~~~~~~~~") ex: ~~~~~~~~~~~q
+treatsValidLongProposition(Proposition, Length, Return) :-
     ValuePosition is (Length - 1),
     if(
         (odd(ValuePosition)), % if
@@ -78,6 +77,7 @@ treatsLongProposition(Proposition, Length, Return) :-
         )
     ).
 
+%constroi uma proposicao
 propositionConstruct(Return) :-
     writeln("\n Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"),
     str_input(Proposition),
@@ -98,7 +98,7 @@ propositionConstruct(Return) :-
                         ),
                     ( % else
                     
-                    treatsLongProposition(Proposition, LengthP, Return)
+                    treatsValidLongProposition(Proposition, LengthP, Return)
                     )
                 )
             ),
@@ -109,7 +109,7 @@ propositionConstruct(Return) :-
     ).
 
 
-
+% verifica a entrada do usuario e cria um novo literal
 verifyEntryAndCreatesANewLiteral(Return) :-
     writeln(" 1- Para inserir uma Proposicao") , 
     writeln(" 2- Para inserir uma Expressao"),
@@ -136,14 +136,62 @@ verifyEntryAndCreatesANewLiteral(Return) :-
         )
     ).
 
+% metodos auxliares para imprimir o estado atual do literal
+
+currentStatePrint(Return) :- 
+    Return = "Estado Atual do literal:". % Return = Estado Atual do literal:
+
+currentStatePrint(Uop, Return):-
+    currentStatePrint(PreviousState),
+    string_concat(PreviousState, Uop, State0), 
+    string_concat(State0, "(", Return). % Return = Estado Atual do literal: ~( ou  Return = Estado Atual do literal: (
+
+currentStatePrint(Uop, Expression1, Return) :-
+    currentStatePrint(Uop, State1),
+    literalsToString(Expression1, Expression1ToString),
+    string_concat(State1, Expression1ToString, Return). % Return = Estado Atual do literal: ~(P ou  Return = Estado Atual do literal: (Q
+
+currentStatePrint(Uop, Expression1, Bop, Return):-
+    currentStatePrint(Uop, Expression1, State2),
+    string_concat(State2, Bop, Return).  % Return = Estado Atual do literal: ~(P| ou  Return = Estado Atual do literal: (Q&
+
+currentStatePrint(Uop, Expression1, Bop, Expression2, Return):-
+    currentStatePrint(Uop, Expression1, Bop, State3),
+    literalsToString(Expression2, Expression2ToString),
+    string_concat(State3, Expression2ToString, Response),
+    string_concat(Response, ")", Return).  % Return = Estado Atual do literal: ~(P|R) ou  Return = Estado Atual do literal: (Q&J)
+
+
+% constroi uma Expressao (Literal Composto)
 expressionContruct(Return):-
-    chooseUnaryOperator(Uop),
-    verifyEntryAndCreatesANewLiteral(ValueA),
-    chooseBinaryOperator(Bop),
-    verifyEntryAndCreatesANewLiteral(ValueB),
+    % prints iniciais gerando informações    
+    currentStatePrint(R0), 
+    string_concat(R0, " ()", R), 
+    writeln(R),
+
+    % escolhendo/imprimindo o operador unario
+    chooseUnaryOperator(Uop), 
+    currentStatePrint(Uop, R1), 
+    writeln(R1),
+    
+    % escolhendo/imprimindo o filho a direita de uma literal
+    verifyEntryAndCreatesANewLiteral(ValueA), 
+    currentStatePrint(Uop, ValueA, R2), 
+    writeln(R2),
+    
+
+    chooseBinaryOperator(Bop), 
+    currentStatePrint(Uop, ValueA, Bop, R3), 
+    writeln(R3),
+    
+    verifyEntryAndCreatesANewLiteral(ValueB), 
+    currentStatePrint(Uop, ValueA, Bop, ValueB, R4),  
+    writeln(R4),
+    
     Return = expression(Uop, ValueA, Bop, ValueB).
 
 
+% metodos getters
 getUnaryOperator(expression(Uop, ValueA, Bop, ValueB), Return) :-
     Return = Uop.
 
@@ -157,10 +205,12 @@ getSecondValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
     Return = ValueB.
 
 
-
+% informa se uma literal eh atomico (nao composto)
 isAtomic(proposition(UnaryOp, Value), Return) :- Return = true.
 isAtomic(expression(Uop, ValueA, Bop, ValueB), Return) :- Return =  false.
 
+
+% gera um toString do operador binario
 binaryOperatorToString(BinaryOp, Return) :- 
     if_elif(
         (BinaryOp ==  "*"),
@@ -172,39 +222,51 @@ binaryOperatorToString(BinaryOp, Return) :-
         )    
     ).
 
-changeForValidBinaryOperator("*", Return):- Return = "*".
-changeForValidBinaryOperator("->", Return):- Return = "*".
-changeForValidBinaryOperator("#", Return):- Return = "#".
-changeForValidBinaryOperator("<->", Return):- Return = "#".
-changeForValidBinaryOperator("^", Return):- Return = "&".
-changeForValidBinaryOperator(".", Return):- Return = "&".
-changeForValidBinaryOperator("&", Return):- Return = "&".
-changeForValidBinaryOperator("v", Return):- Return = "|".
-changeForValidBinaryOperator("+", Return):- Return = "|".
-changeForValidBinaryOperator("|", Return):- Return = "|".
-changeForValidBinaryOperator(_, Return):- Return = "§".
+% modifica o operado para uma sintaxe valida para literal
+changeToValidBinaryOperator("*", Return):- Return = "*".
+changeToValidBinaryOperator("->", Return):- Return = "*".
+changeToValidBinaryOperator("#", Return):- Return = "#".
+changeToValidBinaryOperator("<->", Return):- Return = "#".
+changeToValidBinaryOperator("^", Return):- Return = "&".
+changeToValidBinaryOperator(".", Return):- Return = "&".
+changeToValidBinaryOperator("&", Return):- Return = "&".
+changeToValidBinaryOperator("v", Return):- Return = "|".
+changeToValidBinaryOperator("+", Return):- Return = "|".
+changeToValidBinaryOperator("|", Return):- Return = "|".
+changeToValidBinaryOperator(_, Return):- Return = "§".
 
-
+% escolhe do usuario um operador binario;.
 chooseABinaryOperator(Return) :-
     writeln( " Escolha entre os Operadores abaixo: "),
     writeln( " E: &, ^, ." ),
     writeln( " Ou: |, v, +" ),
     writeln( " Implica: ->, *" ),
     writeln( " Bi-Implica: <->, #" ),
-    str_input(Valor),
-    Return = Valor.
+    str_input(BinaryOp),
+    changeToValidBinaryOperator(BinaryOp, Response),
+    Return = Response.
 
 
+
+% verifica se uma proposicao eh negada
 isNegative(proposition("~~", _), Return) :- Return = false. 
 isNegative(proposition("~", _), Return) :- Return = true.
 isNegative(proposition("", _), Return) :- Return = false.
 
+
+% verifica se uma expressao eh negada
 isNegative(expression("~~",_,_,_), Return) :- Return = false.
 isNegative(expression("~",_,_,_), Return) :- Return = true.
 isNegative(expression("",_,_,_), Return) :- Return = false.
 
 
-literalsToString(proposition(UnaryOp, Value), Return):- string_concat(UnaryOp, Value, Return).
+
+% gera uma representacao textual de uma proposicao. Ex: ~p
+literalsToString(proposition(UnaryOp, Value), Return):- 
+    string_concat(UnaryOp, Value, Return).
+
+
+% gera uma representacao textual de uma expressao. Ex: ~(P | Q)
 literalsToString(expression(UnaryOp, ValueA, BinaryOp, ValueB), Return) :-
     string_concat(UnaryOp,"(", A), writeln("A"),  writeln(A), 
     
@@ -217,6 +279,9 @@ literalsToString(expression(UnaryOp, ValueA, BinaryOp, ValueB), Return) :-
     string_concat(C, D, E), 
     string_concat(E,")", F), 
     Return = F.
+
+
+
 
 main :-
     verifyEntryAndCreatesANewLiteral(L),
