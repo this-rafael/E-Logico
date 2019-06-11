@@ -25,7 +25,7 @@ chooseBinaryOperator(Return) :-
         ),
         (
         % else
-            writeln("O operador unario digitado, nao eh valido... Tente outra vez"),
+            writeln("O operador binario digitado, nao eh valido... Tente outra vez"),
             chooseBinaryOperator(Return)
         )
     ).
