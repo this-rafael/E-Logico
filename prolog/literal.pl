@@ -7,6 +7,9 @@
 isValidUnaryOperator(Operator, Return):- % retorna true or false
     Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
 
+isValidBinaryOperator(Operator, Return) :-
+    Return true.
+
 isValidProposition(Proposition, Return):- % retorna true or false
     Return = true. % considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
 
@@ -14,7 +17,7 @@ isValidProposition(Proposition, Return):- % retorna true or false
 chooseBinaryOperator(Return) :-
     writeln("\nDigite o operador binario: "),
     str_input(TypedEntry),
-    isValidUnaryOperator(TypedEntry, IsValidBinaryOperator),
+    isValidBinaryOperator(TypedEntry, IsValidBinaryOperator),
     if(
         (IsValidBinaryOperator),
         (
