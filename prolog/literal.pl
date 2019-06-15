@@ -8,7 +8,7 @@ isValidUnaryOperator(Operator, Return):- % retorna true or false
     Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
 
 isValidBinaryOperator(Operator, Return) :-
-    Return true.
+    Return = true.
 
 isValidProposition(Proposition, Return):- % retorna true or false
     Return = true. % considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
@@ -177,16 +177,17 @@ expressionContruct(Return):-
     currentStatePrint(Uop, R1), 
     writeln(R1),
     
-    % escolhendo/imprimindo o filho a direita de uma literal
+    % escolhendo/imprimindo o filho a esquerda de uma literal
     verifyEntryAndCreatesANewLiteral(ValueA), 
     currentStatePrint(Uop, ValueA, R2), 
     writeln(R2),
     
-
+    % escolhendo/imprimindo o operador binario
     chooseBinaryOperator(Bop), 
     currentStatePrint(Uop, ValueA, Bop, R3), 
     writeln(R3),
     
+    % escolhendo/imprimindo o filho a direita de uma literal
     verifyEntryAndCreatesANewLiteral(ValueB), 
     currentStatePrint(Uop, ValueA, Bop, ValueB, R4),  
     writeln(R4),
@@ -271,7 +272,7 @@ literalsToString(proposition(UnaryOp, Value), Return):-
 
 % gera uma representacao textual de uma expressao. Ex: ~(P | Q)
 literalsToString(expression(UnaryOp, ValueA, BinaryOp, ValueB), Return) :-
-    string_concat(UnaryOp,"(", A), writeln("A"),  writeln(A), 
+    string_concat(UnaryOp,"(", A),
     
     literalsToString(ValueA, ValueAToStr),
     string_concat(A, ValueAToStr, B),
