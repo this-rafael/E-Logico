@@ -1,5 +1,23 @@
 :- [literal].
 
+
+negate(Value,Return) :-
+    Value, Return = false;
+    Return = true.
+
+and(A,B,Return) :-
+    A,B,Return = true; Return = false.
+
+or(A,B,Return) :-
+    (A;B),Return = true; Return = false.
+
+implication(A,B,Return) :-
+    (\+A;B),Return = true; Return = false.
+
+xor(A,B,Return) :-
+    (A,B;\+A,\+B),Return = true; Return = false.
+
+
 is_proposition(Atom,Return) :-
     Ignore = ["(",")","&","|","*","#","-",">","<"," "],
     atom_string(Atom, String),
@@ -75,6 +93,107 @@ get_proposition_value(Prop,List,Poss,Return) :-
     nth0(Position,Poss,Value),
     Return = Value.
 
-% check_unary_operator(Value,Operator,Return) :-
-%     (Operator == ''), (Value =:= ) -> 
-%     Return = true; Return = false.
+    
+
+check_unary_operator(Value,Operator,Return) :-
+    (Operator == '~') ->
+    negate(Value,V),
+    Return = V;
+    Return = Value.
+
+result(proposition(UnOp,Prop),List,Poss,Return) :- 
+    get_proposition_value(Prop,List,Poss,R1),
+    check_unary_operator(R1,UnOp,R2),
+    Return = R2.
+result(expression(UnOp,V1,BinOp,V2),List,Poss,Return) :-
+    (BinOp == '&') ->
+    result(V1,List,Poss,A),
+    result(V2,List,Poss,B),
+    and(A,B,AB),
+    check_unary_operator(AB,UnOp,R1),
+    Return = R1;
+    (BinOp == '|') ->
+    result(V1,List,Poss,C),
+    result(V2,List,Poss,D),
+    or(C,D,CD),
+    check_unary_operator(CD,UnOp,R2),
+    Return = R2;
+    (BinOp == '*') ->
+    result(V1,List,Poss,E),
+    result(V2,List,Poss,F),
+    implication(E,F,EF),
+    check_unary_operator(EF,UnOp,R3),
+    Return = R3;
+    (BinOp == '#') ->
+    result(V1,List,Poss,G),
+    result(V2,List,Poss,H),
+    xor(G,H,GH),
+    check_unary_operator(GH,UnOp,R4),
+    Return = R4.
+
+
+rest_to_string(true, Return) :- Return = "1".
+rest_to_string(false,Return) :- Return = "0".
+
+boolean_list([],[]).
+boolean_list([H|T],Return) :-
+    (H == '1') ->
+    A = [true],
+    boolean_list(T,R1),
+    append(A,R1,R2),
+    Return = R2;
+    B = [false],
+    boolean_list(T,R1),
+    append(B,R1,R2),
+    Return = R2.
+
+first_line([],Exp,Return) :-
+    concat("| ",Exp,R), Return = R.
+first_line([H|T],Exp,Return) :-
+    concat(H," ",R),
+    first_line(T,Exp,R2),
+    concat(R,R2,R3),
+    Return = R3.
+
+get_line([],Value,Prop,Literal,Return) :-
+    result(Literal,Prop,Value,R1),
+    rest_to_string(R1,R2),
+    concat(" | ",R2,R3),
+    Return = R3.
+get_line([H|T],Value,Prop,Literal,Return) :-
+    concat(" ",H,R1),
+    get_line(T,Value,Prop,Literal,R2),
+    concat(R1,R2,R3),
+    Return = R3.
+
+get_every_line([], _, _, "").
+get_every_line([H|T],Prop,Literal,Return) :-
+    atom_chars(H,H2),
+    boolean_list(H2,H3),
+    get_line(H2,H3,Prop,Literal,R1),
+    concat(R1,"\n",R2),
+    get_every_line(T,Prop,Literal,R3),
+    concat(R2,R3,R4),
+    Return = R4.
+
+mount_table(Interpretations,Propositions,Literal,Return) :-
+    literalsToString(Literal,Expression),
+    first_line(Propositions,Expression,First),
+    concat(" ",First,F1),
+    concat(F1,"\n",F2),
+    get_every_line(Interpretations,Propositions,Literal,R1),
+    concat(F2,R1,R2),
+    Return = R2.
+
+get_table(Literal,Return) :-
+    literalsToString(Literal,Expression),
+    get_possibilities(Expression,Interpretations),
+    get_propositions(Expression,Propositions),
+    mount_table(Interpretations,Propositions,Literal,R1),
+    Return = R1.
+
+% expression('',proposition('','a'),'&',proposition('',b))
+    
+
+
+
