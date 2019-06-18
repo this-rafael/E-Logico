@@ -1,3 +1,4 @@
+:- [literal].
 
 is_proposition(Atom,Return) :-
     Ignore = ["(",")","&","|","*","#","-",">","<"," "],
@@ -5,7 +6,6 @@ is_proposition(Atom,Return) :-
     
     (member(String,Ignore)) -> Return = false; Return = true.
     
-
 get_propositions_aux([],Return) :- Return = [].
 get_propositions_aux([H|T],Return) :-
     is_proposition(H,Proposicao),
@@ -60,5 +60,21 @@ get_possibilities(Expression,Return) :-
     get_possibilities_aux(Lines,Number,R),
     Return = R.
 
+
+
+
+
+get_proposition_position(Prop,[H|T],Return) :-
+    (Prop == H) -> Return is 0;
+    get_proposition_position(Prop,T,R2),
+    R3 is 1 + R2,
+    Return = R3.
     
-    
+get_proposition_value(Prop,List,Poss,Return) :-
+    get_proposition_position(Prop,List,Position),
+    nth0(Position,Poss,Value),
+    Return = Value.
+
+% check_unary_operator(Value,Operator,Return) :-
+%     (Operator == ''), (Value =:= ) -> 
+%     Return = true; Return = false.

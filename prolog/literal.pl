@@ -1,16 +1,16 @@
 :- use_module("util_interface").
-:- initialization(main).
 
 
 
 
-isValidUnaryOperator(Operator, Return):- % retorna true or false
+
+isValidUnaryOperator(_, Return):- % retorna true or false
     Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
 
-isValidBinaryOperator(Operator, Return) :-
+isValidBinaryOperator(_, Return) :-
     Return = true.
 
-isValidProposition(Proposition, Return):- % retorna true or false
+isValidProposition(_, Return):- % retorna true or false
     Return = true. % considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
 
 % escolhe um operador binario apartir da entrada do usuario
@@ -196,22 +196,22 @@ expressionContruct(Return):-
 
 
 % metodos getters
-getUnaryOperator(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getUnaryOperator(expression(Uop, _, _, _), Return) :-
     Return = Uop.
 
-getBinaryOperator(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getBinaryOperator(expression(_, _, Bop, _), Return) :-
     Return = Bop.
 
-getFirstValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getFirstValue(expression(_, ValueA, _, _), Return) :-
     Return = ValueA.
 
-getSecondValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getSecondValue(expression(_, _, _, ValueB), Return) :-
     Return = ValueB.
 
 
 % informa se uma literal eh atomico (nao composto)
-isAtomic(proposition(UnaryOp, Value), Return) :- Return = true.
-isAtomic(expression(Uop, ValueA, Bop, ValueB), Return) :- Return =  false.
+isAtomic(proposition(_, _), Return) :- Return = true.
+isAtomic(expression(_, _, _, _), Return) :- Return =  false.
 
 
 % gera um toString do operador binario
