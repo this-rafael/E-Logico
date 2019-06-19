@@ -7,8 +7,14 @@
 isValidUnaryOperator(_, Return):- % retorna true or false
     Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
 
-isValidBinaryOperator(_, Return) :-
-    Return = true.
+
+
+contains(X,[X|_]).
+contains(X,[_|Y]):- contains(X,Y).
+
+isValidBinaryOperator(Operator, Return) :-
+    contains(Operator, ['*', '#','&', '|']).
+
 
 isValidProposition(Proposition, Return):- % retorna true or false
     char_code(Proposition, A) ->
