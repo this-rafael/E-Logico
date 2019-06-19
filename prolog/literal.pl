@@ -10,8 +10,10 @@ isValidUnaryOperator(_, Return):- % retorna true or false
 isValidBinaryOperator(_, Return) :-
     Return = true.
 
-isValidProposition(_, Return):- % retorna true or false
-    Return = true. % considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
+isValidProposition(Proposition, Return):- % retorna true or false
+    char_code(Proposition, A) ->
+        (A > 64);(A < 95);
+        (A > 97);(A < 124).% considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
 
 % escolhe um operador binario apartir da entrada do usuario
 chooseBinaryOperator(Return) :-
