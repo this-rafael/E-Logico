@@ -1,6 +1,51 @@
 :- [literal].
 
-% Possibilidade de criacao de 1, 2 ou 3 Literais.
+% Regra executavel do SimplificadorLogico na main.
+execSimplificador() :-
+    writeln("Deseja construir quantos Literais?"),
+    str_input(Num),
+
+    instanceThreeLiterals(Num, L1, L2, L3),
+
+    % Print Saidas Literais
+    metodoTesteDeSaidaLiteral(L1, L2, L3),
+
+    % Tabela: Opcoes de Simplificacoes
+    printOptions,
+
+    str_input(Option),
+
+    % Problema para entrar no caso "1"
+    writeln(Option),
+    simplificaExpressao(Option, L1, L2, L3).
+
+    writeln("1. Usar Expressoes; 2. Criar novas Expressoes; 0. Sair."),
+    str_input(Reload),
+
+    loopSimplificador(Reload, L1, L2, L3).
+
+loopSimplificador(L1, L2, L3) :-
+    writeln("1. Usar Expressoes; 2. Criar novas Expressoes; 0. Sair."),
+    str_input(Reload),
+    if_elif (
+        (Reload == "1"), 
+            (printOptions,
+             writeln(Option),
+             simplificaExpressao(Option, L1, L2, L3),
+            ),
+        (Reload == "2"),
+            (execSimplificador),
+        ( if( (Reload == "0"), 
+            (halt(0).),
+            (write("Opcao invalida."), loopSimplificador(L1, L2, L3)) )
+            )
+        ).
+
+/* Possibilidade de criacao de 1, 2 ou 3 Literais.
+ * 
+ * Em caso da criação de 1 ou 2, Literais vazios sao preenchidos.
+ * Em caso de Quantidade invalida, ocorre loop.
+ */
 instanceThreeLiterals("1", L1, L2, L3) :-
     verifyEntryAndCreatesANewLiteral(LAux1),
     L1 = LAux1,
@@ -23,7 +68,7 @@ instanceThreeLiterals(Num, L1, L2, L3) :-
     writeln("Quantidade de Literais invalida."),
     execSimplificador.
 
-
+% Print de Literais em FormatoLogico e em LiteralToString.
 metodoTesteDeSaidaLiteral(L1, L2, L3) :-
     literalsToString(L1, R1),
     writeln(L1),
@@ -35,39 +80,30 @@ metodoTesteDeSaidaLiteral(L1, L2, L3) :-
     writeln(L3),
     writeln(R3).
 
-execSimplificador() :-
-    writeln("Deseja construir quantos Literais?"),
-    str_input(Num),
-    instanceThreeLiterals(Num, L1, L2, L3),
-
-    % Saidas Literais
-    metodoTesteDeSaidaLiteral(L1, L2, L3),
-
-    % Print tabela de Opcoes
-    printOptions,
-
-    str_input(Option),
-    writeln(Option),
-    simplificaExpressao(Option, L1, L2, L3).
-
-% Problema para entrar nesse caso
+% Opcao 1: Negacao - ~(~P&Q) retorna P&Q | ~~P retorna P
 simplificaExpressao("1", L1, L2, L3) :-
-    writeln("Isso deveria estar sendo printado para o caso 1."),
-    % Necessario que o Usuario escolha o Literal
-    getUnaryOperator(L1, UOp),
-    if(
-        (UOp =:= "~"),
-        (
-            writeln("Operador Unario eh negativo").
-        ),
-        (
-            writeln("Negue sua Expressao").
-        )
-    ).
+    writeln("Escolha 1 dos 3 Literais (L1, L2 ou L3).").
+
+    % read(Opcao),
+    % if ( (Opcao == "L1"), (verificaNegacao(L1)),
+    %   (if ( (Opcao == "L2"), (verificaNegacao(L2)),
+    %     (if ( (Opcao == "L3"), (verificaNegacao(L3)),
+    %       (write("Esse Literal nao existe."), simplificaExpressao("1", L1, L2, L3))
+    %       )
+    %     )
+    % ),
+    %
+    % loopSimplificador(L1, L2, L3).
+
+%verificaNegacao(LX) :-
+%   if ( (Proposicao for Duplamente Negada),
+%       (write("A expressao literalToString(LX) pode ser expressa por "getValueA(LX)" usando Negacao.)),
+%       (write("Nao eh possivel aplicar Negacao nessa Expressao.")).
+    
 simplificaExpressao(Num, L1, L2, L3) :-
     writeln("Essa Opcao nao existe"),
+    % loopSimplificador(L1, L2, L3).
     execSimplificador.
-
 
 printOptions :-
     writeln("         --- Opcoes Numericas --- "),
