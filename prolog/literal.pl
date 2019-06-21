@@ -7,8 +7,6 @@
 isValidUnaryOperator(_, Return):- % retorna true or false
     Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
 
-
-
 contains(X,[X|_]).
 contains(X,[_|Y]):- contains(X,Y).
 
