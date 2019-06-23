@@ -1,7 +1,7 @@
 :- [literal].
-:- initialization(main).
 
-main :-
+
+execute() :-
     writeln(" --------------GERADOR DE TABELA VERDADE-------------------"),
     options_menu().
 
@@ -11,14 +11,10 @@ options_menu() :-
     writeln(" 0. Retornar ao Menu."), 
     writeln(" 1. Qual o objetivo do gerador de Tabela Verdade?"),
     writeln(" 2. Tutorial como funciona o literal (util para criar a expressao)."),
-    writeln(" 3. Gerar a tabela verdade de uma expressao."),
-
-    write(" >>>"),
-    read_line_to_string(user_input,Option),
-    write("\n"),
-
-    string_to_atom(Option,Op),
-    choose_option(Op).
+    writeln(" 3. Gerar a tabela verdade de uma expressao.\n"),
+    str_input(Op),
+    string_to_atom(Op,Option),
+    choose_option(Option).
 
 choose_option(Op) :-
     (Op == '0'),
@@ -27,11 +23,14 @@ choose_option(Op) :-
     explain_table();
     (Op == '2'),
     explain_literal();
-    run_generator().
+    (Op == '3'),
+    create_table;
+    writeln("\n Opcao invalida!\n"),
+    choose_option(Op).
 
 explain_table() :-
     writeln(" --------------------TABELA VERDADE------------------------"),
-    writeln(" \nTabela verdade eh um dispositivo utilizado no estudo da logica."),
+    writeln("\n Tabela verdade eh um dispositivo utilizado no estudo da logica."),
     writeln(" Com o uso desta tabela eh possível definir o valor logico de uma expressao,"),
     writeln(" ou seja, saber quando uma sentenca eh verdadeira ou falsa.\n"),
     writeln(" Quanto mais variaveis fizerem parte da expressao, maior o numero de linhas, que eh obtido por (2 ^ n),"),
@@ -57,39 +56,41 @@ explain_literal() :-
     writeln(" -----------------------------------------------------------"),
     options_menu.
 
-run_generator() :-
-    writeln(" Primeiro digite o literal que deseja-se aplicar a avaliacao"),
-    verifyEntryAndCreatesANewLiteral(Literal),
-    writeln("\n Essa eh a tabela verdade da expressao:\n"),
-    writeln(" --------------------TABELA VERDADE------------------------\n"),
-    call_table(Literal).
-
-call_table(Literal) :-
-    get_table(Literal,Table),
-    writeln(Table),
+repeat_options() :-
     writeln(" -----------------------------------------------------------\n"),
-    writeln(" Deseja criar uma nova tabela ou voltar ao menu?\n"),
-    writeln(" 0 - Voltar ao menu!"),
-    writeln(" 1 - Criar nova!"),
-    write(" >>>"),
-    read_line_to_string(user_input,Option),
-    write("\n"),
-
-    string_to_atom(Option,Op),
-    repeat(Op).
+    
+    writeln(" Escolha sua opcao! (0, 1, 2 ou 3)"),
+    writeln(" 0. Voltar ao menu!"),
+    writeln(" 1. Qual o objetivo do gerador de Tabela Verdade?"),
+    writeln(" 2. Tutorial como funciona o literal (util para criar a expressao)."),
+    writeln(" 3. Criar uma nova tabela!"),
+    str_input(Op),
+    string_to_atom(Op,Option),
+    repeat(Option).
 
 repeat(Op) :-
     (Op == '0'),
     writeln("\n Volte sempre!\n");
-    options_menu.
-
-
+    (Op == '1'),
+    explain_table();
+    (Op == '2'),
+    explain_literal();
+    (Op == '3'),
+    create_table();
+    writeln("\n Opcao invalida!\n"),
+    repeat(Op).
 
 
 create_table() :-
+    writeln("\n -----------------------------------------------------------"),
+    writeln("\n Primeiro monte o literal (expressao) que sera usado para obtencao da tabela\n"),
     verifyEntryAndCreatesANewLiteral(Literal),
+
+    writeln("\n Essa eh a tabela verdade da expressao:\n"),
+    writeln(" ---------------------TABELA VERDADE------------------------\n"),
     get_table(Literal,Table),
-    writeln(Table).
+    writeln(Table),
+    repeat_options().
 
 negate(Value,Return) :-
     Value, Return = false;
@@ -293,7 +294,6 @@ get_table(Literal,Return) :-
     mount_table(Interpretations,Propositions,Literal,R1),
     Return = R1.
 
-% expression('',proposition('','a'),'&',proposition('',b))
     
 
 

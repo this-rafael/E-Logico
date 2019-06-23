@@ -311,8 +311,8 @@ literalsToString(expression(UnaryOp, ValueA, BinaryOp, ValueB), Return) :-
 
 
 
-main :-
-    verifyEntryAndCreatesANewLiteral(L),
-    literalsToString(L, R),
-    writeln(L),
-    writeln(R).
+% main :-
+%     verifyEntryAndCreatesANewLiteral(L),
+%     literalsToString(L, R),
+%     writeln(L),
+%     writeln(R).
