@@ -1,5 +1,95 @@
 :- [literal].
+:- initialization(main).
 
+main :-
+    writeln(" --------------GERADOR DE TABELA VERDADE-------------------"),
+    options_menu().
+
+
+options_menu() :-
+    writeln("\n Escolha sua opcao! (0, 1, 2 ou 3)"),
+    writeln(" 0. Retornar ao Menu."), 
+    writeln(" 1. Qual o objetivo do gerador de Tabela Verdade?"),
+    writeln(" 2. Tutorial como funciona o literal (util para criar a expressao)."),
+    writeln(" 3. Gerar a tabela verdade de uma expressao."),
+
+    write(" >>>"),
+    read_line_to_string(user_input,Option),
+    write("\n"),
+
+    string_to_atom(Option,Op),
+    choose_option(Op).
+
+choose_option(Op) :-
+    (Op == '0'),
+    writeln("\n Volte sempre!\n");
+    (Op == '1'),
+    explain_table();
+    (Op == '2'),
+    explain_literal();
+    run_generator().
+
+explain_table() :-
+    writeln(" --------------------TABELA VERDADE------------------------"),
+    writeln(" \nTabela verdade eh um dispositivo utilizado no estudo da logica."),
+    writeln(" Com o uso desta tabela eh possível definir o valor logico de uma expressao,"),
+    writeln(" ou seja, saber quando uma sentenca eh verdadeira ou falsa.\n"),
+    writeln(" Quanto mais variaveis fizerem parte da expressao, maior o numero de linhas, que eh obtido por (2 ^ n),"),
+    writeln(" onde n eh o numero de variaveis."),
+    writeln(" Eh simples fazer manualmente uma tabela com duas variaveis, e ate tres."),
+    writeln(" Mas quanto mais adicionamos variaveis a expressao, o numero de linhas fica exponencialmente maior.\n"),
+    writeln(" O objetivo dessa parte do programa eh justamente facilitar a construcao da tabela de qualquer expressao,"),
+    writeln(" Nao importando o numero de variaveis.\n"),
+    writeln(" -----------------------------------------------------------"),
+    options_menu.
+
+explain_literal() :-
+    writeln(" ---------------------LITERAL TUTORIAL----------------------"),
+    writeln("\n Um literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"),
+    writeln(" - Um operador unario (~, ) para dizer se o valor da expressao eh negado;"),
+    writeln(" - Um valor A: esse valor pode ser uma outra expressao ou uma simples proposicao;"),
+    writeln(" - Um operador binario (&,|,*,#), que serve para dizer se a expressao eh uma conjuncao, uma disjuncao, uma implicacao ou uma bi-implicacao;"),
+    writeln(" - Um valor B: esse valor pode ser uma outra expressao ou uma simples proposicao;\n"), 
+    writeln(" Uma proposicao eh formada por:"),
+    writeln(" - Um operador unario (~, ) para dizer se o valor da proposicao eh negado;"),
+    writeln(" - Um valor: esse valor eh obrigatoriamente uma string, que no caso, vai ser a letra que representa a proposicao."),
+    writeln(" Agora que ja sabemos como eh formado um literal, podemos criar um a seguir:\n"),
+    writeln(" -----------------------------------------------------------"),
+    options_menu.
+
+run_generator() :-
+    writeln(" Primeiro digite o literal que deseja-se aplicar a avaliacao"),
+    verifyEntryAndCreatesANewLiteral(Literal),
+    writeln("\n Essa eh a tabela verdade da expressao:\n"),
+    writeln(" --------------------TABELA VERDADE------------------------\n"),
+    call_table(Literal).
+
+call_table(Literal) :-
+    get_table(Literal,Table),
+    writeln(Table),
+    writeln(" -----------------------------------------------------------\n"),
+    writeln(" Deseja criar uma nova tabela ou voltar ao menu?\n"),
+    writeln(" 0 - Voltar ao menu!"),
+    writeln(" 1 - Criar nova!"),
+    write(" >>>"),
+    read_line_to_string(user_input,Option),
+    write("\n"),
+
+    string_to_atom(Option,Op),
+    repeat(Op).
+
+repeat(Op) :-
+    (Op == '0'),
+    writeln("\n Volte sempre!\n");
+    options_menu.
+
+
+
+
+create_table() :-
+    verifyEntryAndCreatesANewLiteral(Literal),
+    get_table(Literal,Table),
+    writeln(Table).
 
 negate(Value,Return) :-
     Value, Return = false;
@@ -19,11 +109,21 @@ xor(A,B,Return) :-
 
 
 is_proposition(Atom,Return) :-
-    Ignore = ["(",")","&","|","*","#","-",">","<"," "],
+    Ignore = ["(",")","&","|","*","#","-",">","<"," ","~"],
     atom_string(Atom, String),
     
     (member(String,Ignore)) -> Return = false; Return = true.
     
+remove_repetitions([],_,[]).
+remove_repetitions([H|T],Aux,Return) :-
+    (member(H,Aux)) ->
+    remove_repetitions(T,Aux,R1),
+    Return = R1;
+    append([H],Aux,Aux2),
+    remove_repetitions(T,Aux2,R2),
+    append([H],R2,R3),
+    Return = R3.
+
 get_propositions_aux([],Return) :- Return = [].
 get_propositions_aux([H|T],Return) :-
     is_proposition(H,Proposicao),
@@ -36,7 +136,8 @@ get_propositions_aux([H|T],Return) :-
 get_propositions(Expression,Return) :-
     string_chars(Expression,List),
     get_propositions_aux(List,R),
-    Return = R.
+    remove_repetitions(R,[],R2),
+    Return = R2.
 
 dec_bin(0,'0').
 dec_bin(1,'1').
@@ -74,7 +175,7 @@ get_possibilities_aux(Size,Fix,Return) :-
 get_possibilities(Expression,Return) :-
     get_propositions(Expression,Prop),
     length(Prop,Number),
-    Lines = (2 ^ Number) - 1,
+    Lines is (2 ^ Number) - 1,
     get_possibilities_aux(Lines,Number,R),
     Return = R.
 

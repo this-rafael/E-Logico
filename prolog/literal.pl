@@ -10,20 +10,23 @@ isValidUnaryOperator(_, Return):- % retorna true or false
 contains(X,[X|_]).
 contains(X,[_|Y]):- contains(X,Y).
 
-isValidBinaryOperator(Operator, Return) :-
-    contains(Operator, ['*', '#','&', '|']).
+isValidBinaryOperator(Operator,Return) :-
+    (contains(Operator, ['*', '#','&', '|'])) -> Return = true; Return = false.
 
 
 isValidProposition(Proposition, Return):- % retorna true or false
     char_code(Proposition, A) ->
         (((A > 64), (A < 91)) ; ((A > 96) ; (A < 122))),
-        Return is true ;
-        Return is false.% considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
+        Return = true ;
+        Return = false.% considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
 
 % escolhe um operador binario apartir da entrada do usuario
 chooseBinaryOperator(Return) :-
     writeln("\nDigite o operador binario: "),
-    str_input(TypedEntry),
+    str_input(String),
+    string_to_atom(String, TypedEntry),
+    
+    
     isValidBinaryOperator(TypedEntry, IsValidBinaryOperator),
     if(
         (IsValidBinaryOperator),
@@ -87,11 +90,22 @@ treatsValidLongProposition(Proposition, Length, Return) :-
         )
     ).
 
+get_proposition([H|T], Return) :-
+    (H == '~') -> 
+    get_proposition(T,R1),
+    Return = R1;
+    Return = H.
+
 %constroi uma proposicao
 propositionConstruct(Return) :-
     writeln("\n Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"),
-    str_input(Proposition),
-    isValidProposition(Proposition, EhExpressaoValida),
+    str_input(Prop),
+    string_to_atom(Prop,Proposition),
+    atom_chars(Proposition,Chars),
+    get_proposition(Chars,Propos),
+
+    
+    isValidProposition(Propos, EhExpressaoValida),
     if(
         (EhExpressaoValida),
             ( % if
@@ -279,16 +293,19 @@ literalsToString(proposition(UnaryOp, Value), Return):-
 
 % gera uma representacao textual de uma expressao. Ex: ~(P | Q)
 literalsToString(expression(UnaryOp, ValueA, BinaryOp, ValueB), Return) :-
-    string_concat(UnaryOp,"(", A),
+    string_concat(UnaryOp,"( ", A),
     
     literalsToString(ValueA, ValueAToStr),
-    string_concat(A, ValueAToStr, B),
+    string_concat(A, ValueAToStr, AB),
+    string_concat(AB," ",B),
+
 
     binaryOperatorToString(BinaryOp, BinaryOpToString),     
     string_concat(B, BinaryOpToString, C),
     literalsToString(ValueB, D), 
-    string_concat(C, D, E), 
-    string_concat(E,")", F), 
+    string_concat(C," ",CD),
+    string_concat(CD, D, E), 
+    string_concat(E," )", F), 
     Return = F.
 
 
