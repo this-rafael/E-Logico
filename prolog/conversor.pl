@@ -141,14 +141,13 @@ decToBin(N,B):-
     decToBin(Y,B1),
     atom_concat(B1, X, B).
 
-%TODO
-binaryToDec(0, 0).
-binaryToDec(1, 1).
-%binaryToDec(Binary, Return):-
-    %R is Binary mod 10,
-    %X is Binary // 10,
-    %binaryToDec(X, Y),
-    %Return is 2 * Y + R.
+binaryToDec(Binary, Return):-
+    Binary =:= 0 -> Return is 0;
+    Binary =:= 1 -> Return is 1;
+    R is Binary mod 10,
+    X is Binary // 10,
+    binaryToDec(X, Y),
+    Return is 2 * Y + R.
 
 %TODO
 binaryToFloat32(X, 0.0).
