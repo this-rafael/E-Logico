@@ -1,7 +1,9 @@
+% :- use_module(truth_table_generator,[]).
 :- [literal].
+% :- [tty].
 
 
-execute() :-
+truth_table_generator() :-
     writeln(" --------------GERADOR DE TABELA VERDADE-------------------"),
     options_menu().
 
@@ -293,8 +295,3 @@ get_table(Literal,Return) :-
     get_propositions(Expression,Propositions),
     mount_table(Interpretations,Propositions,Literal,R1),
     Return = R1.
-
-    
-
-
-

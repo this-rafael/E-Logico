@@ -12,7 +12,7 @@
               v
 */
 %:-use_module('simplificador_logico').
-%:-use_module('truth_table_generator').
+:- [truth_table_generator].
 
 
 main :-
@@ -20,7 +20,7 @@ main :-
     loop.
 
 menuApresentacao:-
-    tty_clear,
+    % tty_clear,
     write("MenuApresentacao aqui").
 
 loop:-
@@ -38,14 +38,14 @@ loop:-
     para o menu. por favorzinho não esquecer do LOOP.
  */
 truthTable:-
-    tty_clear,
-    writeln('aqui vem o truthTable'), loop.
+    % tty_clear,
+    truth_table_generator(), loop.
 conversor:-
-    tty_clear,
+    % tty_clear,
     writeln('aqui vem o conversor'), loop.
 simplificadorLogico:-
-    tty_clear,
+    % tty_clear,
     writeln('aqui vem o simplificadorLogico'), loop.
 regrasProposicionais:-
-    tty_clear,
+    % tty_clear,
     writeln('aqui aparece as coisas das regrasProposicionais'), loop.
