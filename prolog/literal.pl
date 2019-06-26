@@ -90,6 +90,8 @@ treatsValidLongProposition(Proposition, Length, Return) :-
         )
     ).
 
+get_proposition(proposition(_, Value), Return) :-
+    Return = Value.
 get_proposition([H|T], Return) :-
     (H == '~') -> 
     get_proposition(T,R1),
@@ -219,6 +221,8 @@ expressionContruct(Return):-
 % metodos getters
 getUnaryOperator(expression(Uop, _, _, _), Return) :-
     Return = Uop.
+getUnaryOperator(proposition(UOp, _), Return) :-
+    Return = UOp.
 
 getBinaryOperator(expression(_, _, Bop, _), Return) :-
     Return = Bop.
