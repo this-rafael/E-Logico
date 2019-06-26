@@ -1,6 +1,4 @@
-% :- use_module(truth_table_generator,[]).
 :- [literal].
-% :- [tty].
 
 
 truth_table_generator() :-

@@ -1,8 +1,4 @@
-:- use_module("util_interface").
-
-
-
-
+:- [util_interface].
 
 isValidUnaryOperator(_, Return):- % retorna true or false
     Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"

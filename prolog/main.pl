@@ -1,6 +1,5 @@
-:- module(main, []).
 :- initialization main.
-:- use_module('util_interface').
+:- [util_interface].
 /*
     -Aqui você deposita a chamada do seu módulo.
     Você pode modularizar sua classe adicionando um 

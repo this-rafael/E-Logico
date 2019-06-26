@@ -1,6 +1,3 @@
-:- module('io_features', [aux_str_input/1, aux_number_input/1, aux_cls/0]).
-
-
 aux_str_input(Return) :-
     read_line_to_string(user_input, Return).
 
