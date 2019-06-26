@@ -18,7 +18,7 @@ execSimplificador() :-
     loopSimplificador(L1, L2, L3).
 
 loopSimplificador(L1, L2, L3) :-
-    writeln("1. Usar Expressoes; 2. Criar novas Expressoes; 0. Sair."),
+    writeln("|: 1. Usar Expressoes; 2. Criar novas Expressoes; 0. Sair."),
     str_input(Reload),
 
     (Reload == "1" ->
@@ -62,7 +62,7 @@ instanceThreeLiterals(Num, L1, L2, L3) :-
 % Opcao 1: Negacao - ~(~P&Q) retorna P&Q | ~~P retorna P
 simplificaExpressao("1", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
-    writeln("Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
+    writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
 
     str_input(Opcao),
     (Opcao == "L1" ->
@@ -85,13 +85,16 @@ simplificaExpressao(Num, L1, L2, L3) :-
     writeln("Essa Opcao nao existe"),
     loopSimplificador(L1, L2, L3).
 
-verificaNegacao(LX) :-
-    getUnaryOperator(LX, UOp),
+verificaNegacao(expression(Uop, FirstValue, Bop, SecondValue)) :-
+    writeln("Verificar mais tarde isso aqui").
+
+verificaNegacao(proposition(UOp, Prop)) :-
+    getUnaryOperator(proposition(UOp, Prop), UOp),
 
     (UOp == "~~") ->
-    literalsToString(LX, StringLit),
-    get_proposition(LX, ValueProp),
-    string_concat("A expressao ", StringLit, A),
+    literalsToString(proposition(UOp, Prop), StringLit),
+    get_proposition(proposition(UOp, Prop), ValueProp),
+    string_concat("|: A expressao ", StringLit, A),
     string_concat(A, " pode ser expressa por ", B),
     string_concat(B, ValueProp, C),
     string_concat(C, " usando Negacao.", SaidaFinal),
@@ -99,11 +102,12 @@ verificaNegacao(LX) :-
     writeln(SaidaFinal);
     writeln("Nao eh possivel aplicar Negacao nessa Expressao.").
 
+% Auxilio para simplificaExpressao
 printThreeLiterals(L1, L2, L3) :-
     literalsToString(L1, StringL1),
     literalsToString(L2, StringL2),
     literalsToString(L3, StringL3),
-    string_concat("L1: ", StringL1, A),
+    string_concat("|:  L1: ", StringL1, A),
     string_concat(A, " ; L2: ", B),
     string_concat(B, StringL2, C),
     string_concat(C, " ; L3: ", D),
