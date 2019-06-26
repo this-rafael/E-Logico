@@ -1,7 +1,16 @@
 :- [util_interface].
 
-isValidUnaryOperator(_, Return):- % retorna true or false
-    Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
+isValidUnaryOperator(Operator, Return):- % retorna true or false
+    string_chars(Operator,Chars),
+    check_sequence(Chars,Valid),
+    (Valid), Return = true; Return = false.
+
+check_sequence([], true).
+check_sequence([H|T], Return) :-
+    (H == '~'),
+    check_sequence(T,R1),
+    Return = R1;
+    Return = false.
 
 contains(X,[X|_]).
 contains(X,[_|Y]):- contains(X,Y).
@@ -48,8 +57,8 @@ chooseUnaryOperator(Return) :-
         ),
         % else
         (
-            writeln("O operador unario digitado, nao eh valido... Tente outra vez"),
-            chooseUnaryOperator(Return)
+            (writeln("O operador unario digitado, nao eh valido... Tente outra vez"),
+            chooseUnaryOperator(Return))
         )
     ).
 
@@ -151,8 +160,9 @@ verifyEntryAndCreatesANewLiteral(Return) :-
                     (
                         expressionContruct(Return)
                     ),
-                (
-                    Return = proposition("", "")
+                (   
+                    (writeln(" Opcao invalida, escolha uma opcao valida!\n"),
+                    verifyEntryAndCreatesANewLiteral(Return))
                 )
             )
         )

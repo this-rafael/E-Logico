@@ -1,11 +1,13 @@
 :- [literal].
 
+% --------------------------- INTERFACE COM USUARIO
 
+% Funcao inicial que sera chamada no main, executa o meu de opcoes.
 truth_table_generator() :-
     writeln(" --------------GERADOR DE TABELA VERDADE-------------------"),
     options_menu().
 
-
+% Menu de opcoes, recebe a opcao e executa o executor das funcoes.
 options_menu() :-
     writeln("\n Escolha sua opcao! (0, 1, 2 ou 3)"),
     writeln(" 0. Retornar ao Menu."), 
@@ -16,20 +18,24 @@ options_menu() :-
     string_to_atom(Op,Option),
     choose_option(Option).
 
+% Executa a funcao com base na opcao escolhida.
 choose_option(Op) :-
     (Op == '0'),
-    writeln("\n Volte sempre!\n");
+    writeln("\n Volte sempre!"),
+    writeln(" -----------------------------------------------------------\n");
     (Op == '1'),
     explain_table();
     (Op == '2'),
     explain_literal();
     (Op == '3'),
     create_table;
-    writeln("\n Opcao invalida!\n"),
-    choose_option(Op).
+    writeln("\n Opcao invalida!"),
+    writeln(" -----------------------------------------------------------"),
+    options_menu().
 
+% Mostra um texto explicativo sobre tabela verdade.
 explain_table() :-
-    writeln(" --------------------TABELA VERDADE------------------------"),
+    writeln("\n ---------------------TABELA VERDADE------------------------"),
     writeln("\n Tabela verdade eh um dispositivo utilizado no estudo da logica."),
     writeln(" Com o uso desta tabela eh possível definir o valor logico de uma expressao,"),
     writeln(" ou seja, saber quando uma sentenca eh verdadeira ou falsa.\n"),
@@ -40,10 +46,11 @@ explain_table() :-
     writeln(" O objetivo dessa parte do programa eh justamente facilitar a construcao da tabela de qualquer expressao,"),
     writeln(" Nao importando o numero de variaveis.\n"),
     writeln(" -----------------------------------------------------------"),
-    options_menu.
+    options_menu().
 
+% Mostra um texto explicativo sobre o literal.
 explain_literal() :-
-    writeln(" ---------------------LITERAL TUTORIAL----------------------"),
+    writeln("\n ---------------------LITERAL TUTORIAL----------------------"),
     writeln("\n Um literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"),
     writeln(" - Um operador unario (~, ) para dizer se o valor da expressao eh negado;"),
     writeln(" - Um valor A: esse valor pode ser uma outra expressao ou uma simples proposicao;"),
@@ -54,33 +61,9 @@ explain_literal() :-
     writeln(" - Um valor: esse valor eh obrigatoriamente uma string, que no caso, vai ser a letra que representa a proposicao."),
     writeln(" Agora que ja sabemos como eh formado um literal, podemos criar um a seguir:\n"),
     writeln(" -----------------------------------------------------------"),
-    options_menu.
+    options_menu().
 
-repeat_options() :-
-    writeln(" -----------------------------------------------------------\n"),
-    
-    writeln(" Escolha sua opcao! (0, 1, 2 ou 3)"),
-    writeln(" 0. Voltar ao menu!"),
-    writeln(" 1. Qual o objetivo do gerador de Tabela Verdade?"),
-    writeln(" 2. Tutorial como funciona o literal (util para criar a expressao)."),
-    writeln(" 3. Criar uma nova tabela!"),
-    str_input(Op),
-    string_to_atom(Op,Option),
-    repeat(Option).
-
-repeat(Op) :-
-    (Op == '0'),
-    writeln("\n Volte sempre!\n");
-    (Op == '1'),
-    explain_table();
-    (Op == '2'),
-    explain_literal();
-    (Op == '3'),
-    create_table();
-    writeln("\n Opcao invalida!\n"),
-    repeat(Op).
-
-
+% Cria o literal, gera a tabela verdade e exibe.
 create_table() :-
     writeln("\n -----------------------------------------------------------"),
     writeln("\n Primeiro monte o literal (expressao) que sera usado para obtencao da tabela\n"),
@@ -90,31 +73,42 @@ create_table() :-
     writeln(" ---------------------TABELA VERDADE------------------------\n"),
     get_table(Literal,Table),
     writeln(Table),
-    repeat_options().
+    writeln(" -----------------------------------------------------------\n"),
+    options_menu().
 
+% --------------------------- AUXILIARES
+
+% Not logico.
 negate(Value,Return) :-
     Value, Return = false;
     Return = true.
 
+% And logico.
 and(A,B,Return) :-
     A,B,Return = true; Return = false.
 
+% Or logico.
 or(A,B,Return) :-
     (A;B),Return = true; Return = false.
 
+% Implicacao logica.
 implication(A,B,Return) :-
     (\+A;B),Return = true; Return = false.
 
+% Dupla implicacao logica.
 xor(A,B,Return) :-
     (A,B;\+A,\+B),Return = true; Return = false.
 
+% --------------------------- OBTENCAO DAS PROPOSICOES
 
+% Verifica se determinado atomo eh uma proposicao.
 is_proposition(Atom,Return) :-
     Ignore = ["(",")","&","|","*","#","-",">","<"," ","~"],
     atom_string(Atom, String),
     
     (member(String,Ignore)) -> Return = false; Return = true.
     
+% Remove elementos repetidos de uma lista.
 remove_repetitions([],_,[]).
 remove_repetitions([H|T],Aux,Return) :-
     (member(H,Aux)) ->
@@ -125,6 +119,7 @@ remove_repetitions([H|T],Aux,Return) :-
     append([H],R2,R3),
     Return = R3.
 
+% Obtem as proposicoes de uma determinada expressao.
 get_propositions_aux([],Return) :- Return = [].
 get_propositions_aux([H|T],Return) :-
     is_proposition(H,Proposicao),
@@ -134,12 +129,16 @@ get_propositions_aux([H|T],Return) :-
     get_propositions_aux(T,R),
     Return = R.
 
+% Invoca a funcao que procura as proposicoes de forma correta.
 get_propositions(Expression,Return) :-
     string_chars(Expression,List),
     get_propositions_aux(List,R),
     remove_repetitions(R,[],R2),
     Return = R2.
 
+% --------------------------- OBTENCAO DA TABELA DE POSSIBILIDADES
+
+% Transforma um decimal em binario
 dec_bin(0,'0').
 dec_bin(1,'1').
 dec_bin(N,B) :-
@@ -149,11 +148,13 @@ dec_bin(N,B) :-
     dec_bin(Y,B1),
     atom_concat(B1, X, B).
 
+% Retorna o tamanho de um atomo.
 len(Atom,Return) :-
     atom_chars(Atom,List),
     length(List,Len),
     Return = Len.
 
+% Completa um binario baseado em um numero de casas.
 complete_bin(Bin,Size,Return) :-
     len(Bin,Len),
     (Len =:= Size),
@@ -162,6 +163,7 @@ complete_bin(Bin,Size,Return) :-
     complete_bin(B2,Size,R2),
     Return = R2.
 
+% Obtem a tabela de possibilidades.
 get_possibilities_aux(0,Fix,Return) :- 
     complete_bin('0',Fix,Bin),
     Return = [Bin].
@@ -173,6 +175,7 @@ get_possibilities_aux(Size,Fix,Return) :-
     append(R2,[B2],R3),
     Return = R3.
 
+% Invoca a funcao de obtencao da tabela de possibilidades de maneira correta.
 get_possibilities(Expression,Return) :-
     get_propositions(Expression,Prop),
     length(Prop,Number),
@@ -180,29 +183,29 @@ get_possibilities(Expression,Return) :-
     get_possibilities_aux(Lines,Number,R),
     Return = R.
 
+% --------------------------- OBTENCAO DO VALOR DE UMA PROPOSICAO
 
-
-
-
+% Obtem a posicao de uma proposicao na lista de proposicoes.
 get_proposition_position(Prop,[H|T],Return) :-
     (Prop == H) -> Return is 0;
     get_proposition_position(Prop,T,R2),
     R3 is 1 + R2,
     Return = R3.
     
+% Obtem o valor de uma proposicao em determinado momento.
 get_proposition_value(Prop,List,Poss,Return) :-
     get_proposition_position(Prop,List,Position),
     nth0(Position,Poss,Value),
     Return = Value.
 
-    
-
+% Verifica o operador unario e inverte, se preciso.
 check_unary_operator(Value,Operator,Return) :-
-    (Operator == '~') ->
+    (Operator == "~") ->
     negate(Value,V),
     Return = V;
     Return = Value.
 
+% Obtem o valor do literal para cada linha de interpretacao.
 result(proposition(UnOp,Prop),List,Poss,Return) :- 
     get_proposition_value(Prop,List,Poss,R1),
     check_unary_operator(R1,UnOp,R2),
@@ -233,10 +236,11 @@ result(expression(UnOp,V1,BinOp,V2),List,Poss,Return) :-
     check_unary_operator(GH,UnOp,R4),
     Return = R4.
 
-
+% Transforma um boolean em string.
 rest_to_string(true, Return) :- Return = "1".
 rest_to_string(false,Return) :- Return = "0".
 
+% Transforma uma lista de atomos em uma lista de booleans.
 boolean_list([],[]).
 boolean_list([H|T],Return) :-
     (H == '1') ->
@@ -249,6 +253,9 @@ boolean_list([H|T],Return) :-
     append(B,R1,R2),
     Return = R2.
 
+% --------------------------- MONTAGEM DA TABELA
+
+% Monta a primeira linha da tabela.
 first_line([],Exp,Return) :-
     concat("| ",Exp,R), Return = R.
 first_line([H|T],Exp,Return) :-
@@ -257,6 +264,7 @@ first_line([H|T],Exp,Return) :-
     concat(R,R2,R3),
     Return = R3.
 
+% Monta uma linha da tabela.
 get_line([],Value,Prop,Literal,Return) :-
     result(Literal,Prop,Value,R1),
     rest_to_string(R1,R2),
@@ -268,6 +276,7 @@ get_line([H|T],Value,Prop,Literal,Return) :-
     concat(R1,R2,R3),
     Return = R3.
 
+% Junta as linhas de interpretacao da tabela.
 get_every_line([], _, _, "").
 get_every_line([H|T],Prop,Literal,Return) :-
     atom_chars(H,H2),
@@ -278,6 +287,7 @@ get_every_line([H|T],Prop,Literal,Return) :-
     concat(R2,R3,R4),
     Return = R4.
 
+% Junta todas linhas da tabela.
 mount_table(Interpretations,Propositions,Literal,Return) :-
     literalsToString(Literal,Expression),
     first_line(Propositions,Expression,First),
@@ -287,6 +297,7 @@ mount_table(Interpretations,Propositions,Literal,Return) :-
     concat(F2,R1,R2),
     Return = R2.
 
+% Gera a tabela verdade da expressao passada.
 get_table(Literal,Return) :-
     literalsToString(Literal,Expression),
     get_possibilities(Expression,Interpretations),
