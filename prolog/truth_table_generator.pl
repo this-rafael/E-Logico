@@ -4,6 +4,7 @@
 
 % Funcao inicial que sera chamada no main, executa o meu de opcoes.
 truth_table_generator() :-
+    % tty_clear,
     writeln(" --------------GERADOR DE TABELA VERDADE-------------------"),
     options_menu().
 
@@ -69,6 +70,7 @@ create_table() :-
     writeln("\n Primeiro monte o literal (expressao) que sera usado para obtencao da tabela\n"),
     verifyEntryAndCreatesANewLiteral(Literal),
 
+    % tty_clear,
     writeln("\n Essa eh a tabela verdade da expressao:\n"),
     writeln(" ---------------------TABELA VERDADE------------------------\n"),
     get_table(Literal,Table),
