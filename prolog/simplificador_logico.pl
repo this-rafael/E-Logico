@@ -86,21 +86,109 @@ simplificaExpressao(Num, L1, L2, L3) :-
     loopSimplificador(L1, L2, L3).
 
 verificaNegacao(expression(Uop, FirstValue, Bop, SecondValue)) :-
-    writeln("Verificar mais tarde isso aqui").
+    (Uop == "~" ->
+        getUnaryOperator(FirstValue, UOpA),
+        getUnaryOperator(SecondValue, UOpB),
+        get_proposition(FirstValue, PropA),
+        get_proposition(SecondValue, PropB),
+        literalsToString(expression(Uop, FirstValue, Bop, SecondValue), StringLit),
+        (Bop == '&' ->
+        % ^
+            (UOpA == "~" ->
+            % ~A
+                (UOpB == "~" ->
+                % ~B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal);
+                % B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v~", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal)
+                );
+            % A
+                (UOpB == "~" ->
+                % ~B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (~", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal);
+                % B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (~", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v~", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal)
+                )
+            );
+        Bop == '|' ->
+        % v
+            (UOpA == "~" ->
+            % ~A
+                (UOpB == "~" ->
+                % ~B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal);
+                % B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v~", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal)
+                );
+            % A
+                (UOpB == "~" ->
+                % ~B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (~", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal);
+                % B
+                string_concat("|: A expressao ", StringLit, A),
+                string_concat(A, " pode ser expressa por (~", B),
+                string_concat(B, PropA, C),
+                string_concat(C, "v~", D),
+                string_concat(D, PropB, E),
+                string_concat(E, ") usando Negacao.", SaidaFinal)
+                )
+            );
+        writeln("Nao eh possivel aplicar Negacao nessa Expressao."),
+        writeln("Use outro Operador Binario.")
+        ),
+
+    writeln(SaidaFinal);
+    writeln("Nao eh possivel aplicar Negacao nessa Expressao."),
+    writeln("Tente usar uma Negacao ao lado de fora da Expressao.")
+    ).
 
 verificaNegacao(proposition(UOp, Prop)) :-
-    getUnaryOperator(proposition(UOp, Prop), UOp),
-
     (UOp == "~~") ->
     literalsToString(proposition(UOp, Prop), StringLit),
-    get_proposition(proposition(UOp, Prop), ValueProp),
+    get_proposition(proposition(UOp, Prop), ValueProp), % Retirar
     string_concat("|: A expressao ", StringLit, A),
     string_concat(A, " pode ser expressa por ", B),
     string_concat(B, ValueProp, C),
     string_concat(C, " usando Negacao.", SaidaFinal),
     
     writeln(SaidaFinal);
-    writeln("Nao eh possivel aplicar Negacao nessa Expressao.").
+    writeln("Nao eh possivel aplicar Negacao nessa Expressao."),
+    writeln("Tente usar uma Dupla Negacao.").
 
 % Auxilio para simplificaExpressao
 printThreeLiterals(L1, L2, L3) :-
