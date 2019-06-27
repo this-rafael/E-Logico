@@ -1,39 +1,40 @@
 :- [literal].
 
-% Regra executavel do SimplificadorLogico na main.
+/*
+ * Metodos Executaveis
+ * 
+ * execSimplificador() - Chamado na Main
+ * loopSimplificador(L1, L2, L3) - Reuso dos Literais ja criados e Loop de Funcionamento do Programa
+ * instanceThreeLiterals(1, L1, L2, L3) - Instanciamento de 1 Literal, 2 vazios
+ * instanceThreeLiterals(2, L1, L2, L3) - Instanciamento de 2 Literais, 1 vazio
+ * instanceThreeLiterals(3, L1, L2, L3) - Instanciamento de 3 Literais
+ * instanceThreeLiterals(_, L1, L2, L3) - Opcao Invalida e execSimplificador() novamente chamado
+ * 
+ */
+
 execSimplificador() :-
-    % Opcao para Criacao de ate 3 Literais
     writeln("Deseja construir quantos Literais?"),
     str_input(Num),
     instanceThreeLiterals(Num, L1, L2, L3),
-
-    % Tabela: Opcoes de Simplificacoes
     printOptions,
     str_input(Option),
     simplificaExpressao(Option, L1, L2, L3),
-
-    % Opcao de Reuso dos Literais Criados
     loopSimplificador(L1, L2, L3).
 
 loopSimplificador(L1, L2, L3) :-
     writeln("|: 1. Usar Expressoes; 2. Criar novas Expressoes; 0. Sair."),
     str_input(Reload),
-
     (Reload == "1" ->
     printOptions,
     str_input(Option),
     simplificaExpressao(Option, L1, L2, L3);
-
     Reload == "2" ->
     execSimplificador;
-
     Reload == "0" ->
     halt(0) ;
     writeln("Opcao invalida."),
     loopSimplificador(L1, L2, L3)).
 
-% Possibilidade de criacao de 1, 2 ou 3 Literais.
-% Em caso da criação de 1 ou 2, Literais vazios sao preenchidos.
 instanceThreeLiterals("1", L1, L2, L3) :-
     verifyEntryAndCreatesANewLiteral(LAux1),
     L1 = LAux1,
@@ -52,12 +53,30 @@ instanceThreeLiterals("3", L1, L2, L3) :-
     L1 = LAux1,
     L2 = LAux2,
     L3 = LAux3.
-% Em caso de Quantidade invalida, ocorre loop.
-instanceThreeLiterals(Num, L1, L2, L3) :-
+instanceThreeLiterals(_, L1, L2, L3) :-
     writeln("Quantidade de Literais invalida."),
     execSimplificador.
 
-% Opcao 1: Negacao - ~(~P&Q) retorna P&Q | ~~P retorna P
+/*
+ * Metodos simplificaExpressao
+ * 
+ * Recebe os 3 Literais e identifica qual Opcao de Simplificacao o Usuario deseja utilizar
+ * 
+ * Opcao 1: Negacao - ~(~P&Q) retorna P&Q | ~~P retorna P
+ * Opcao 2: Conjuncao - (p ^ q) retorna (p ^ q) -> p | (p ^ q) -> q
+ * Opcao 3: Adicao Disjuntiva - P retorna P | Qualquer outra Expressao
+ * Opcao 4: Introducao de Equivalencia - (P -> Q) ^ (Q -> P) retorna (P <-> Q)
+ * Opcao 5: Eliminacao da Equivalencia - (P <-> Q) retorna (P -> Q) ^ (Q -> P)
+ * Opcao 6: Modus Ponens - (P -> Q), P retorna Q
+ * Opcao 7: Modus Tollens - (P -> Q) ^ ~Q retorna ~P
+ * Opcao 8: Silogismo Hipotético - (P -> Q) ^ (Q -> R) retorna (P -> R)
+ * Opcao 9: Silogismo Disjuntivo - (P v Q) ^ ~Q retorna P
+ * Opcao 10: Dilema Construtivo - (P -> Q) ^ (r -> s) ^ (P ^ r) retorna q v s
+ * Opcao 11: Exportação - (P ^ Q) -> R retorna P -> (Q -> R)
+ * Opcao Invalida: Mensagem de Aviso e Loop
+ * 
+ */
+
 simplificaExpressao("1", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
@@ -77,8 +96,6 @@ simplificaExpressao("1", L1, L2, L3) :-
 
     writeln("Literal Invalido"),
     simplificaExpressao("1", L1, L2, L3)).
-
-% Opcao 2: Conjuncao - (p ^ q) retorna (p ^ q) -> p | (p ^ q) -> q
 simplificaExpressao("2", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
@@ -98,8 +115,6 @@ simplificaExpressao("2", L1, L2, L3) :-
 
     writeln("Literal Invalido"),
     simplificaExpressao("2", L1, L2, L3)).
-
-% Opcao 3: Adicao Disjuntiva - P retorna P | Qualquer outra Expressao
 simplificaExpressao("3", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
@@ -134,8 +149,6 @@ simplificaExpressao("3", L1, L2, L3) :-
 
     writeln("Literal Invalido"),
     simplificaExpressao("3", L1, L2, L3)).
-
-% Opcao 4: Introducao de Equivalencia - (P -> Q) ^ (Q -> P) retorna (P <-> Q)
 simplificaExpressao("4", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
@@ -184,8 +197,6 @@ simplificaExpressao("4", L1, L2, L3) :-
         );
     writeln("Literal Invalido"),
     simplificaExpressao("4", L1, L2, L3)).
-
-% Opcao 5: Eliminacao da Equivalencia - (P <-> Q) retorna (P -> Q) ^ (Q -> P)
 simplificaExpressao("5", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
@@ -205,8 +216,6 @@ simplificaExpressao("5", L1, L2, L3) :-
 
     writeln("Literal Invalido"),
     simplificaExpressao("5", L1, L2, L3)).
-
-% Opcao 6: Modus Ponens - (P -> Q), P retorna Q
 simplificaExpressao("6", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
@@ -255,8 +264,6 @@ simplificaExpressao("6", L1, L2, L3) :-
         );
     writeln("Literal Invalido"),
     simplificaExpressao("6", L1, L2, L3)).
-
-% Opcao 7: Modus Tollens - (P -> Q) ^ ~Q retorna ~P
 simplificaExpressao("7", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
@@ -305,16 +312,302 @@ simplificaExpressao("7", L1, L2, L3) :-
         );
     writeln("Literal Invalido"),
     simplificaExpressao("7", L1, L2, L3)).
+simplificaExpressao("8", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
 
-% Opcao 8: Silogismo Hipotético -
-% Opcao 9: Silogismo Disjuntivo -
-% Opcao 10: Dilema Construtivo -
-% Opcao 11: Exportação -
+    str_input(Opcao1),
+    str_input(Opcao2),
 
-% Opcao Invalida
+    (Opcao1 == "L1" ->
+        (Opcao2 == "L1" ->
+            verificaSilogismoHipotetico(L1, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaSilogismoHipotetico(L1, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaSilogismoHipotetico(L1, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("8", L1, L2, L3)
+        );
+    Opcao1 == "L2" ->
+        (Opcao2 == "L1" ->
+            verificaSilogismoHipotetico(L2, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaSilogismoHipotetico(L2, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaSilogismoHipotetico(L2, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("8", L1, L2, L3)
+        );
+    Opcao1 == "L3" ->
+        (Opcao2 == "L1" ->
+            verificaSilogismoHipotetico(L3, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaSilogismoHipotetico(L3, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaSilogismoHipotetico(L3, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("8", L1, L2, L3)
+        );
+    writeln("Literal Invalido"),
+    simplificaExpressao("8", L1, L2, L3)).
+simplificaExpressao("9", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao1),
+    str_input(Opcao2),
+
+    (Opcao1 == "L1" ->
+        (Opcao2 == "L1" ->
+            verificaSilogismoDisjuntivo(L1, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaSilogismoDisjuntivo(L1, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaSilogismoDisjuntivo(L1, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("9", L1, L2, L3)
+        );
+    Opcao1 == "L2" ->
+        (Opcao2 == "L1" ->
+            verificaSilogismoDisjuntivo(L2, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaSilogismoDisjuntivo(L2, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaSilogismoDisjuntivo(L2, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("9", L1, L2, L3)
+        );
+    Opcao1 == "L3" ->
+        (Opcao2 == "L1" ->
+            verificaSilogismoDisjuntivo(L3, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaSilogismoDisjuntivo(L3, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaSilogismoDisjuntivo(L3, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("9", L1, L2, L3)
+        );
+    writeln("Literal Invalido"),
+    simplificaExpressao("9", L1, L2, L3)).
+simplificaExpressao("11", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha a ordem dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao1),
+    str_input(Opcao2),
+    str_input(Opcao3),
+    (Opcao1 == "L1" ->
+        (Opcao2 == "L1" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L1, L1, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L1, L1, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L1, L1, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        Opcao2 == "L2" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L1, L2, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L1, L2, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L1, L2, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        Opcao2 == "L3" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L1, L3, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L1, L3, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L1, L3, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        );
+    Opcao1 == "L2" ->
+        (Opcao2 == "L1" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L2, L1, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L2, L1, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L2, L1, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        Opcao2 == "L2" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L2, L2, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L2, L2, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L2, L2, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        Opcao2 == "L3" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L2, L3, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L2, L3, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L2, L3, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        );
+    Opcao1 == "L3" ->
+        (Opcao2 == "L1" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L3, L1, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L3, L1, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L3, L1, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        Opcao2 == "L2" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L3, L2, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L3, L2, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L3, L2, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        Opcao2 == "L3" ->
+            (Opcao3 == "L1" ->
+                verificaDilemaConstrutivo(L3, L3, L1),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L2" ->
+                verificaDilemaConstrutivo(L3, L3, L2),
+                loopSimplificador(L1, L2, L3);
+            Opcao3 == "L3" ->
+                verificaDilemaConstrutivo(L3, L3, L3),
+                loopSimplificador(L1, L2, L3);
+                writeln("Literal Invalido"),
+                simplificaExpressao("11", L1, L2, L3)
+            );
+        );
+    writeln("Literal Invalido"),
+    simplificaExpressao("11", L1, L2, L3)).
+simplificaExpressao("11", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao1),
+    str_input(Opcao2),
+
+    (Opcao1 == "L1" ->
+        (Opcao2 == "L1" ->
+            verificaExportacao(L1, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaExportacao(L1, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaExportacao(L1, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("11", L1, L2, L3)
+        );
+    Opcao1 == "L2" ->
+        (Opcao2 == "L1" ->
+            verificaExportacao(L2, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaExportacao(L2, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaExportacao(L2, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("11", L1, L2, L3)
+        );
+    Opcao1 == "L3" ->
+        (Opcao2 == "L1" ->
+            verificaExportacao(L3, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaExportacao(L3, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaExportacao(L3, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("11", L1, L2, L3)
+        );
+    writeln("Literal Invalido"),
+    simplificaExpressao("11", L1, L2, L3)).
 simplificaExpressao(Num, L1, L2, L3) :-
     writeln("Essa Opcao nao existe"),
     loopSimplificador(L1, L2, L3).
+
+/*
+ * Metodos de Verificacoes e simplificacoes Logicas
+ * 
+ * verificaConjuncao -
+ * verificaNegacao -
+ * verificaAdicao - 
+ * verificaIntroducaoDaEquivalencia - 
+ * verificaEliminacaoDaEquivalencia - 
+ * verificaModusPonens - 
+ * verificaModusTollens - 
+ * verificaSilogismoHipotetico - 
+ * verificaSilogismoDisjuntivo - 
+ * verificaDilemaConstrutivo - 
+ * verificaExportacao - 
+ *
+ */
 
 verificaNegacao(expression(Uop, FirstValue, Bop, SecondValue)) :-
     (Uop == "~" ->
@@ -547,7 +840,16 @@ verificaModusTollens(proposition(UOp, Prop), _) :-
     writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
     writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
 
-% Auxilio para simplificaExpressao
+/*
+ * Metodos de Prints
+ * 
+ * printThreeLiterals - Printa os 3 Literais Construidos (usado em SimplificaExpressoes)
+ * printOption - Printa Tabela de Simplificacoes Logicas
+ * metodoTesteDeSaidaLiteral - Printa Saidas Literais p/ Testes
+ * 
+ */
+
+
 printThreeLiterals(L1, L2, L3) :-
     literalsToString(L1, StringL1),
     literalsToString(L2, StringL2),
@@ -575,7 +877,6 @@ printOptions :-
     writeln(" 0 - Voltar ao menu principal"),
     writeln("        --- Digite a sua opção! ---").
 
-% Print Saidas Literais - Para Testes
 metodoTesteDeSaidaLiteral(L1, L2, L3) :-
     literalsToString(L1, R1),
     writeln(L1),
