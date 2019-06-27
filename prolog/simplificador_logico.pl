@@ -2,12 +2,10 @@
 
 % Regra executavel do SimplificadorLogico na main.
 execSimplificador() :-
+    % Opcao para Criacao de ate 3 Literais
     writeln("Deseja construir quantos Literais?"),
     str_input(Num),
     instanceThreeLiterals(Num, L1, L2, L3),
-
-    % Print Saidas Literais - Para Testes
-    % metodoTesteDeSaidaLiteral(L1, L2, L3),
 
     % Tabela: Opcoes de Simplificacoes
     printOptions,
@@ -79,6 +77,113 @@ simplificaExpressao("1", L1, L2, L3) :-
 
     writeln("Literal Invalido"),
     simplificaExpressao("1", L1, L2, L3)).
+
+% Opcao 2: Conjuncao - (p ^ q) retorna (p ^ q) -> p | (p ^ q) -> q
+simplificaExpressao("2", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao),
+    (Opcao == "L1" ->
+    verificaConjuncao(L1),
+    loopSimplificador(L1, L2, L3);
+    
+    Opcao == "L2" ->
+    verificaConjuncao(L2),
+    loopSimplificador(L1, L2, L3);
+
+    Opcao == "L3" ->
+    verificaConjuncao(L3),
+    loopSimplificador(L1, L2, L3);
+
+    writeln("Literal Invalido"),
+    simplificaExpressao("2", L1, L2, L3)).
+
+% Opcao 3: Adicao Disjuntiva - P retorna P | Qualquer outra Expressao
+simplificaExpressao("3", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao),
+    (Opcao == "L1" ->
+    literalsToString(L1, StringLit1),
+    string_concat("|: A expressao ", StringLit1, A),
+    string_concat(A, " pode ser expressa por ", B),
+    string_concat(B, StringLit1, C),
+    string_concat(C, " | Qualquer outra Expressao usando Negacao.", SaidaFinal),
+    writeln(SaidaFinal),
+    loopSimplificador(L1, L2, L3);
+    
+    Opcao == "L2" ->
+    literalsToString(L2, StringLit2),
+    string_concat("|: A expressao ", StringLit2, A),
+    string_concat(A, " pode ser expressa por ", B),
+    string_concat(B, StringLit2, C),
+    string_concat(C, " | Qualquer outra Expressao usando Negacao.", SaidaFinal),
+    writeln(SaidaFinal),
+    loopSimplificador(L1, L2, L3);
+
+    Opcao == "L3" ->
+    literalsToString(L3, StringLit3),
+    string_concat("|: A expressao ", StringLit3, A),
+    string_concat(A, " pode ser expressa por ", B),
+    string_concat(B, StringLit3, C),
+    string_concat(C, " | Qualquer outra Expressao usando Negacao.", SaidaFinal),
+    writeln(SaidaFinal),
+    loopSimplificador(L1, L2, L3);
+
+    writeln("Literal Invalido"),
+    simplificaExpressao("3", L1, L2, L3)).
+
+% Opcao 4: Introducao de Equivalencia - (P -> Q) ^ (Q -> P) retorna (P <-> Q)
+simplificaExpressao("4", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao1),
+    str_input(Opcao2),
+
+    (Opcao1 == "L1" ->
+        (Opcao2 == "L1" ->
+            verificaIntroducaoDeEquivalencia(L1, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaIntroducaoDeEquivalencia(L1, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaIntroducaoDeEquivalencia(L1, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("4", L1, L2, L3)
+        );
+    Opcao1 == "L2" ->
+        (Opcao2 == "L1" ->
+            verificaIntroducaoDeEquivalencia(L2, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaIntroducaoDeEquivalencia(L2, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaIntroducaoDeEquivalencia(L2, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("4", L1, L2, L3)
+        );
+    Opcao1 == "L3" ->
+        (Opcao2 == "L1" ->
+            verificaIntroducaoDeEquivalencia(L3, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaIntroducaoDeEquivalencia(L3, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaIntroducaoDeEquivalencia(L3, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("4", L1, L2, L3)
+        );
+    writeln("Literal Invalido"),
+    simplificaExpressao("4", L1, L2, L3)).
 
 % Opcao de Simplificacao Invalida
 simplificaExpressao(Num, L1, L2, L3) :-
@@ -178,17 +283,74 @@ verificaNegacao(expression(Uop, FirstValue, Bop, SecondValue)) :-
     ).
 
 verificaNegacao(proposition(UOp, Prop)) :-
-    (UOp == "~~") ->
+    (UOp == "~~" ->
     literalsToString(proposition(UOp, Prop), StringLit),
-    get_proposition(proposition(UOp, Prop), ValueProp), % Retirar
     string_concat("|: A expressao ", StringLit, A),
     string_concat(A, " pode ser expressa por ", B),
-    string_concat(B, ValueProp, C),
+    string_concat(B, Prop, C),
     string_concat(C, " usando Negacao.", SaidaFinal),
     
     writeln(SaidaFinal);
     writeln("Nao eh possivel aplicar Negacao nessa Expressao."),
-    writeln("Tente usar uma Dupla Negacao.").
+    writeln("Tente usar uma Dupla Negacao.")).
+
+verificaConjuncao(expression(Uop, FirstValue, Bop, SecondValue)) :-
+    (Bop == '&' ->
+    literalsToString(expression(Uop, FirstValue, Bop, SecondValue), StringLit),
+    literalsToString(FirstValue, StringLit1),
+    literalsToString(SecondValue, StringLit2),
+    string_concat("|: A expressao ", StringLit, A),
+    string_concat(A, " pode ser expressa por (", B),
+    string_concat(B, StringLit1, C),
+    string_concat(C, "&", D),
+    string_concat(D, StringLit2, E),
+    string_concat(E, ") -> ", F),
+    string_concat(F, StringLit1, G),
+    string_concat(G, " | (", H),
+    string_concat(H, StringLit1, I),
+    string_concat(I, "&", J),
+    string_concat(J, StringLit2, K),
+    string_concat(K, ") -> ", L),
+    string_concat(L, StringLit2, M),
+    string_concat(M, " usando Conjuncao.", SaidaFinal),
+    writeln(SaidaFinal);
+    writeln("Nao eh possivel aplicar Conjuncao nessa Expressao."),
+    writeln("Tente usar & como Operador Binario.")).
+
+verificaConjuncao(proposition(UOp, Prop)) :-
+    writeln("Nao eh possivel aplicar Conjuncao nessa Expressao."),
+    writeln("Tente usar um Expressao com (&) como Operador Binario.").
+
+verificaIntroducaoDeEquivalencia(expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)) :-
+    (Bop1 == '*' ->
+        (Bop1 == Bop2 ->
+            (FirstValue1 == SecondValue2 ->
+                (SecondValue1 == FirstValue2 ->
+                    literalsToString(expression(Uop1, FirstValue1, Bop1, SecondValue1), StringLit1),
+                    literalsToString(expression(Uop2, FirstValue2, Bop2, SecondValue2), StringLit2),
+                    string_concat("|: A expressao ", StringLit1, A),
+                    string_concat(A, " ^ ", B),
+                    string_concat(B, StringLit2, C),
+                    string_concat(C, " pode ser expressa por ", D),
+                    string_concat(D, StringLit1, E),
+                    string_concat(E, " <-> ", F),
+                    string_concat(F, StringLit2, G),
+                    string_concat(G, " usando Introducao de Equivalencia.", SaidaFinal),
+                    writeln(SaidaFinal);
+                    writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
+                    writeln("Tente usar duas o Primeiro Valor do Primeira Expressao igual ao Segundo Valor da Segunda Expressao"),
+                    writeln("e o Segundo Valor do Primeira Expressao igual ao Primeiro Valor da Segunda Expressao."));
+                writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
+                writeln("Tente usar duas o Primeiro Valor do Primeira Expressao igual ao Segundo Valor da Segunda Expressao"),
+                writeln("e o Segundo Valor do Primeira Expressao igual ao Primeiro Valor da Segunda Expressao."));
+            writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
+            writeln("Tente usar duas Expressoes com (->) como Operador Binario."));
+        writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
+        writeln("Tente usar duas Expressoes com (->) como Operador Binario.")
+    ).
+verificaIntroducaoDeEquivalencia(_, _) :-
+    writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
+    writeln("Tente usar duas Expressoes com (->) como Operador Binario.").
 
 % Auxilio para simplificaExpressao
 printThreeLiterals(L1, L2, L3) :-
@@ -199,7 +361,7 @@ printThreeLiterals(L1, L2, L3) :-
     string_concat(A, " ; L2: ", B),
     string_concat(B, StringL2, C),
     string_concat(C, " ; L3: ", D),
-    string_concat(D, StringL2, ThreeLits),
+    string_concat(D, StringL3, ThreeLits),
     writeln(ThreeLits).
 
 printOptions :-
@@ -218,7 +380,7 @@ printOptions :-
     writeln(" 0 - Voltar ao menu principal"),
     writeln("        --- Digite a sua opção! ---").
 
-% Print de Literais em FormatoLogico e em LiteralToString.
+% Print Saidas Literais - Para Testes
 metodoTesteDeSaidaLiteral(L1, L2, L3) :-
     literalsToString(L1, R1),
     writeln(L1),
