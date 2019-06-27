@@ -256,7 +256,62 @@ simplificaExpressao("6", L1, L2, L3) :-
     writeln("Literal Invalido"),
     simplificaExpressao("6", L1, L2, L3)).
 
-% Opcao de Simplificacao Invalida
+% Opcao 7: Modus Tollens - (P -> Q) ^ ~Q retorna ~P
+simplificaExpressao("7", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao1),
+    str_input(Opcao2),
+
+    (Opcao1 == "L1" ->
+        (Opcao2 == "L1" ->
+            verificaModusTollens(L1, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaModusTollens(L1, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaModusTollens(L1, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("7", L1, L2, L3)
+        );
+    Opcao1 == "L2" ->
+        (Opcao2 == "L1" ->
+            verificaModusTollens(L2, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaModusTollens(L2, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaModusTollens(L2, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("7", L1, L2, L3)
+        );
+    Opcao1 == "L3" ->
+        (Opcao2 == "L1" ->
+            verificaModusTollens(L3, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaModusTollens(L3, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaModusTollens(L3, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("7", L1, L2, L3)
+        );
+    writeln("Literal Invalido"),
+    simplificaExpressao("7", L1, L2, L3)).
+
+% Opcao 8: Silogismo Hipotético -
+% Opcao 9: Silogismo Disjuntivo -
+% Opcao 10: Dilema Construtivo -
+% Opcao 11: Exportação -
+
+% Opcao Invalida
 simplificaExpressao(Num, L1, L2, L3) :-
     writeln("Essa Opcao nao existe"),
     loopSimplificador(L1, L2, L3).
@@ -453,7 +508,7 @@ verificaModusPonens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
             literalsToString(expression(Uop, FirstValue, Bop, SecondValue), StringLit),
             literalsToString(SecondValue, StringLit2),
             string_concat("|: A expressao ", StringLit, A),
-            string_concat(A, ", ", B),
+            string_concat(A, " ^ ", B),
             string_concat(B, StringLit3, C),
             string_concat(C, " pode ser expressa por (", D),
             string_concat(D, StringLit3, E),
@@ -465,6 +520,30 @@ verificaModusPonens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
         writeln("Tente usar uma Expressao com (->) de Operador Unario"),
         writeln("e o Segundo Valor da Primeira Expressao igual a Segunda Proposicao.")).
 verificaModusPonens(proposition(UOp, Prop), _) :-
+    writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
+    writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
+
+verificaModusTollens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
+    (Bop == '*' ->
+        literalsToString(SecondValue, StringLit2),
+        literalsToString(LX, StringLit3),
+        string_concat("~", StringLit2, Adaptacao),
+        (Adaptacao == StringLit3 ->
+            literalsToString(expression(Uop, FirstValue, Bop, SecondValue), StringLit),
+            literalsToString(FirstValue, StringLit1),
+            string_concat("|: A expressao ", StringLit, A),
+            string_concat(A, " ^ ", B),
+            string_concat(B, StringLit3, C),
+            string_concat(C, " pode ser expressa por (~", D),
+            string_concat(D, StringLit1, E),
+            string_concat(E, ") usando Modus Tollens.", SaidaFinal),
+            writeln(SaidaFinal);
+            writeln("Nao eh possivel aplicar Modus Tollens nessa Expressao."),
+            writeln("Tente usar o Segundo Valor da Primeira Expressao igual a Segunda Proposicao negada."));
+        writeln("Nao eh possivel aplicar Modus Tollens nessa Expressao."),
+        writeln("Tente usar uma Expressao com (->) de Operador Unario"),
+        writeln("e o Segundo Valor da Primeira Expressao igual a Segunda Proposicao negada.")).
+verificaModusTollens(proposition(UOp, Prop), _) :-
     writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
     writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
 
