@@ -185,6 +185,77 @@ simplificaExpressao("4", L1, L2, L3) :-
     writeln("Literal Invalido"),
     simplificaExpressao("4", L1, L2, L3)).
 
+% Opcao 5: Eliminacao da Equivalencia - (P <-> Q) retorna (P -> Q) ^ (Q -> P)
+simplificaExpressao("5", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 1 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao),
+    (Opcao == "L1" ->
+    verificaEliminacaoDaEquivalencia(L1),
+    loopSimplificador(L1, L2, L3);
+    
+    Opcao == "L2" ->
+    verificaEliminacaoDaEquivalencia(L2),
+    loopSimplificador(L1, L2, L3);
+
+    Opcao == "L3" ->
+    verificaEliminacaoDaEquivalencia(L3),
+    loopSimplificador(L1, L2, L3);
+
+    writeln("Literal Invalido"),
+    simplificaExpressao("5", L1, L2, L3)).
+
+% Opcao 6: Modus Ponens - (P -> Q), P retorna Q
+simplificaExpressao("6", L1, L2, L3) :-
+    printThreeLiterals(L1, L2, L3),
+    writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
+
+    str_input(Opcao1),
+    str_input(Opcao2),
+
+    (Opcao1 == "L1" ->
+        (Opcao2 == "L1" ->
+            verificaModusPonens(L1, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaModusPonens(L1, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaModusPonens(L1, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("6", L1, L2, L3)
+        );
+    Opcao1 == "L2" ->
+        (Opcao2 == "L1" ->
+            verificaModusPonens(L2, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaModusPonens(L2, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaModusPonens(L2, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("6", L1, L2, L3)
+        );
+    Opcao1 == "L3" ->
+        (Opcao2 == "L1" ->
+            verificaModusPonens(L3, L1),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L2" ->
+            verificaModusPonens(L3, L2),
+            loopSimplificador(L1, L2, L3);
+        Opcao2 == "L3" ->
+            verificaModusPonens(L3, L3),
+            loopSimplificador(L1, L2, L3);
+            writeln("Literal Invalido"),
+            simplificaExpressao("6", L1, L2, L3)
+        );
+    writeln("Literal Invalido"),
+    simplificaExpressao("6", L1, L2, L3)).
+
 % Opcao de Simplificacao Invalida
 simplificaExpressao(Num, L1, L2, L3) :-
     writeln("Essa Opcao nao existe"),
@@ -351,6 +422,51 @@ verificaIntroducaoDeEquivalencia(expression(Uop1, FirstValue1, Bop1, SecondValue
 verificaIntroducaoDeEquivalencia(_, _) :-
     writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
     writeln("Tente usar duas Expressoes com (->) como Operador Binario.").
+
+verificaEliminacaoDaEquivalencia(expression(Uop, FirstValue, Bop, SecondValue)) :-
+    (Bop == '#' ->
+        literalsToString(expression(Uop, FirstValue, Bop, SecondValue), StringLit),
+        literalsToString(FirstValue, StringLit1),
+        literalsToString(SecondValue, StringLit2),
+        string_concat("|: A expressao ", StringLit, A),
+        string_concat(A, " pode ser expressa por (", B),
+        string_concat(B, StringLit1, C),
+        string_concat(C, "->", D),
+        string_concat(D, StringLit2, E),
+        string_concat(E, ") ^ (", F),
+        string_concat(F, StringLit2, G),
+        string_concat(G, "->", H),
+        string_concat(H, StringLit1, I),
+        string_concat(I, ") usando Eliminacao da Equivalencia.", SaidaFinal),
+        writeln(SaidaFinal);
+        writeln("Nao eh possivel aplicar Eliminacao da Equivalencia nessa Expressao."),
+        writeln("Tente usar uma Expressoes com (<->) como Operador Binario.")).
+verificaEliminacaoDaEquivalencia(_) :-
+    writeln("Nao eh possivel aplicar Eliminacao da Equivalencia nessa Expressao."),
+    writeln("Tente usar uma Expressoes com (<->) como Operador Binario.").
+
+verificaModusPonens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
+    (Bop == '*' ->
+        literalsToString(FirstValue, StringLit1),
+        literalsToString(LX, StringLit3),
+        (StringLit1 == StringLit3 ->
+            literalsToString(expression(Uop, FirstValue, Bop, SecondValue), StringLit),
+            literalsToString(SecondValue, StringLit2),
+            string_concat("|: A expressao ", StringLit, A),
+            string_concat(A, ", ", B),
+            string_concat(B, StringLit3, C),
+            string_concat(C, " pode ser expressa por (", D),
+            string_concat(D, StringLit3, E),
+            string_concat(E, ") usando Modus Ponens.", SaidaFinal),
+            writeln(SaidaFinal);
+            writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
+            writeln("Tente usar o Segundo Valor da Primeira Expressao igual a Segunda Proposicao."));
+        writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
+        writeln("Tente usar uma Expressao com (->) de Operador Unario"),
+        writeln("e o Segundo Valor da Primeira Expressao igual a Segunda Proposicao.")).
+verificaModusPonens(proposition(UOp, Prop), _) :-
+    writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
+    writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
 
 % Auxilio para simplificaExpressao
 printThreeLiterals(L1, L2, L3) :-
