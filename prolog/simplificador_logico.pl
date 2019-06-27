@@ -616,7 +616,8 @@ simplificaExpressao(_, L1, L2, L3) :-
  * verificaModusTollens             - Entrada de Literal Invalida: proposition(UOp, Prop), _
  * verificaSilogismoHipotetico      - Entrada de Literal Valida:   expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)
  * verificaSilogismoHipotetico      - Entrada de Literal Invalida: _, _
- * verificaSilogismoDisjuntivo      - 
+ * verificaSilogismoDisjuntivo      - Entrada de Literal Valida:   expression(Uop1, FirstValue1, Bop1, SecondValue1), LX
+ * verificaSilogismoDisjuntivo      - Entrada de Literal Invalida: proposition(UOp, Prop), _
  * verificaDilemaConstrutivo        - 
  * verificaExportacao               - 
  *
@@ -821,10 +822,10 @@ verificaModusPonens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
             string_concat(E, ") usando Modus Ponens.", SaidaFinal),
             writeln(SaidaFinal);
             writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
-            writeln("Tente usar o Segundo Valor da Primeira Expressao igual a Segunda Proposicao."));
+            writeln("Tente usar o Segundo Valor da Primeira Expressao igual o Segundo Literal."));
         writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
         writeln("Tente usar uma Expressao com (->) de Operador Unario"),
-        writeln("e o Segundo Valor da Primeira Expressao igual a Segunda Proposicao.")).
+        writeln("e o Segundo Valor da Primeira Expressao igual o Segundo Literal.")).
 verificaModusPonens(proposition(UOp, Prop), _) :-
     writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
     writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
@@ -845,10 +846,10 @@ verificaModusTollens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
             string_concat(E, ") usando Modus Tollens.", SaidaFinal),
             writeln(SaidaFinal);
             writeln("Nao eh possivel aplicar Modus Tollens nessa Expressao."),
-            writeln("Tente usar o Segundo Valor da Primeira Expressao igual a Segunda Proposicao negada."));
+            writeln("Tente usar o Segundo Valor da Primeira Expressao igual o Segundo Literal negado."));
         writeln("Nao eh possivel aplicar Modus Tollens nessa Expressao."),
         writeln("Tente usar uma Expressao com (->) de Operador Unario"),
-        writeln("e o Segundo Valor da Primeira Expressao igual a Segunda Proposicao negada.")).
+        writeln("e o Segundo Valor da Primeira Expressao igual o Segundo Literal negado.")).
 verificaModusTollens(proposition(UOp, Prop), _) :-
     writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
     writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
@@ -861,18 +862,18 @@ verificaSilogismoHipotetico(expression(Uop1, FirstValue1, Bop1, SecondValue1), e
             (Bop1 == Bop2 ->
                 literalsToString(expression(Uop1, FirstValue1, Bop1, SecondValue1), Lit1),
                 literalsToString(expression(Uop2, FirstValue2, Bop2, SecondValue2), Lit2),
+                literalsToString(FirstValue1, StringLit1),
+                literalsToString(SecondValue2, StringLit4),
                 string_concat("|: A expressao ", Lit1, A),
                 string_concat(A, " ^ ", B),
                 string_concat(B, StringLit3, C),
                 string_concat(C, " pode ser expressa por (", D),
-                literalsToString(FirstValue1, StringLit1),
-                literalsToString(SecondValue2, StringLit4),
                 string_concat(D, StringLit1, E),
                 string_concat(E, "->", F),
                 string_concat(F, StringLit4, G),
                 string_concat(G, ") usando Silogismo Hipotetico.", SaidaFinal),
                 writeln(SaidaFinal);
-                writeln("Nao eh possivel aplicar Silogismo Hipotético nessa Expressao."),
+                writeln("Nao eh possivel aplicar Silogismo Hipotetico nessa Expressao."),
                 writeln("Tente usar o Operador Binario (->) em duas Expressoes."));
             writeln("Nao eh possivel aplicar Silogismo Hipotetico nessa Expressao."),
             writeln("Tente usar o Operador Binario (->) em duas Expressoes."));
@@ -882,7 +883,31 @@ verificaSilogismoHipotetico(_, _) :-
     writeln("Nao eh possivel aplicar Silogismo Hipotetico nessa Expressao."),
     writeln("Tente usar duas Expressoes em L1 e L2").
 
-
+verificaSilogismoDisjuntivo(expression(Uop1, FirstValue1, Bop1, SecondValue1), LX) :-
+    literalsToString(SecondValue1, StringLit2),
+    literalsToString(LX, Lit2),
+    string_concat("~", StringLit2, Adaptacao),
+    (Lit2 == Adaptacao ->
+        writeln("1"),
+        (Bop1 == '|' ->
+            literalsToString(expression(Uop1, FirstValue1, Bop1, SecondValue1), Lit1),
+            literalsToString(FirstValue1, StringLit1),
+            string_concat("|: A expressao ", Lit1, A),
+            string_concat(A, " ^ ", B),
+            string_concat(B, Lit2, C),
+            string_concat(C, " pode ser expressa por (", D),
+            string_concat(D, StringLit1, E),
+            string_concat(E, ") usando Silogismo Disjuntivo.", SaidaFinal),
+            writeln(SaidaFinal);
+            writeln("Nao eh possivel aplicar Silogismo Disjuntivo nessa Expressao."),
+            writeln("Tente usar o Operador Binario (|) na primeira Expressao."));
+        writeln("Nao eh possivel aplicar Silogismo Disjuntivo nessa Expressao."),
+        writeln("Tente usar o Operador Binario (|) na primeira Expressao."),
+        writeln("e o Segundo Valor da Primeira Expressao igual o Segundo Literal negado.")).
+verificaSilogismoDisjuntivo(proposition(UOp, Prop), _) :-
+    writeln("Nao eh possivel aplicar Silogismo Disjuntivo nessa Expressao."),
+    writeln("Tente usar Expressao com o Operador Binario (|) em L1").
+            
 
 
 /*
