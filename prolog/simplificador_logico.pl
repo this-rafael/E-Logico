@@ -3,8 +3,8 @@
 /*
  * Metodos Executaveis
  * 
- * execSimplificador() - Chamado na Main
- * loopSimplificador(L1, L2, L3) - Reuso dos Literais ja criados e Loop de Funcionamento do Programa
+ * execSimplificador()                  - Chamado na Main
+ * loopSimplificador(L1, L2, L3)        - Reuso dos Literais ja criados e Loop de Funcionamento do Programa
  * instanceThreeLiterals(1, L1, L2, L3) - Instanciamento de 1 Literal, 2 vazios
  * instanceThreeLiterals(2, L1, L2, L3) - Instanciamento de 2 Literais, 1 vazio
  * instanceThreeLiterals(3, L1, L2, L3) - Instanciamento de 3 Literais
@@ -62,18 +62,18 @@ instanceThreeLiterals(_, L1, L2, L3) :-
  * 
  * Recebe os 3 Literais e identifica qual Opcao de Simplificacao o Usuario deseja utilizar
  * 
- * Opcao 1: Negacao - ~(~P&Q) retorna P&Q | ~~P retorna P
- * Opcao 2: Conjuncao - (p ^ q) retorna (p ^ q) -> p | (p ^ q) -> q
- * Opcao 3: Adicao Disjuntiva - P retorna P | Qualquer outra Expressao
- * Opcao 4: Introducao de Equivalencia - (P -> Q) ^ (Q -> P) retorna (P <-> Q)
- * Opcao 5: Eliminacao da Equivalencia - (P <-> Q) retorna (P -> Q) ^ (Q -> P)
- * Opcao 6: Modus Ponens - (P -> Q), P retorna Q
- * Opcao 7: Modus Tollens - (P -> Q) ^ ~Q retorna ~P
- * Opcao 8: Silogismo Hipotético - (P -> Q) ^ (Q -> R) retorna (P -> R)
- * Opcao 9: Silogismo Disjuntivo - (P v Q) ^ ~Q retorna P
- * Opcao 10: Dilema Construtivo - (P -> Q) ^ (r -> s) ^ (P ^ r) retorna q v s
- * Opcao 11: Exportação - (P ^ Q) -> R retorna P -> (Q -> R)
- * Opcao Invalida: Mensagem de Aviso e Loop
+ * Opcao  1: Negacao                    - ~(~P&Q) retorna P&Q | ~~P retorna P
+ * Opcao  2: Conjuncao                  - (p ^ q) retorna (p ^ q) -> p | (p ^ q) -> q
+ * Opcao  3: Adicao Disjuntiva          - P retorna P | Qualquer outra Expressao
+ * Opcao  4: Introducao de Equivalencia - (P -> Q) ^ (Q -> P) retorna (P <-> Q)
+ * Opcao  5: Eliminacao da Equivalencia - (P <-> Q) retorna (P -> Q) ^ (Q -> P)
+ * Opcao  6: Modus Ponens               - (P -> Q), P retorna Q
+ * Opcao  7: Modus Tollens              - (P -> Q) ^ ~Q retorna ~P
+ * Opcao  8: Silogismo Hipotético       - (P -> Q) ^ (Q -> R) retorna (P -> R)
+ * Opcao  9: Silogismo Disjuntivo       - (P v Q) ^ ~Q retorna P
+ * Opcao 10: Dilema Construtivo         - (P -> Q) ^ (r -> s) ^ (P ^ r) retorna q v s
+ * Opcao 11: Exportação                 - (P ^ Q) -> R retorna P -> (Q -> R)
+ * Opcao  _: Invalida                   - Mensagem de Aviso e Loop
  * 
  */
 
@@ -158,39 +158,39 @@ simplificaExpressao("4", L1, L2, L3) :-
 
     (Opcao1 == "L1" ->
         (Opcao2 == "L1" ->
-            verificaIntroducaoDeEquivalencia(L1, L1),
+            verificaIntroducaoDaEquivalencia(L1, L1),
             loopSimplificador(L1, L2, L3);
         Opcao2 == "L2" ->
-            verificaIntroducaoDeEquivalencia(L1, L2),
+            verificaIntroducaoDaEquivalencia(L1, L2),
             loopSimplificador(L1, L2, L3);
         Opcao2 == "L3" ->
-            verificaIntroducaoDeEquivalencia(L1, L3),
+            verificaIntroducaoDaEquivalencia(L1, L3),
             loopSimplificador(L1, L2, L3);
             writeln("Literal Invalido"),
             simplificaExpressao("4", L1, L2, L3)
         );
     Opcao1 == "L2" ->
         (Opcao2 == "L1" ->
-            verificaIntroducaoDeEquivalencia(L2, L1),
+            verificaIntroducaoDaEquivalencia(L2, L1),
             loopSimplificador(L1, L2, L3);
         Opcao2 == "L2" ->
-            verificaIntroducaoDeEquivalencia(L2, L2),
+            verificaIntroducaoDaEquivalencia(L2, L2),
             loopSimplificador(L1, L2, L3);
         Opcao2 == "L3" ->
-            verificaIntroducaoDeEquivalencia(L2, L3),
+            verificaIntroducaoDaEquivalencia(L2, L3),
             loopSimplificador(L1, L2, L3);
             writeln("Literal Invalido"),
             simplificaExpressao("4", L1, L2, L3)
         );
     Opcao1 == "L3" ->
         (Opcao2 == "L1" ->
-            verificaIntroducaoDeEquivalencia(L3, L1),
+            verificaIntroducaoDaEquivalencia(L3, L1),
             loopSimplificador(L1, L2, L3);
         Opcao2 == "L2" ->
-            verificaIntroducaoDeEquivalencia(L3, L2),
+            verificaIntroducaoDaEquivalencia(L3, L2),
             loopSimplificador(L1, L2, L3);
         Opcao2 == "L3" ->
-            verificaIntroducaoDeEquivalencia(L3, L3),
+            verificaIntroducaoDaEquivalencia(L3, L3),
             loopSimplificador(L1, L2, L3);
             writeln("Literal Invalido"),
             simplificaExpressao("4", L1, L2, L3)
@@ -455,6 +455,8 @@ simplificaExpressao("11", L1, L2, L3) :-
                 writeln("Literal Invalido"),
                 simplificaExpressao("11", L1, L2, L3)
             );
+            writeln("Literal Invalido"),
+            simplificaExpressao("11", L1, L2, L3)
         );
     Opcao1 == "L2" ->
         (Opcao2 == "L1" ->
@@ -496,6 +498,8 @@ simplificaExpressao("11", L1, L2, L3) :-
                 writeln("Literal Invalido"),
                 simplificaExpressao("11", L1, L2, L3)
             );
+            writeln("Literal Invalido"),
+            simplificaExpressao("11", L1, L2, L3)
         );
     Opcao1 == "L3" ->
         (Opcao2 == "L1" ->
@@ -537,6 +541,8 @@ simplificaExpressao("11", L1, L2, L3) :-
                 writeln("Literal Invalido"),
                 simplificaExpressao("11", L1, L2, L3)
             );
+            writeln("Literal Invalido"),
+            simplificaExpressao("11", L1, L2, L3)
         );
     writeln("Literal Invalido"),
     simplificaExpressao("11", L1, L2, L3)).
@@ -588,24 +594,31 @@ simplificaExpressao("11", L1, L2, L3) :-
         );
     writeln("Literal Invalido"),
     simplificaExpressao("11", L1, L2, L3)).
-simplificaExpressao(Num, L1, L2, L3) :-
+simplificaExpressao(_, L1, L2, L3) :-
     writeln("Essa Opcao nao existe"),
     loopSimplificador(L1, L2, L3).
 
 /*
  * Metodos de Verificacoes e simplificacoes Logicas
  * 
- * verificaConjuncao -
- * verificaNegacao -
- * verificaAdicao - 
- * verificaIntroducaoDaEquivalencia - 
- * verificaEliminacaoDaEquivalencia - 
- * verificaModusPonens - 
- * verificaModusTollens - 
- * verificaSilogismoHipotetico - 
- * verificaSilogismoDisjuntivo - 
- * verificaDilemaConstrutivo - 
- * verificaExportacao - 
+ * verificaNegacao                  - Entrada de Literal Valida:   expression(Uop, FirstValue, Bop, SecondValue)
+ * verificaNegacao                  - Entrada de Literal Valida:   proposition(UOp, Prop)
+ * verificaConjuncao                - Entrada de Literal Valida:   expression(Uop, FirstValue, Bop, SecondValue)
+ * verificaConjuncao                - Entrada de Literal Invalida: proposition(UOp, Prop)
+ * verificaAdicao                   - Nao existe:                  verificacao ocorre no simplificaExpressao.
+ * verificaIntroducaoDaEquivalencia - Entrada de Literal Valida:   expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)
+ * verificaIntroducaoDaEquivalencia - Entrada de Literal Invalida: _, _
+ * verificaEliminacaoDaEquivalencia - Entrada de Literal Valida:   expression(Uop, FirstValue, Bop, SecondValue)
+ * verificaEliminacaoDaEquivalencia - Entrada de Literal Invalida: _
+ * verificaModusPonens              - Entrada de Literal Valida:   expression(Uop, FirstValue, Bop, SecondValue), LX
+ * verificaModusPonens              - Entrada de Literal Invalida: proposition(UOp, Prop), _
+ * verificaModusTollens             - Entrada de Literal Valida:   expression(Uop, FirstValue, Bop, SecondValue), LX
+ * verificaModusTollens             - Entrada de Literal Invalida: proposition(UOp, Prop), _
+ * verificaSilogismoHipotetico      - Entrada de Literal Valida:   expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)
+ * verificaSilogismoHipotetico      - Entrada de Literal Invalida: _, _
+ * verificaSilogismoDisjuntivo      - 
+ * verificaDilemaConstrutivo        - 
+ * verificaExportacao               - 
  *
  */
 
@@ -740,7 +753,7 @@ verificaConjuncao(proposition(UOp, Prop)) :-
     writeln("Nao eh possivel aplicar Conjuncao nessa Expressao."),
     writeln("Tente usar um Expressao com (&) como Operador Binario.").
 
-verificaIntroducaoDeEquivalencia(expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)) :-
+verificaIntroducaoDaEquivalencia(expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)) :-
     (Bop1 == '*' ->
         (Bop1 == Bop2 ->
             (FirstValue1 == SecondValue2 ->
@@ -767,7 +780,7 @@ verificaIntroducaoDeEquivalencia(expression(Uop1, FirstValue1, Bop1, SecondValue
         writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
         writeln("Tente usar duas Expressoes com (->) como Operador Binario.")
     ).
-verificaIntroducaoDeEquivalencia(_, _) :-
+verificaIntroducaoDaEquivalencia(_, _) :-
     writeln("Nao eh possivel aplicar Introducao de Equivalencia nessa Expressao."),
     writeln("Tente usar duas Expressoes com (->) como Operador Binario.").
 
@@ -840,11 +853,43 @@ verificaModusTollens(proposition(UOp, Prop), _) :-
     writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
     writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
 
+verificaSilogismoHipotetico(expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)) :-
+    literalsToString(SecondValue1, StringLit2),
+    literalsToString(FirstValue2, StringLit3),
+    (StringLit3 == StringLit3 ->
+        (Bop1 == '*' ->
+            (Bop1 == Bop2 ->
+                literalsToString(expression(Uop1, FirstValue1, Bop1, SecondValue1), Lit1),
+                literalsToString(expression(Uop2, FirstValue2, Bop2, SecondValue2), Lit2),
+                string_concat("|: A expressao ", Lit1, A),
+                string_concat(A, " ^ ", B),
+                string_concat(B, StringLit3, C),
+                string_concat(C, " pode ser expressa por (", D),
+                literalsToString(FirstValue1, StringLit1),
+                literalsToString(SecondValue2, StringLit4),
+                string_concat(D, StringLit1, E),
+                string_concat(E, "->", F),
+                string_concat(F, StringLit4, G),
+                string_concat(G, ") usando Silogismo Hipotetico.", SaidaFinal),
+                writeln(SaidaFinal);
+                writeln("Nao eh possivel aplicar Silogismo Hipotético nessa Expressao."),
+                writeln("Tente usar o Operador Binario (->) em duas Expressoes."));
+            writeln("Nao eh possivel aplicar Silogismo Hipotetico nessa Expressao."),
+            writeln("Tente usar o Operador Binario (->) em duas Expressoes."));
+        writeln("Nao eh possivel aplicar Silogismo Hipotetico nessa Expressao."),
+        writeln("Tente usar o Segundo Valor da Primeira Expressao igual ao Primeiro Valor da Segunda Expressao.")).
+verificaSilogismoHipotetico(_, _) :-
+    writeln("Nao eh possivel aplicar Silogismo Hipotetico nessa Expressao."),
+    writeln("Tente usar duas Expressoes em L1 e L2").
+
+
+
+
 /*
  * Metodos de Prints
  * 
- * printThreeLiterals - Printa os 3 Literais Construidos (usado em SimplificaExpressoes)
- * printOption - Printa Tabela de Simplificacoes Logicas
+ * printThreeLiterals        - Printa os 3 Literais Construidos (usado em SimplificaExpressoes)
+ * printOption               - Printa Tabela de Simplificacoes Logicas
  * metodoTesteDeSaidaLiteral - Printa Saidas Literais p/ Testes
  * 
  */
