@@ -53,7 +53,7 @@ instanceThreeLiterals("3", L1, L2, L3) :-
     L1 = LAux1,
     L2 = LAux2,
     L3 = LAux3.
-instanceThreeLiterals(_, L1, L2, L3) :-
+instanceThreeLiterals(_, _, _, _) :-
     writeln("Quantidade de Literais invalida."),
     execSimplificador.
 
@@ -752,7 +752,7 @@ verificaConjuncao(expression(Uop, FirstValue, Bop, SecondValue)) :-
     writeln("Nao eh possivel aplicar Conjuncao nessa Expressao."),
     writeln("Tente usar & como Operador Binario.")).
 
-verificaConjuncao(proposition(UOp, Prop)) :-
+verificaConjuncao(proposition(_, _)) :-
     writeln("Nao eh possivel aplicar Conjuncao nessa Expressao."),
     writeln("Tente usar um Expressao com (&) como Operador Binario.").
 
@@ -815,7 +815,7 @@ verificaModusPonens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
         literalsToString(LX, StringLit3),
         (StringLit1 == StringLit3 ->
             literalsToString(expression(Uop, FirstValue, Bop, SecondValue), StringLit),
-            literalsToString(SecondValue, StringLit2),
+            literalsToString(SecondValue, _),
             string_concat("|: A expressao ", StringLit, A),
             string_concat(A, " ^ ", B),
             string_concat(B, StringLit3, C),
@@ -828,7 +828,7 @@ verificaModusPonens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
         writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
         writeln("Tente usar uma Expressao com (->) de Operador Unario"),
         writeln("e o Segundo Valor da Primeira Expressao igual o Segundo Literal.")).
-verificaModusPonens(proposition(UOp, Prop), _) :-
+verificaModusPonens(proposition(_, _), _) :-
     writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
     writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
 
@@ -852,18 +852,18 @@ verificaModusTollens(expression(Uop, FirstValue, Bop, SecondValue), LX) :-
         writeln("Nao eh possivel aplicar Modus Tollens nessa Expressao."),
         writeln("Tente usar uma Expressao com (->) de Operador Unario"),
         writeln("e o Segundo Valor da Primeira Expressao igual o Segundo Literal negado.")).
-verificaModusTollens(proposition(UOp, Prop), _) :-
+verificaModusTollens(proposition(_, _), _) :-
     writeln("Nao eh possivel aplicar Modus Ponens nessa Expressao."),
     writeln("Tente usar uma Expressao como L1, e Proposicao como L2").
 
 verificaSilogismoHipotetico(expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2)) :-
-    literalsToString(SecondValue1, StringLit2),
+    literalsToString(SecondValue1, _),
     literalsToString(FirstValue2, StringLit3),
     (StringLit3 == StringLit3 ->
         (Bop1 == '*' ->
             (Bop1 == Bop2 ->
                 literalsToString(expression(Uop1, FirstValue1, Bop1, SecondValue1), Lit1),
-                literalsToString(expression(Uop2, FirstValue2, Bop2, SecondValue2), Lit2),
+                literalsToString(expression(Uop2, FirstValue2, Bop2, SecondValue2), _),
                 literalsToString(FirstValue1, StringLit1),
                 literalsToString(SecondValue2, StringLit4),
                 string_concat("|: A expressao ", Lit1, A),
@@ -906,7 +906,7 @@ verificaSilogismoDisjuntivo(expression(Uop1, FirstValue1, Bop1, SecondValue1), L
         writeln("Nao eh possivel aplicar Silogismo Disjuntivo nessa Expressao."),
         writeln("Tente usar o Operador Binario (|) na primeira Expressao."),
         writeln("e o Segundo Valor da Primeira Expressao igual o Segundo Literal negado.")).
-verificaSilogismoDisjuntivo(proposition(UOp, Prop), _) :-
+verificaSilogismoDisjuntivo(proposition(_, _), _) :-
     writeln("Nao eh possivel aplicar Silogismo Disjuntivo nessa Expressao."),
     writeln("Tente usar Expressao com o Operador Binario (|) em L1").
 
@@ -970,7 +970,7 @@ verificaExportacao(expression(Uop1, FirstValue1, Bop1, SecondValue1), LX) :-
         writeln(SaidaFinal);
         writeln("Nao eh possivel aplicar Exportacao nessa Expressao."),
         writeln("Tente usar o Operador Binario (&) na Primeira Expressao.")).
-verificaExportacao(proposition(UOp, Prop), _) :-
+verificaExportacao(proposition(_, _), _) :-
     writeln("Nao eh possivel aplicar Exportacao nessa Expressao."),
     writeln("Tente usar o Operador Binario (&) na Primeira Expressao.").
 

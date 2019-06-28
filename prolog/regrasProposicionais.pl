@@ -1,4 +1,4 @@
-%:-use_module('regrasProposicionais').
+:- [menu].
 
 resumoRegras() :-
     writeln("\n Regras para simplificacao de expressoes logicas\n"),
@@ -165,97 +165,88 @@ menuRegras() :-
     writeln(" \t11 - Exportação;"),
     writeln(" \t0 - Voltar ao menu principal;\n"),
     writeln(" Digite a sua opção!").
-    
-
-aux_str_input(Return) :-
-    read_line_to_string(user_input, Return).
-
-number_input(Return) :- 
-    read_line_to_codes(user_input, Codes),
-    string_to_atom(Codes, Atom),
-    atom_number(Atom, Return).
 
 valida(Resposta, Return) :- 
     (Resposta == "sim"), Return = true;
     Return = false.
     
 
-choice(1) :-
+user_choice(1) :-
     resumoNegacao,
     write(" >>> "), aux_str_input(Answer),
     (Answer == "sim"), infoNegacao;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
-choice(2) :-
+user_choice(2) :-
     resumoConjuncao,
     write(" >>> "), aux_str_input(Answer),
     (Answer == "sim"), infoConjuncao;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
-choice(3) :-
+user_choice(3) :-
     resumoAdicao,
     write(" >>> "), aux_str_input(Answer),
     (Answer == "sim"), infoAdicao;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
-choice(4) :-
+user_choice(4) :-
     resumoIntroEquivalencia.
         
-choice(5) :-
+user_choice(5) :-
     resumoElimEquivalencia.
 
-choice(6) :-
+user_choice(6) :-
     resumoModusPonens,
     write(" >>> "), aux_str_input(Answer),
-    (Answer == "sim", infoModusPonens;
+    (Answer == "sim"), infoModusPonens;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
         
-choice(7) :-
+user_choice(7) :-
     resumoModusTollens,
     write(" >>> "), aux_str_input(Answer),
     (Answer == "sim"), infoModusTollens;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
-choice(8) :-
+user_choice(8) :-
     resumoHipotetico,
     write(" >>> "), aux_str_input(Answer),
     (Answer == "sim"), infoHipotetico;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
-choice(9) :-
+user_choice(9) :-
     resumoDisjuntivo,
     write(" >>> "), aux_str_input(Answer),
     (Answer == "sim"), infoDisjuntivo;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
-choice(10) :-
+user_choice(10) :-
     resumoDilemaConstrutivo,
     write(" >>> "), aux_str_input(Answer),
     (Answer == "sim"), infoDilemaConstrutivo;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
         
-choice(11) :- 
+user_choice(11) :- 
     resumoExportacao.
         
 
-choiceDefault() :-
+user_user_choiceDefault() :-
     write(" Abaixa o volume da TV e me escuta pelo telefone! pode repetir?").
 
 
 loopRegrasProposicionais() :-
     menuRegras(), nl, writeln(" >>> "),
     read_line_to_string(user_input, Entrada),
-    (Entrada = "1" -> choice(1);
-    Entrada = "2" -> choice(2);
-    Entrada = "3" -> choice(3);
-    Entrada = "4" -> choice(4);
-    Entrada = "5" -> choice(5);
-    Entrada = "6" -> choice(6);
-    Entrada = "7" -> choice(7);
-    Entrada = "8" -> choice(8);
-    Entrada = "9" -> choice(9);
-    Entrada = "10" -> choice(10);
-    Entrada = "11" -> choice(11);
-    Entrada = "0" -> write("Espero que volte novamente!!!"), nl, halt(0); 
-    choiceDefault()),
+    (Entrada = "1" -> user_choice(1);
+    Entrada = "2" -> user_choice(2);
+    Entrada = "3" -> user_choice(3);
+    Entrada = "4" -> user_choice(4);
+    Entrada = "5" -> user_choice(5);
+    Entrada = "6" -> user_choice(6);
+    Entrada = "7" -> user_choice(7);
+    Entrada = "8" -> user_choice(8);
+    Entrada = "9" -> user_choice(9);
+    Entrada = "10" -> user_choice(10);
+    Entrada = "11" -> user_choice(11);
+    Entrada = "0" -> write("Espero que volte novamente!!!"), nl; 
+    user_user_choiceDefault()),
     loopRegrasProposicionais().

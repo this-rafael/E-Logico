@@ -1,4 +1,4 @@
-%:-use_module('menu').
+:- [util_interface].
 
 logo() :-
     writeln("\n############################################################################################"),
@@ -22,7 +22,7 @@ apresentacao() :-
  
     
 menuOpcoes() :-
-    writeln("\n                                          MENU: \n"),
+    writeln("\n MENU: \n"),
     writeln(" 1 - Aprendendo a formular uma Tabela-Verdade"),
     writeln(" 2 - Aprendendo a converter (Bin - Dec) <---> (Dec - Bin)"),
     writeln(" 3 - Aprendendo a simplificar expressoes proposicionais"),
@@ -84,10 +84,6 @@ infoExpressoes() :-
     writeln(" c) Repetimos os passos podendo utilizar a mesma regra ou uma regra diferente, ate chegarmos a uma expressao que nao aceite mais nenhuma regra. Em tese serah a expressao simplificada\n").
 
 
-aux_str_input(Return) :-
-    read_line_to_string(user_input, Return).
-
-
 choice(1) :-
     resumoTabela,
     write(" >>> "), aux_str_input(Answer),
@@ -105,10 +101,10 @@ choice(2) :-
 */
 
 choice(3) :-
-    resumoExpressoes.
+    resumoExpressoes().
     
 choice(4) :-
-    infoExpressoes.
+    infoExpressoes().
 
 /*
     REVISAR ESTA MIZERA AMANHA
@@ -120,7 +116,7 @@ choiceDefault() :-
 
 
 
-loop() :-
+function_loop() :-
     menuOpcoes(), nl,
     read_line_to_string(user_input, Entrada),
         (Entrada = "1" -> choice(1);
@@ -129,7 +125,7 @@ loop() :-
          Entrada = "4" -> choice(4);
          Entrada = "0" -> write("Espero que volte novamente!!!"), nl, halt(0); 
          choiceDefault()),
-         loop().
+         function_loop().
 
 auxMenuApresentacao() :-
     logo(), apresentacao().

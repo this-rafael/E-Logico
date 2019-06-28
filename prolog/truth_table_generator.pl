@@ -4,7 +4,7 @@
 
 % Funcao inicial que sera chamada no main, executa o meu de opcoes.
 truth_table_generator() :-
-    % tty_clear,
+    tty_clear,
     writeln(" --------------GERADOR DE TABELA VERDADE-------------------"),
     options_menu().
 
@@ -23,7 +23,7 @@ options_menu() :-
 choose_option(Op) :-
     (Op == '0'),
     writeln("\n Volte sempre!"),
-    writeln(" -----------------------------------------------------------\n");
+    writeln(" -----------------------------------------------------------");
     (Op == '1'),
     explain_table();
     (Op == '2'),
@@ -36,6 +36,7 @@ choose_option(Op) :-
 
 % Mostra um texto explicativo sobre tabela verdade.
 explain_table() :-
+    tty_clear,
     writeln("\n ---------------------TABELA VERDADE------------------------"),
     writeln("\n Tabela verdade eh um dispositivo utilizado no estudo da logica."),
     writeln(" Com o uso desta tabela eh possível definir o valor logico de uma expressao,"),
@@ -51,6 +52,7 @@ explain_table() :-
 
 % Mostra um texto explicativo sobre o literal.
 explain_literal() :-
+    tty_clear,
     writeln("\n ---------------------LITERAL TUTORIAL----------------------"),
     writeln("\n Um literal pode ser uma expressao ou uma proposicao.\nUma expressao eh formada por:"),
     writeln(" - Um operador unario (~, ) para dizer se o valor da expressao eh negado;"),
@@ -66,11 +68,12 @@ explain_literal() :-
 
 % Cria o literal, gera a tabela verdade e exibe.
 create_table() :-
+    tty_clear,
     writeln("\n -----------------------------------------------------------"),
     writeln("\n Primeiro monte o literal (expressao) que sera usado para obtencao da tabela\n"),
     verifyEntryAndCreatesANewLiteral(Literal),
 
-    % tty_clear,
+    tty_clear,
     writeln("\n Essa eh a tabela verdade da expressao:\n"),
     writeln(" ---------------------TABELA VERDADE------------------------\n"),
     get_table(Literal,Table),

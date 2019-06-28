@@ -39,8 +39,7 @@ loop:-
     para o menu. por favorzinho não esquecer do LOOP.
  */
 truthTable:-
-    % tty_clear,
-    truth_table_generator(), loop.
+    truth_table_generator(), tty_clear, loop.
 conversor:-
     % tty_clear,
     writeln('aqui vem o conversor'), loop.
