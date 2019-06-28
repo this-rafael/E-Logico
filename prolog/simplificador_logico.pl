@@ -408,7 +408,7 @@ simplificaExpressao("9", L1, L2, L3) :-
         );
     writeln("Literal Invalido"),
     simplificaExpressao("9", L1, L2, L3)).
-simplificaExpressao("11", L1, L2, L3) :-
+simplificaExpressao("10", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha a ordem dos 3 Literais (L1, L2 ou L3)."),
 
@@ -427,7 +427,7 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L1, L1, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
         Opcao2 == "L2" ->
             (Opcao3 == "L1" ->
@@ -440,7 +440,7 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L1, L2, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
         Opcao2 == "L3" ->
             (Opcao3 == "L1" ->
@@ -453,10 +453,10 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L1, L3, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
             writeln("Literal Invalido"),
-            simplificaExpressao("11", L1, L2, L3)
+            simplificaExpressao("10", L1, L2, L3)
         );
     Opcao1 == "L2" ->
         (Opcao2 == "L1" ->
@@ -470,7 +470,7 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L2, L1, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
         Opcao2 == "L2" ->
             (Opcao3 == "L1" ->
@@ -483,7 +483,7 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L2, L2, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
         Opcao2 == "L3" ->
             (Opcao3 == "L1" ->
@@ -496,10 +496,10 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L2, L3, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
             writeln("Literal Invalido"),
-            simplificaExpressao("11", L1, L2, L3)
+            simplificaExpressao("10", L1, L2, L3)
         );
     Opcao1 == "L3" ->
         (Opcao2 == "L1" ->
@@ -513,7 +513,7 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L3, L1, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
         Opcao2 == "L2" ->
             (Opcao3 == "L1" ->
@@ -526,7 +526,7 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L3, L2, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
         Opcao2 == "L3" ->
             (Opcao3 == "L1" ->
@@ -539,13 +539,13 @@ simplificaExpressao("11", L1, L2, L3) :-
                 verificaDilemaConstrutivo(L3, L3, L3),
                 loopSimplificador(L1, L2, L3);
                 writeln("Literal Invalido"),
-                simplificaExpressao("11", L1, L2, L3)
+                simplificaExpressao("10", L1, L2, L3)
             );
             writeln("Literal Invalido"),
-            simplificaExpressao("11", L1, L2, L3)
+            simplificaExpressao("10", L1, L2, L3)
         );
     writeln("Literal Invalido"),
-    simplificaExpressao("11", L1, L2, L3)).
+    simplificaExpressao("10", L1, L2, L3)).
 simplificaExpressao("11", L1, L2, L3) :-
     printThreeLiterals(L1, L2, L3),
     writeln("|: Escolha 2 dos 3 Literais (L1, L2 ou L3)."),
@@ -618,8 +618,10 @@ simplificaExpressao(_, L1, L2, L3) :-
  * verificaSilogismoHipotetico      - Entrada de Literal Invalida: _, _
  * verificaSilogismoDisjuntivo      - Entrada de Literal Valida:   expression(Uop1, FirstValue1, Bop1, SecondValue1), LX
  * verificaSilogismoDisjuntivo      - Entrada de Literal Invalida: proposition(UOp, Prop), _
- * verificaDilemaConstrutivo        - 
- * verificaExportacao               - 
+ * verificaDilemaConstrutivo        - Entrada de Literal Valida:   expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2), expression(Uop3, FirstValue3, Bop3, SecondValue3)
+ * verificaDilemaConstrutivo        - Entrada de Literal Invalida: _, _, _
+ * verificaExportacao               - Entrada de Literal Valida:   expression(Uop1, FirstValue1, Bop1, SecondValue1), LX
+ * verificaExportacao               - Entrada de Literal Invalida: proposition(UOp, Prop), _
  *
  */
 
@@ -907,8 +909,70 @@ verificaSilogismoDisjuntivo(expression(Uop1, FirstValue1, Bop1, SecondValue1), L
 verificaSilogismoDisjuntivo(proposition(UOp, Prop), _) :-
     writeln("Nao eh possivel aplicar Silogismo Disjuntivo nessa Expressao."),
     writeln("Tente usar Expressao com o Operador Binario (|) em L1").
-            
 
+verificaDilemaConstrutivo(expression(Uop1, FirstValue1, Bop1, SecondValue1), expression(Uop2, FirstValue2, Bop2, SecondValue2), expression(Uop3, FirstValue3, Bop3, SecondValue3)) :-
+    literalsToString(FirstValue1, StringL1),
+    literalsToString(FirstValue2, StringL3),
+    literalsToString(FirstValue3, StringL5),
+    literalsToString(SecondValue3, StringL6),
+    (StringL1 == StringL5 ->
+        (StringL3 == StringL6 ->
+            (Bop1 == '*' ->
+                (Bop2 == Bop1 ->
+                    (Bop3 == '&' ->
+                        literalsToString(expression(Uop1, FirstValue1, Bop1, SecondValue1), Lit1),
+                        literalsToString(expression(Uop2, FirstValue2, Bop2, SecondValue2), Lit2),
+                        literalsToString(expression(Uop3, FirstValue3, Bop3, SecondValue3), Lit3),
+                        literalsToString(SecondValue1, StringL2),
+                        literalsToString(SecondValue2, StringL4),
+                        string_concat("|: A expressao ", Lit1, A),
+                        string_concat(A, " ^ ", B),
+                        string_concat(B, Lit2, C),
+                        string_concat(C, " ^ ", D),
+                        string_concat(D, Lit3, E),
+                        string_concat(E, " pode ser expressa por (", F),
+                        string_concat(F, StringL2, G),
+                        string_concat(G, " v ", H),
+                        string_concat(H, StringL4, I),
+                        string_concat(I, ") usando Dilema Construtivo.", SaidaFinal),
+                        writeln(SaidaFinal);
+                        writeln("Nao eh possivel aplicar Dilema Construtivo nessa Expressao."),
+                        writeln("Tente usar o Operador Binario (&) na Terceira Expressao."));
+                    writeln("Nao eh possivel aplicar Dilema Construtivo nessa Expressao."),
+                    writeln("Tente usar o Operador Binario (->) na Primeira e na Segunda Expressao."));
+                writeln("Nao eh possivel aplicar Dilema Construtivo nessa Expressao."),
+                writeln("Tente usar o Operador Binario (->) na Primeira e na Segunda Expressao."));
+            writeln("Nao eh possivel aplicar Dilema Construtivo nessa Expressao."),
+            writeln("Tente usar o Primeiro Valor da Segunda Expressao igual ao Segundo Valor da Terceira Expressao."));
+        writeln("Nao eh possivel aplicar Dilema Construtivo nessa Expressao."),
+        writeln("Tente usar o Primeiro Valor da Primeira Expressao igual ao Primeiro Valor da Terceira Expressao.")).
+verificaDilemaConstrutivo(_, _, _) :-
+    writeln("Nao eh possivel aplicar Dilema Construtivo nessa Expressao."),
+    writeln("Tente usar as 3 Expressoes, sendo as duas primeiras com o Operador Binario (->) e a terceira (^).").
+
+% (P ^ Q) -> R retorna P -> (Q -> R)
+verificaExportacao(expression(Uop1, FirstValue1, Bop1, SecondValue1), LX) :-
+    (Bop1 == '&' ->
+        literalsToString(expression(Uop1, FirstValue1, Bop1, SecondValue1), Lit1),
+        literalsToString(LX, Lit2),
+        literalsToString(FirstValue1, StringL1),
+        literalsToString(SecondValue1, StringL2),
+        string_concat("|: A expressao ", Lit1, A),
+        string_concat(A, " -> ", B),
+        string_concat(B, Lit2, C),
+        string_concat(C, " pode ser expressa por ", D),
+        string_concat(D, StringL1, E),
+        string_concat(E, " -> (", F),
+        string_concat(F, StringL2, G),
+        string_concat(G, " -> ", H),
+        string_concat(H, Lit2, I),
+        string_concat(I, ") usando Exportacao.", SaidaFinal),
+        writeln(SaidaFinal);
+        writeln("Nao eh possivel aplicar Exportacao nessa Expressao."),
+        writeln("Tente usar o Operador Binario (&) na Primeira Expressao.")).
+verificaExportacao(proposition(UOp, Prop), _) :-
+    writeln("Nao eh possivel aplicar Exportacao nessa Expressao."),
+    writeln("Tente usar o Operador Binario (&) na Primeira Expressao.").
 
 /*
  * Metodos de Prints
