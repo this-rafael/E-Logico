@@ -1,15 +1,17 @@
-resumoRegras :-
+%:-use_module('regrasProposicionais').
+
+resumoRegras() :-
     writeln("\n Regras para simplificacao de expressoes logicas\n"),
     writeln(" Aqui vamos apresentar algumas regras para as simplificacao de expressoes logicas complexas em expressoes simples!\n").
 
 
-resumoNegacao :-
+resumoNegacao() :-
     writeln("\n A Dupla Negacao afirma que se temos uma afirmacao verdadeira, logo, se negarmos a negacao dessa afirmacao teremos uma equivalencia com a afirmacao"),
     writeln(" Como regra de simplicacao, temos que ~(~P) = P"),
     writeln(" Quer saber mais sobre a Dupla Negacao?").
     
  
-infoNegacao :-
+infoNegacao() :-
     writeln("\n Na notacao simbolica temos:"),
     writeln(" P <--> ~(~P)"),
     writeln(" Exemplo de discurso:"),
@@ -18,13 +20,13 @@ infoNegacao :-
     writeln(" ~(~P) = Nao eh verdade que Game Of Thrones NAO estreia hoje.").
     
 
-resumoConjuncao :- 
+resumoConjuncao() :- 
     writeln("\n A conjucao eh a combinacao de preposicoes que soh resultarah verdade se ambas as proposicoes forem verdadeiras."),
     writeln(" Como regra de simplicacao, quando temos as preposicoes P, Q, podemos deduzir que  P ^ Q."),
     writeln(" Quer saber mais sobre a conjuncao?").
     
 
-infoConjuncao :-
+infoConjuncao() :-
     writeln("\n Na notacao simbolica temos:"),
     writeln(" P ^ Q"),
     writeln(" Exemplo de discurso:"),
@@ -35,13 +37,13 @@ infoConjuncao :-
     writeln(" 1 ^ 1 = 1    1 ^ 0 = 0    0 ^ 0 = 0").
     
 
-resumoAdicao :-
+resumoAdicao() :-
     writeln("\n A adicao irah unir as preposicoes de maneira que se ao menos uma das preposicoes for verdadeira, o resultado serah verdadeiro."),
     writeln(" Como regra de simplicacao, temos que ao possuirmos P, P v Q vai ser verdadeiro, assim como  Q v P."),
     writeln(" Quer saber mais sobre a adicao?").
     
 
-infoAdicao :-
+infoAdicao() :-
     writeln("\n Na notacao simbolica temos:"),
     writeln(" P v Q"),
     writeln(" Exemplo de discurso:"),
@@ -52,23 +54,23 @@ infoAdicao :-
     writeln(" 1 v 1 = 1    1 v 0 = 1    0 v 0 = 0").
     
 
-resumoIntroEquivalencia :-
+resumoIntroEquivalencia() :-
     writeln("\n Atraves de implicacoes distintas com as mesmas proposicoes, podemos deduzir uma bicondicional entre as proposicoes."),
     writeln(" No caso, temos P --> Q, Q --> P, logo podemos deduzir P <--> Q.").
     
 
-resumoElimEquivalencia :-
+resumoElimEquivalencia() :-
     writeln("\n Atraves de uma bicondicional, podemos deduzir que existe uma implicacao em ambos os termos."),
     writeln(" No caso, temos P <--> Q, podemos deduzir P --> Q, ou Q --> P ").
     
 
-resumoModusPonens :-
+resumoModusPonens() :-
     writeln("\n Atraves de uma implicaçao, caso a implicante seja confirmada, temos a deducao da implicancia."),
     writeln(" Seja P --> Q, tendo P confirmado, podemos deduzir Q."),
     writeln(" Quer saber mais sobre Modus Ponnens?").
     
 
-infoModusPonens :-
+infoModusPonens() :-
     writeln("\n As vezes chamada de regra do desapego, Modus Ponens eh utilizado para a retirada da implicacao, encurtando a formula logica."),
     writeln(" Na notação simbolica temos:"),
     writeln(" P, P --> Q. logo Q"),
@@ -80,13 +82,13 @@ infoModusPonens :-
     writeln(" Assim numa implicacao, quando sabemos que existe veracidade na implicante, dependemos apenas da implicancia.").
     
 
-resumoModusTollens :-
+resumoModusTollens() :-
     writeln("\n A partir de uma implicacao, quando temos a negacao do implicante, podemos deduzir a negacao da implicante."),
     writeln(" Assim P --> Q, ~Q, temos ~P"),
     writeln(" Quer saber mais sobre Modus Tollens?").
     
 
-infoModusTollens :-
+infoModusTollens() :-
     writeln("\n Tambem chamado de Prova Indireta, ou negacao consequente, Modus Tollens eh utilizado para a retirada da implicacao, encurtando a formula logica."),
     writeln(" Exemplo de discurso:"),
     writeln(" P --> Q = Se tiver ingressos, então irei assistir Vingadores Ultimato."),
@@ -96,13 +98,13 @@ infoModusTollens :-
     writeln(" Assim no caso F --> V, F --> V continuam corretos").
     
 
-resumoHipotetico :-
+resumoHipotetico() :-
     writeln("\n A partir de duas implicacoes onde a implicancia de uma seja o implicante da segunda implicacao, podemos deduzir que o implicante da primeira implica a implicancia da segunda"),
     writeln(" Seja P --> Q, Q --> R entao P --> R"),
     writeln(" Quer saber mais sobre Silogismo Hipotetico?").
     
 
-infoHipotetico :-
+infoHipotetico() :-
     writeln("\n Utilizado na teoria da consequencia, O silogismo hipotetico nao retira a implicacao, apenas diminui o numero de termos e implicacoes presentes na formula."),
     writeln(" Exemplo de discurso:"),
     writeln(" P --> Q = Se sou aluno de Computacao, então estudo programação."),
@@ -110,13 +112,13 @@ infoHipotetico :-
     writeln(" P --> R = Se sou aluno de Computacao, então sei programar.").
 
 
-resumoDisjuntivo :-
+resumoDisjuntivo() :-
     writeln(" A partir de uma operação de disjuncao quando temos a negacao de um termo, podemos deduzir o termo restante."),
     writeln(" Seja  P v Q. tendo  ~P, logo temos Q"),
     writeln(" Quer saber mais sobre Silogismo Disjuntivo?").
 
 
-infoDisjuntivo :-
+infoDisjuntivo() :-
     writeln(" Conhecido historicamente como Modus Tollendo Ponens, o silogismo disjuntivo eh indicado apenas para a simplificacao de termos."),
     writeln(" Exemplo de discurso:"),
     writeln(" P v Q = Eu viajo de ferias ou faço cursinho de ingles."),
@@ -124,13 +126,13 @@ infoDisjuntivo :-
     writeln(" Q = Entao faco cursinho de ingles.").
     
 
-resumoDilemaConstrutivo :-
+resumoDilemaConstrutivo() :-
     writeln(" A partir de duas implicacoes totalmente distintas, se possuimos uma disjuncao entre o implicante da primeira com o implicante da segunda implicacao, podemos deduzir uma disjuncao entre a implicancia da primeira com a implicancia da segunda disjuncao."),
     writeln(" Sendo assim P --> Q, R --> S. Tendo P v R, podemos deduzir Q v S"),
     writeln(" Quer saber mais sobre Silogismo Disjuntivo?").
     
 
-infoDilemaConstrutivo :-
+infoDilemaConstrutivo() :-
     writeln(" Tambam conhecido como dilema de transferencia, serve para a simplificacao de duas implicacoes resultando em uma disjuncao"),
     writeln(" Exemplo de discurso:"),
     writeln(" P --> Q = Se eu me formei, entao eu tenho emprego."),
@@ -139,7 +141,7 @@ infoDilemaConstrutivo :-
     writeln(" Q v S = Eu tenho um emprego ou tenho um carro.").
     
 
-resumoExportacao :-
+resumoExportacao() :-
     writeln(" A partir de uma implicacao, se o implicante for formado por uma conjuncao, podemos deduzir uma implicacao do primeiro termo da conjuncao implicando numa implicacao do segundo termo da conjuncao implicando na implicancia original."),
     writeln(" Sendo (P ^ Q) --> S, temos P --> (Q --> S).").
 
@@ -148,7 +150,7 @@ resumoExportacao :-
 /************************************************************ INTERAÇÕES ****************************************************************************************************************/
 
 
-menuRegras :-
+menuRegras() :-
     writeln("\t\t --- Lista de Regras --- "),
     writeln(" \t1 - Negação;"),
     writeln(" \t2 - Conjunção;"),
@@ -236,12 +238,12 @@ choice(11) :-
     resumoExportacao.
         
 
-choiceDefault :-
+choiceDefault() :-
     write(" Abaixa o volume da TV e me escuta pelo telefone! pode repetir?").
 
 
-loop:-
-    menuRegras, nl,
+loopRegrasProposicionais() :-
+    menuRegras(), nl, writeln(" >>> "),
     read_line_to_string(user_input, Entrada),
     (Entrada = "1" -> choice(1);
     Entrada = "2" -> choice(2);
@@ -255,5 +257,5 @@ loop:-
     Entrada = "10" -> choice(10);
     Entrada = "11" -> choice(11);
     Entrada = "0" -> write("Espero que volte novamente!!!"), nl, halt(0); 
-    choiceDefault),
-    loop.
+    choiceDefault()),
+    loopRegrasProposicionais().

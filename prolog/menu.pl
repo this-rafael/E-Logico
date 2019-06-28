@@ -1,4 +1,6 @@
-logo :-
+%:-use_module('menu').
+
+logo() :-
     writeln("\n############################################################################################"),
     writeln("############################################################################################"),
     writeln("############################################################################################"),
@@ -13,30 +15,30 @@ logo :-
     
     sleep(1). 
 
-apresentacao :-
+apresentacao() :-
     writeln("\n                               Ola, Bem vindo ao E-LOGICO!"),
     writeln("\n              Programa Interativo de Aprendizagem e auxilio a assuntos Logicos").
 
  
     
-menuOpcoes :-
+menuOpcoes() :-
     writeln("\n                                          MENU: \n"),
     writeln(" 1 - Aprendendo a formular uma Tabela-Verdade"),
     writeln(" 2 - Aprendendo a converter (Bin - Dec) <---> (Dec - Bin)"),
     writeln(" 3 - Aprendendo a simplificar expressoes proposicionais"),
     writeln(" 4 - Aprendendo as regras basicas de proposicoes"),
     writeln(" 0 - SAIR\n"),
-    writeln(" Digite a sua opcao!\n"), 
-    writeln(" >>> ").
+    writeln(" Digite a sua opcao!\n"). 
+    
         
 
-resumoTabela :-
+resumoTabela() :-
     writeln("\n A Tabela Verdade eh utilizada em logica para considerar a validade de uma formula ou conferir que uma combinacao estah correta."),
     writeln(" Quer saber como se constroi uma Tabela Verdade?\n").
     
     
 
-infoTabela :-
+infoTabela() :-
     writeln("\n                            COMO CONSTRUIR UMA TABELA MANUALMENTE?\n"),
     writeln(" a) O numero de linhas contidas em uma Tabela Verdade vai ser calculada por Linhas = 2^n, onde (n) eh a quantidade de preposicoes."),
     writeln(" b) Incluimos nas linhas valores correspondentes em binario de (0 ... [2^n - 1]). Exemplo: Com uma tabela de 2 preposicoes teremos 4"),
@@ -45,13 +47,13 @@ infoTabela :-
     writeln(" d) Na coluna de resposta, temos o resultado das operacoes. Cada linha com seu respectivo bit resposta\n").
 
 
-resumoConversor :-
+resumoConversor() :-
     writeln("\n O conversor faz a traducao entre numeros de bases diferentes\n"),
     writeln(" Convertendo Bin --> Dec, teremos a conversao de Binario (base 2) para Decimal (base 10)\n"),
     writeln(" Convertendo Dec --> Bin, teremos a conversao de Decimal (base 10) para Binario (base 2)\n"),
     writeln(" Quer aprender a fazer conversoes entre bases?\n").
 
-infoConversor :-
+infoConversor() :-
     writeln("\n                                        COMO CONVERTER UM NUMERO?\n\n"),
 
     writeln(" 1) De Binario para Decimal:\n"),
@@ -70,12 +72,12 @@ infoConversor :-
     writeln("   d) Com o resultado da divisao por 2 e seus restos concatenado, temos que apenas inverter a ordem. Exemplo anterior 0 0 1, invertemos 1 0 0, que equivale a 4\n\n").
     
 
-resumoExpressoes :-
+resumoExpressoes() :-
     writeln("\n Expressoes Proposicionais podem ser gigantes."),
     writeln(" No entranto, existem várias regras de simplificacao que podem transformar expressoes gigantescas em expressões simples com a mesma equivalencia logica!\n").
 
 
-infoExpressoes :-
+infoExpressoes() :-
     writeln("\n                                            COMO SIMPLIFICAR UMA EXPRESSAO PROPOSICIONAL?\n\n"),   
     writeln(" a) Partimos da definicao das proposicoes\n"),
     writeln(" b) Assumimos uma regra que se encaixe com as proposicoes destinadas e aplicamos.\n"),
@@ -113,21 +115,21 @@ choice(4) :-
 */
 
 
-choiceDefault :-
+choiceDefault() :-
     write(" Abaixa o volume da TV e me escuta pelo telefone! pode repetir?").
 
 
 
-loop:-
-    menuOpcoes, nl,
+loop() :-
+    menuOpcoes(), nl,
     read_line_to_string(user_input, Entrada),
         (Entrada = "1" -> choice(1);
          Entrada = "2" -> choice(2);
          Entrada = "3" -> choice(3);
          Entrada = "4" -> choice(4);
          Entrada = "0" -> write("Espero que volte novamente!!!"), nl, halt(0); 
-         choiceDefault),
-         loop.
+         choiceDefault()),
+         loop().
 
-aux :-
-    logo, apresentacao, loop.
+auxMenuApresentacao() :-
+    logo(), apresentacao().

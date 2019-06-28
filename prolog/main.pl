@@ -1,5 +1,7 @@
 :- initialization main.
 :- [util_interface].
+:- [menu].
+:- [regrasProposicionais].
 /*
     -Aqui você deposita a chamada do seu módulo.
     Você pode modularizar sua classe adicionando um 
@@ -15,16 +17,16 @@
 
 
 main :-
-    menuApresentacao, nl,
+    menuApresentacao(), nl,
     loop.
 
 menuApresentacao:-
     % tty_clear,
-    write("MenuApresentacao aqui").
+    auxMenuApresentacao().
 
 loop:-
     %metodo de apresentacao de opcoes
-    write('menu vem aqui'),nl,
+    menuOpcoes(), nl, writeln(" >>> "),
     read_line_to_string(user_input, Entrada),
         (Entrada = "1" -> truthTable;
          Entrada = "2" -> conversor;
@@ -47,4 +49,4 @@ simplificadorLogico:-
     writeln('aqui vem o simplificadorLogico'), loop.
 regrasProposicionais:-
     % tty_clear,
-    writeln('aqui aparece as coisas das regrasProposicionais'), loop.
+    loopRegrasProposicionais() , loop.
