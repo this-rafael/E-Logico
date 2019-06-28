@@ -2,21 +2,13 @@
 :- [util_interface].
 :- [menu].
 :- [regrasProposicionais].
-/*
-    -Aqui você deposita a chamada do seu módulo.
-    Você pode modularizar sua classe adicionando um 
-        :- module(nomeDaSuaClasse,[]) 
-    no inicio da sua classe.
-    -Depois é só invoca-lá aqui 
-    exemplos: 
-              |
-              v
-*/
 :- [truth_table_generator].
 :- [simplificador_logico].
+:- [conversor].
 
 
 main :-
+    tty_clear,
     menuApresentacao(), nl,
     loop.
 
@@ -26,7 +18,7 @@ menuApresentacao:-
 
 loop:-
     %metodo de apresentacao de opcoes
-    menuOpcoes(), nl, writeln(" >>> "),
+    menuOpcoes(), nl,
     read_line_to_string(user_input, Entrada),
         (Entrada = "1" -> truthTable;
          Entrada = "2" -> conversor;
@@ -41,11 +33,10 @@ loop:-
 truthTable:-
     truth_table_generator(), tty_clear, loop.
 conversor:-
-    % tty_clear,
-    writeln('aqui vem o conversor'), loop.
+    execConversor(), loop.
 simplificadorLogico:-
     % tty_clear,
-    execSimplificador(), loop.
+    call_main(), loop.
 regrasProposicionais:-
     % tty_clear,
     loopRegrasProposicionais() , loop.

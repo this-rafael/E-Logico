@@ -173,19 +173,19 @@ valida(Resposta, Return) :-
 
 user_choice(1) :-
     resumoNegacao,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoNegacao;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
 user_choice(2) :-
     resumoConjuncao,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoConjuncao;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
 user_choice(3) :-
     resumoAdicao,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoAdicao;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
@@ -197,31 +197,31 @@ user_choice(5) :-
 
 user_choice(6) :-
     resumoModusPonens,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoModusPonens;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
         
 user_choice(7) :-
     resumoModusTollens,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoModusTollens;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
 user_choice(8) :-
     resumoHipotetico,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoHipotetico;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
 user_choice(9) :-
     resumoDisjuntivo,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoDisjuntivo;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
 user_choice(10) :-
     resumoDilemaConstrutivo,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoDilemaConstrutivo;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
         

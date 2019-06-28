@@ -22,13 +22,13 @@ apresentacao() :-
  
     
 menuOpcoes() :-
-    writeln("\n MENU: \n"),
+    writeln(" MENU: \n"),
     writeln(" 1 - Aprendendo a formular uma Tabela-Verdade"),
     writeln(" 2 - Aprendendo a converter (Bin - Dec) <---> (Dec - Bin)"),
     writeln(" 3 - Aprendendo a simplificar expressoes proposicionais"),
     writeln(" 4 - Aprendendo as regras basicas de proposicoes"),
     writeln(" 0 - SAIR\n"),
-    writeln(" Digite a sua opcao!\n"). 
+    writeln(" Digite a sua opcao!"). 
     
         
 
@@ -86,13 +86,13 @@ infoExpressoes() :-
 
 choice(1) :-
     resumoTabela,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoTabela;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 
 choice(2) :-
     resumoConversor,
-    write(" >>> "), aux_str_input(Answer),
+    aux_str_input(Answer),
     (Answer == "sim"), infoConversor;
     write(" tudo bem! ate mais ver em frances, Au re voir!").
 

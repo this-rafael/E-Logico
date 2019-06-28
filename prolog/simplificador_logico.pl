@@ -1,4 +1,5 @@
 :- [literal].
+:- [menu].
 
 /*
  * Metodos Executaveis
@@ -12,7 +13,18 @@
  * 
  */
 
+call_main() :-
+    tty_clear,
+    infoExpressoes(),
+    writeln(" Deseja continuar para o conversor ou voltar ao menu principal?\n"),
+    writeln(" 0. Voltar ao menu principal"),
+    writeln(" 1. Continuar\n"),
+    str_input(Option),
+    (Option == "0");
+    execSimplificador().
+
 execSimplificador() :-
+
     writeln("Deseja construir quantos Literais?"),
     str_input(Num),
     instanceThreeLiterals(Num, L1, L2, L3),
@@ -30,9 +42,7 @@ loopSimplificador(L1, L2, L3) :-
     simplificaExpressao(Option, L1, L2, L3);
     Reload == "2" ->
     execSimplificador;
-    Reload == "0" ->
-    halt(0) ;
-    writeln("Opcao invalida."),
+    Reload == "0";
     loopSimplificador(L1, L2, L3)).
 
 instanceThreeLiterals("1", L1, L2, L3) :-
