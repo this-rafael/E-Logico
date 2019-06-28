@@ -1,20 +1,38 @@
-:- use_module("util_interface").
-:- initialization(main).
-
-
-
+:- [util_interface].
 
 isValidUnaryOperator(Operator, Return):- % retorna true or false
-    Return = true. % retorna true se o operador for "~" ou uma sequencia de "~"
+    string_chars(Operator,Chars),
+    check_sequence(Chars,Valid),
+    (Valid), Return = true; Return = false.
+
+check_sequence([], true).
+check_sequence([H|T], Return) :-
+    (H == '~'),
+    check_sequence(T,R1),
+    Return = R1;
+    Return = false.
+
+contains(X,[X|_]).
+contains(X,[_|Y]):- contains(X,Y).
+
+isValidBinaryOperator(Operator,Return) :-
+    (contains(Operator, ['*', '#','&', '|'])) -> Return = true; Return = false.
+
 
 isValidProposition(Proposition, Return):- % retorna true or false
-    Return = true. % considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
+    char_code(Proposition, A) ->
+        (((A > 64), (A < 91)) ; ((A > 96) ; (A < 122))),
+        Return = true ;
+        Return = false.% considerar que "" eh uma proposicao valida, mas que +p nao eh, ~pp nao eh, +~p nao eh, p~ nao eh, ~p+ tamben nao eh...
 
 % escolhe um operador binario apartir da entrada do usuario
 chooseBinaryOperator(Return) :-
     writeln("\nDigite o operador binario: "),
-    str_input(TypedEntry),
-    isValidUnaryOperator(TypedEntry, IsValidBinaryOperator),
+    str_input(String),
+    string_to_atom(String, TypedEntry),
+    
+    
+    isValidBinaryOperator(TypedEntry, IsValidBinaryOperator),
     if(
         (IsValidBinaryOperator),
         (
@@ -22,7 +40,7 @@ chooseBinaryOperator(Return) :-
         ),
         (
         % else
-            writeln("O operador unario digitado, nao eh valido... Tente outra vez"),
+            writeln("O operador binario digitado, nao eh valido... Tente outra vez"),
             chooseBinaryOperator(Return)
         )
     ).
@@ -39,8 +57,8 @@ chooseUnaryOperator(Return) :-
         ),
         % else
         (
-            writeln("O operador unario digitado, nao eh valido... Tente outra vez"),
-            chooseUnaryOperator(Return)
+            (writeln("O operador unario digitado, nao eh valido... Tente outra vez"),
+            chooseUnaryOperator(Return))
         )
     ).
 
@@ -77,11 +95,24 @@ treatsValidLongProposition(Proposition, Length, Return) :-
         )
     ).
 
+get_proposition(proposition(_, Value), Return) :-
+    Return = Value.
+get_proposition([H|T], Return) :-
+    (H == '~') -> 
+    get_proposition(T,R1),
+    Return = R1;
+    Return = H.
+
 %constroi uma proposicao
 propositionConstruct(Return) :-
     writeln("\n Digite a Variavel associada a sua Proposicao (digite com um til caso seja negada, ex: ~a):"),
-    str_input(Proposition),
-    isValidProposition(Proposition, EhExpressaoValida),
+    str_input(Prop),
+    string_to_atom(Prop,Proposition),
+    atom_chars(Proposition,Chars),
+    get_proposition(Chars,Propos),
+
+    
+    isValidProposition(Propos, EhExpressaoValida),
     if(
         (EhExpressaoValida),
             ( % if
@@ -129,8 +160,9 @@ verifyEntryAndCreatesANewLiteral(Return) :-
                     (
                         expressionContruct(Return)
                     ),
-                (
-                    Return = proposition("", "")
+                (   
+                    (writeln(" Opcao invalida, escolha uma opcao valida!\n"),
+                    verifyEntryAndCreatesANewLiteral(Return))
                 )
             )
         )
@@ -174,16 +206,17 @@ expressionContruct(Return):-
     currentStatePrint(Uop, R1), 
     writeln(R1),
     
-    % escolhendo/imprimindo o filho a direita de uma literal
+    % escolhendo/imprimindo o filho a esquerda de uma literal
     verifyEntryAndCreatesANewLiteral(ValueA), 
     currentStatePrint(Uop, ValueA, R2), 
     writeln(R2),
     
-
+    % escolhendo/imprimindo o operador binario
     chooseBinaryOperator(Bop), 
     currentStatePrint(Uop, ValueA, Bop, R3), 
     writeln(R3),
     
+    % escolhendo/imprimindo o filho a direita de uma literal
     verifyEntryAndCreatesANewLiteral(ValueB), 
     currentStatePrint(Uop, ValueA, Bop, ValueB, R4),  
     writeln(R4),
@@ -192,22 +225,24 @@ expressionContruct(Return):-
 
 
 % metodos getters
-getUnaryOperator(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getUnaryOperator(expression(Uop, _, _, _), Return) :-
     Return = Uop.
+getUnaryOperator(proposition(UOp, _), Return) :-
+    Return = UOp.
 
-getBinaryOperator(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getBinaryOperator(expression(_, _, Bop, _), Return) :-
     Return = Bop.
 
-getFirstValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getFirstValue(expression(_, ValueA, _, _), Return) :-
     Return = ValueA.
 
-getSecondValue(expression(Uop, ValueA, Bop, ValueB), Return) :-
+getSecondValue(expression(_, _, _, ValueB), Return) :-
     Return = ValueB.
 
 
 % informa se uma literal eh atomico (nao composto)
-isAtomic(proposition(UnaryOp, Value), Return) :- Return = true.
-isAtomic(expression(Uop, ValueA, Bop, ValueB), Return) :- Return =  false.
+isAtomic(proposition(_, _), Return) :- Return = true.
+isAtomic(expression(_, _, _, _), Return) :- Return =  false.
 
 
 % gera um toString do operador binario
@@ -268,23 +303,26 @@ literalsToString(proposition(UnaryOp, Value), Return):-
 
 % gera uma representacao textual de uma expressao. Ex: ~(P | Q)
 literalsToString(expression(UnaryOp, ValueA, BinaryOp, ValueB), Return) :-
-    string_concat(UnaryOp,"(", A), writeln("A"),  writeln(A), 
+    string_concat(UnaryOp,"( ", A),
     
     literalsToString(ValueA, ValueAToStr),
-    string_concat(A, ValueAToStr, B),
+    string_concat(A, ValueAToStr, AB),
+    string_concat(AB," ",B),
+
 
     binaryOperatorToString(BinaryOp, BinaryOpToString),     
     string_concat(B, BinaryOpToString, C),
     literalsToString(ValueB, D), 
-    string_concat(C, D, E), 
-    string_concat(E,")", F), 
+    string_concat(C," ",CD),
+    string_concat(CD, D, E), 
+    string_concat(E," )", F), 
     Return = F.
 
 
 
 
-main :-
-    verifyEntryAndCreatesANewLiteral(L),
-    literalsToString(L, R),
-    writeln(L),
-    writeln(R).
+% main :-
+%     verifyEntryAndCreatesANewLiteral(L),
+%     literalsToString(L, R),
+%     writeln(L),
+%     writeln(R).

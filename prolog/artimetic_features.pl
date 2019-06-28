@@ -1,6 +1,3 @@
-:- module('artimetic_features', [aux_factorial/2, aux_fibonacci/2]).
-
-
 aux_fibonacci(0, 1) :- !.
 aux_fibonacci(1, 1) :- !.
 aux_fibonacci(N, Result) :- 

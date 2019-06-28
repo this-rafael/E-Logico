@@ -1,15 +1,8 @@
-:- module('util_interface', 
-    [str_input/1, number_input/1, cls/0, 
-    or/2, and/2, if/3, stringCharAt/3,
-    odd/1,even/1,getIndexToArray/3,isEmptyArray/1,
-    fibonacci/2, factorial/2, if_elif/5]).
-
-
-:- use_module('artimetic_features').
-:- use_module('arrays_features').
-:- use_module('strings_features').
-:- use_module('logical_features').
-:- use_module('io_features').
+:- [artimetic_features].
+:- [arrays_features].
+:- [strings_features].
+:- [logical_features].
+:- [io_features].
 
 % ============================================================[{ENTRADA E SAIDA}]====================================================== %
 % Return se tornara uma string recebido da entrada usuario

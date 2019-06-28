@@ -1,5 +1,3 @@
-:- module('logical_features', [aux_and/2, aux_or/2, aux_if/3]).
-
 aux_and(A,B) :-
     A,B.
 
